@@ -1,0 +1,685 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		852F15781907D12C00D00A6F /* TestLag.js in Sources */ = {isa = PBXBuildFile; fileRef = 852F15771907D12C00D00A6F /* TestLag.js */; };
+		852F15791907D14600D00A6F /* TestLag.js in Resources */ = {isa = PBXBuildFile; fileRef = 852F15771907D12C00D00A6F /* TestLag.js */; };
+		852F157B1907D1A300D00A6F /* DeviceStub.js in Sources */ = {isa = PBXBuildFile; fileRef = 852F157A1907D1A300D00A6F /* DeviceStub.js */; };
+		852F157C1907D6F700D00A6F /* DeviceStub.js in Resources */ = {isa = PBXBuildFile; fileRef = 852F157A1907D1A300D00A6F /* DeviceStub.js */; };
+		8532BE4518FED270008BDACA /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8532BE4418FED270008BDACA /* JavaScriptCore.framework */; };
+		8532BE4C18FEDFB0008BDACA /* JsTalkingCapability.m in Sources */ = {isa = PBXBuildFile; fileRef = 8532BE4B18FEDFB0008BDACA /* JsTalkingCapability.m */; };
+		8532BE5318FEEBAF008BDACA /* orig_deviceStub.js in Sources */ = {isa = PBXBuildFile; fileRef = 8532BE5218FEEBAF008BDACA /* orig_deviceStub.js */; };
+		8532BE5518FEEFE8008BDACA /* orig_deviceStub.js in Resources */ = {isa = PBXBuildFile; fileRef = 8532BE5218FEEBAF008BDACA /* orig_deviceStub.js */; };
+		8532BE5718FEF5AF008BDACA /* TestAction.js in Sources */ = {isa = PBXBuildFile; fileRef = 8532BE5618FEF5AF008BDACA /* TestAction.js */; };
+		8532BE5818FEF852008BDACA /* TestAction.js in Resources */ = {isa = PBXBuildFile; fileRef = 8532BE5618FEF5AF008BDACA /* TestAction.js */; };
+		8532BE5A18FEF8C2008BDACA /* TalkingCapability.js in Sources */ = {isa = PBXBuildFile; fileRef = 8532BE5918FEF8C2008BDACA /* TalkingCapability.js */; };
+		8532BE5C18FF310B008BDACA /* myscript.js in Sources */ = {isa = PBXBuildFile; fileRef = 8532BE5B18FF310B008BDACA /* myscript.js */; };
+		8532BE5D18FF3126008BDACA /* TalkingCapability.js in Resources */ = {isa = PBXBuildFile; fileRef = 8532BE5918FEF8C2008BDACA /* TalkingCapability.js */; };
+		8532BE5E18FF3126008BDACA /* myscript.js in Resources */ = {isa = PBXBuildFile; fileRef = 8532BE5B18FF310B008BDACA /* myscript.js */; };
+		8532BE6018FFB24D008BDACA /* myscript2.js in Sources */ = {isa = PBXBuildFile; fileRef = 8532BE5F18FFB24D008BDACA /* myscript2.js */; };
+		8560372518F7D3C400AC1890 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8560372418F7D3C400AC1890 /* Foundation.framework */; };
+		8560372718F7D3C400AC1890 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8560372618F7D3C400AC1890 /* CoreGraphics.framework */; };
+		8560372918F7D3C400AC1890 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8560372818F7D3C400AC1890 /* UIKit.framework */; };
+		8560372F18F7D3C400AC1890 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8560372D18F7D3C400AC1890 /* InfoPlist.strings */; };
+		8560373118F7D3C400AC1890 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8560373018F7D3C400AC1890 /* main.m */; };
+		8560373518F7D3C400AC1890 /* OJSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8560373418F7D3C400AC1890 /* OJSAppDelegate.m */; };
+		8560373818F7D3C400AC1890 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8560373618F7D3C400AC1890 /* Main_iPhone.storyboard */; };
+		8560373B18F7D3C400AC1890 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8560373918F7D3C400AC1890 /* Main_iPad.storyboard */; };
+		8560373E18F7D3C400AC1890 /* OJSFirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8560373D18F7D3C400AC1890 /* OJSFirstViewController.m */; };
+		8560374118F7D3C400AC1890 /* OJSSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8560374018F7D3C400AC1890 /* OJSSecondViewController.m */; };
+		8560374318F7D3C400AC1890 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8560374218F7D3C400AC1890 /* Images.xcassets */; };
+		8560374A18F7D3C400AC1890 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8560374918F7D3C400AC1890 /* XCTest.framework */; };
+		8560374B18F7D3C400AC1890 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8560372418F7D3C400AC1890 /* Foundation.framework */; };
+		8560374C18F7D3C400AC1890 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8560372818F7D3C400AC1890 /* UIKit.framework */; };
+		8560375418F7D3C400AC1890 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8560375218F7D3C400AC1890 /* InfoPlist.strings */; };
+		8560375618F7D3C400AC1890 /* orchestrator_jsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8560375518F7D3C400AC1890 /* orchestrator_jsTests.m */; };
+		8560377218F7D5FF00AC1890 /* SocketIO.m in Sources */ = {isa = PBXBuildFile; fileRef = 8560376118F7D5FF00AC1890 /* SocketIO.m */; };
+		8560377318F7D5FF00AC1890 /* SocketIOJSONSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 8560376318F7D5FF00AC1890 /* SocketIOJSONSerialization.m */; };
+		8560377418F7D5FF00AC1890 /* SocketIOPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 8560376518F7D5FF00AC1890 /* SocketIOPacket.m */; };
+		8560377518F7D5FF00AC1890 /* SocketIOTransportWebsocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 8560376818F7D5FF00AC1890 /* SocketIOTransportWebsocket.m */; };
+		8560377618F7D5FF00AC1890 /* SocketIOTransportXHR.m in Sources */ = {isa = PBXBuildFile; fileRef = 8560376A18F7D5FF00AC1890 /* SocketIOTransportXHR.m */; };
+		8560377718F7D5FF00AC1890 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 8560376C18F7D5FF00AC1890 /* .gitignore */; };
+		8560377818F7D5FF00AC1890 /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 8560377118F7D5FF00AC1890 /* SRWebSocket.m */; };
+		8560377A18F7D7CA00AC1890 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8560377918F7D7CA00AC1890 /* Security.framework */; };
+		8560377C18F7D7D800AC1890 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8560377B18F7D7D800AC1890 /* libicucore.dylib */; };
+		8560377E18F7D7E400AC1890 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8560377D18F7D7E400AC1890 /* CFNetwork.framework */; };
+		8560378018F7E0BE00AC1890 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8560377F18F7E0BE00AC1890 /* AVFoundation.framework */; };
+		8560378218F7E15100AC1890 /* silence.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8560378118F7E15100AC1890 /* silence.mp3 */; };
+		85D12FEB1906962E00808449 /* OJSDeviceCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 85D12FEA1906962E00808449 /* OJSDeviceCoordinator.m */; };
+		85D12FEC19069A6300808449 /* myscript2.js in Resources */ = {isa = PBXBuildFile; fileRef = 8532BE5F18FFB24D008BDACA /* myscript2.js */; };
+		85D12FEF19069E8A00808449 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85D12FEE19069E8A00808449 /* CoreBluetooth.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8560374D18F7D3C400AC1890 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8560371918F7D3C400AC1890 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8560372018F7D3C400AC1890;
+			remoteInfo = orchestrator.js;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		852F15771907D12C00D00A6F /* TestLag.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = TestLag.js; sourceTree = "<group>"; };
+		852F157A1907D1A300D00A6F /* DeviceStub.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = DeviceStub.js; sourceTree = "<group>"; };
+		8532BE4418FED270008BDACA /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		8532BE4A18FEDFB0008BDACA /* JsTalkingCapability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JsTalkingCapability.h; sourceTree = "<group>"; };
+		8532BE4B18FEDFB0008BDACA /* JsTalkingCapability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JsTalkingCapability.m; sourceTree = "<group>"; };
+		8532BE5218FEEBAF008BDACA /* orig_deviceStub.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = orig_deviceStub.js; sourceTree = "<group>"; };
+		8532BE5618FEF5AF008BDACA /* TestAction.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = TestAction.js; sourceTree = "<group>"; };
+		8532BE5918FEF8C2008BDACA /* TalkingCapability.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = TalkingCapability.js; sourceTree = "<group>"; };
+		8532BE5B18FF310B008BDACA /* myscript.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = myscript.js; sourceTree = "<group>"; };
+		8532BE5F18FFB24D008BDACA /* myscript2.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = myscript2.js; sourceTree = "<group>"; };
+		8560372118F7D3C400AC1890 /* orchestrator.js.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = orchestrator.js.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8560372418F7D3C400AC1890 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		8560372618F7D3C400AC1890 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		8560372818F7D3C400AC1890 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		8560372C18F7D3C400AC1890 /* orchestrator.js-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "orchestrator.js-Info.plist"; sourceTree = "<group>"; };
+		8560372E18F7D3C400AC1890 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		8560373018F7D3C400AC1890 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		8560373218F7D3C400AC1890 /* orchestrator.js-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "orchestrator.js-Prefix.pch"; sourceTree = "<group>"; };
+		8560373318F7D3C400AC1890 /* OJSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OJSAppDelegate.h; sourceTree = "<group>"; };
+		8560373418F7D3C400AC1890 /* OJSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OJSAppDelegate.m; sourceTree = "<group>"; };
+		8560373718F7D3C400AC1890 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
+		8560373A18F7D3C400AC1890 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
+		8560373C18F7D3C400AC1890 /* OJSFirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OJSFirstViewController.h; sourceTree = "<group>"; };
+		8560373D18F7D3C400AC1890 /* OJSFirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OJSFirstViewController.m; sourceTree = "<group>"; };
+		8560373F18F7D3C400AC1890 /* OJSSecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OJSSecondViewController.h; sourceTree = "<group>"; };
+		8560374018F7D3C400AC1890 /* OJSSecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OJSSecondViewController.m; sourceTree = "<group>"; };
+		8560374218F7D3C400AC1890 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		8560374818F7D3C400AC1890 /* orchestrator.jsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = orchestrator.jsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8560374918F7D3C400AC1890 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		8560375118F7D3C400AC1890 /* orchestrator.jsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "orchestrator.jsTests-Info.plist"; sourceTree = "<group>"; };
+		8560375318F7D3C400AC1890 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		8560375518F7D3C400AC1890 /* orchestrator_jsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = orchestrator_jsTests.m; sourceTree = "<group>"; };
+		8560376018F7D5FF00AC1890 /* SocketIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIO.h; sourceTree = "<group>"; };
+		8560376118F7D5FF00AC1890 /* SocketIO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIO.m; sourceTree = "<group>"; };
+		8560376218F7D5FF00AC1890 /* SocketIOJSONSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOJSONSerialization.h; sourceTree = "<group>"; };
+		8560376318F7D5FF00AC1890 /* SocketIOJSONSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIOJSONSerialization.m; sourceTree = "<group>"; };
+		8560376418F7D5FF00AC1890 /* SocketIOPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOPacket.h; sourceTree = "<group>"; };
+		8560376518F7D5FF00AC1890 /* SocketIOPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIOPacket.m; sourceTree = "<group>"; };
+		8560376618F7D5FF00AC1890 /* SocketIOTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOTransport.h; sourceTree = "<group>"; };
+		8560376718F7D5FF00AC1890 /* SocketIOTransportWebsocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOTransportWebsocket.h; sourceTree = "<group>"; };
+		8560376818F7D5FF00AC1890 /* SocketIOTransportWebsocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIOTransportWebsocket.m; sourceTree = "<group>"; };
+		8560376918F7D5FF00AC1890 /* SocketIOTransportXHR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOTransportXHR.h; sourceTree = "<group>"; };
+		8560376A18F7D5FF00AC1890 /* SocketIOTransportXHR.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIOTransportXHR.m; sourceTree = "<group>"; };
+		8560376C18F7D5FF00AC1890 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		8560376F18F7D5FF00AC1890 /* SocketRocket-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SocketRocket-Prefix.pch"; sourceTree = "<group>"; };
+		8560377018F7D5FF00AC1890 /* SRWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRWebSocket.h; sourceTree = "<group>"; };
+		8560377118F7D5FF00AC1890 /* SRWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRWebSocket.m; sourceTree = "<group>"; };
+		8560377918F7D7CA00AC1890 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		8560377B18F7D7D800AC1890 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		8560377D18F7D7E400AC1890 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		8560377F18F7E0BE00AC1890 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		8560378118F7E15100AC1890 /* silence.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = silence.mp3; sourceTree = "<group>"; };
+		85D12FE91906962E00808449 /* OJSDeviceCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OJSDeviceCoordinator.h; sourceTree = "<group>"; };
+		85D12FEA1906962E00808449 /* OJSDeviceCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OJSDeviceCoordinator.m; sourceTree = "<group>"; };
+		85D12FED19069E2000808449 /* SERVICES.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SERVICES.h; sourceTree = "<group>"; };
+		85D12FEE19069E8A00808449 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8560371E18F7D3C400AC1890 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				85D12FEF19069E8A00808449 /* CoreBluetooth.framework in Frameworks */,
+				8532BE4518FED270008BDACA /* JavaScriptCore.framework in Frameworks */,
+				8560378018F7E0BE00AC1890 /* AVFoundation.framework in Frameworks */,
+				8560377E18F7D7E400AC1890 /* CFNetwork.framework in Frameworks */,
+				8560377C18F7D7D800AC1890 /* libicucore.dylib in Frameworks */,
+				8560377A18F7D7CA00AC1890 /* Security.framework in Frameworks */,
+				8560372718F7D3C400AC1890 /* CoreGraphics.framework in Frameworks */,
+				8560372918F7D3C400AC1890 /* UIKit.framework in Frameworks */,
+				8560372518F7D3C400AC1890 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8560374518F7D3C400AC1890 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8560374A18F7D3C400AC1890 /* XCTest.framework in Frameworks */,
+				8560374C18F7D3C400AC1890 /* UIKit.framework in Frameworks */,
+				8560374B18F7D3C400AC1890 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8532BE4618FEDF5E008BDACA /* jsCapabilityStubs */ = {
+			isa = PBXGroup;
+			children = (
+				8532BE4A18FEDFB0008BDACA /* JsTalkingCapability.h */,
+				8532BE4B18FEDFB0008BDACA /* JsTalkingCapability.m */,
+			);
+			name = jsCapabilityStubs;
+			sourceTree = "<group>";
+		};
+		8532BE5118FEEAA9008BDACA /* TestSpace */ = {
+			isa = PBXGroup;
+			children = (
+				8532BE5218FEEBAF008BDACA /* orig_deviceStub.js */,
+				8532BE5618FEF5AF008BDACA /* TestAction.js */,
+				8532BE5918FEF8C2008BDACA /* TalkingCapability.js */,
+				8532BE5B18FF310B008BDACA /* myscript.js */,
+				8532BE5F18FFB24D008BDACA /* myscript2.js */,
+				852F15771907D12C00D00A6F /* TestLag.js */,
+				852F157A1907D1A300D00A6F /* DeviceStub.js */,
+			);
+			name = TestSpace;
+			sourceTree = "<group>";
+		};
+		8560371818F7D3C400AC1890 = {
+			isa = PBXGroup;
+			children = (
+				8560372A18F7D3C400AC1890 /* orchestrator.js */,
+				8560374F18F7D3C400AC1890 /* orchestrator.jsTests */,
+				8560372318F7D3C400AC1890 /* Frameworks */,
+				8560372218F7D3C400AC1890 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		8560372218F7D3C400AC1890 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8560372118F7D3C400AC1890 /* orchestrator.js.app */,
+				8560374818F7D3C400AC1890 /* orchestrator.jsTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8560372318F7D3C400AC1890 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				85D12FEE19069E8A00808449 /* CoreBluetooth.framework */,
+				8532BE4418FED270008BDACA /* JavaScriptCore.framework */,
+				8560377F18F7E0BE00AC1890 /* AVFoundation.framework */,
+				8560377D18F7D7E400AC1890 /* CFNetwork.framework */,
+				8560377B18F7D7D800AC1890 /* libicucore.dylib */,
+				8560377918F7D7CA00AC1890 /* Security.framework */,
+				8560372418F7D3C400AC1890 /* Foundation.framework */,
+				8560372618F7D3C400AC1890 /* CoreGraphics.framework */,
+				8560372818F7D3C400AC1890 /* UIKit.framework */,
+				8560374918F7D3C400AC1890 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8560372A18F7D3C400AC1890 /* orchestrator.js */ = {
+			isa = PBXGroup;
+			children = (
+				85D12FE8190695AE00808449 /* OJSDeviceCoordinator */,
+				8560375F18F7D5AC00AC1890 /* Socket.IO */,
+				8560373318F7D3C400AC1890 /* OJSAppDelegate.h */,
+				8560373418F7D3C400AC1890 /* OJSAppDelegate.m */,
+				8560373618F7D3C400AC1890 /* Main_iPhone.storyboard */,
+				8560373918F7D3C400AC1890 /* Main_iPad.storyboard */,
+				8560373C18F7D3C400AC1890 /* OJSFirstViewController.h */,
+				8560373D18F7D3C400AC1890 /* OJSFirstViewController.m */,
+				8560373F18F7D3C400AC1890 /* OJSSecondViewController.h */,
+				8560374018F7D3C400AC1890 /* OJSSecondViewController.m */,
+				8560374218F7D3C400AC1890 /* Images.xcassets */,
+				8560372B18F7D3C400AC1890 /* Supporting Files */,
+			);
+			path = orchestrator.js;
+			sourceTree = "<group>";
+		};
+		8560372B18F7D3C400AC1890 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8560378118F7E15100AC1890 /* silence.mp3 */,
+				8560372C18F7D3C400AC1890 /* orchestrator.js-Info.plist */,
+				8560372D18F7D3C400AC1890 /* InfoPlist.strings */,
+				8560373018F7D3C400AC1890 /* main.m */,
+				8560373218F7D3C400AC1890 /* orchestrator.js-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8560374F18F7D3C400AC1890 /* orchestrator.jsTests */ = {
+			isa = PBXGroup;
+			children = (
+				8560375518F7D3C400AC1890 /* orchestrator_jsTests.m */,
+				8560375018F7D3C400AC1890 /* Supporting Files */,
+			);
+			path = orchestrator.jsTests;
+			sourceTree = "<group>";
+		};
+		8560375018F7D3C400AC1890 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8560375118F7D3C400AC1890 /* orchestrator.jsTests-Info.plist */,
+				8560375218F7D3C400AC1890 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8560375F18F7D5AC00AC1890 /* Socket.IO */ = {
+			isa = PBXGroup;
+			children = (
+				8560376018F7D5FF00AC1890 /* SocketIO.h */,
+				8560376118F7D5FF00AC1890 /* SocketIO.m */,
+				8560376218F7D5FF00AC1890 /* SocketIOJSONSerialization.h */,
+				8560376318F7D5FF00AC1890 /* SocketIOJSONSerialization.m */,
+				8560376418F7D5FF00AC1890 /* SocketIOPacket.h */,
+				8560376518F7D5FF00AC1890 /* SocketIOPacket.m */,
+				8560376618F7D5FF00AC1890 /* SocketIOTransport.h */,
+				8560376718F7D5FF00AC1890 /* SocketIOTransportWebsocket.h */,
+				8560376818F7D5FF00AC1890 /* SocketIOTransportWebsocket.m */,
+				8560376918F7D5FF00AC1890 /* SocketIOTransportXHR.h */,
+				8560376A18F7D5FF00AC1890 /* SocketIOTransportXHR.m */,
+				8560376B18F7D5FF00AC1890 /* submodules */,
+			);
+			name = Socket.IO;
+			sourceTree = "<group>";
+		};
+		8560376B18F7D5FF00AC1890 /* submodules */ = {
+			isa = PBXGroup;
+			children = (
+				8560376C18F7D5FF00AC1890 /* .gitignore */,
+				8560376D18F7D5FF00AC1890 /* socket-rocket */,
+			);
+			path = submodules;
+			sourceTree = "<group>";
+		};
+		8560376D18F7D5FF00AC1890 /* socket-rocket */ = {
+			isa = PBXGroup;
+			children = (
+				8560376E18F7D5FF00AC1890 /* SocketRocket */,
+			);
+			path = "socket-rocket";
+			sourceTree = "<group>";
+		};
+		8560376E18F7D5FF00AC1890 /* SocketRocket */ = {
+			isa = PBXGroup;
+			children = (
+				8560376F18F7D5FF00AC1890 /* SocketRocket-Prefix.pch */,
+				8560377018F7D5FF00AC1890 /* SRWebSocket.h */,
+				8560377118F7D5FF00AC1890 /* SRWebSocket.m */,
+			);
+			path = SocketRocket;
+			sourceTree = "<group>";
+		};
+		85D12FE8190695AE00808449 /* OJSDeviceCoordinator */ = {
+			isa = PBXGroup;
+			children = (
+				85D12FED19069E2000808449 /* SERVICES.h */,
+				8532BE4618FEDF5E008BDACA /* jsCapabilityStubs */,
+				8532BE5118FEEAA9008BDACA /* TestSpace */,
+				85D12FE91906962E00808449 /* OJSDeviceCoordinator.h */,
+				85D12FEA1906962E00808449 /* OJSDeviceCoordinator.m */,
+			);
+			name = OJSDeviceCoordinator;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8560372018F7D3C400AC1890 /* orchestrator.js */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8560375918F7D3C400AC1890 /* Build configuration list for PBXNativeTarget "orchestrator.js" */;
+			buildPhases = (
+				8560371D18F7D3C400AC1890 /* Sources */,
+				8560371E18F7D3C400AC1890 /* Frameworks */,
+				8560371F18F7D3C400AC1890 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = orchestrator.js;
+			productName = orchestrator.js;
+			productReference = 8560372118F7D3C400AC1890 /* orchestrator.js.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8560374718F7D3C400AC1890 /* orchestrator.jsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8560375C18F7D3C400AC1890 /* Build configuration list for PBXNativeTarget "orchestrator.jsTests" */;
+			buildPhases = (
+				8560374418F7D3C400AC1890 /* Sources */,
+				8560374518F7D3C400AC1890 /* Frameworks */,
+				8560374618F7D3C400AC1890 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8560374E18F7D3C400AC1890 /* PBXTargetDependency */,
+			);
+			name = orchestrator.jsTests;
+			productName = orchestrator.jsTests;
+			productReference = 8560374818F7D3C400AC1890 /* orchestrator.jsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8560371918F7D3C400AC1890 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = OJS;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "Niko Mäkitalo";
+				TargetAttributes = {
+					8560372018F7D3C400AC1890 = {
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
+					};
+					8560374718F7D3C400AC1890 = {
+						TestTargetID = 8560372018F7D3C400AC1890;
+					};
+				};
+			};
+			buildConfigurationList = 8560371C18F7D3C400AC1890 /* Build configuration list for PBXProject "orchestrator.js" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8560371818F7D3C400AC1890;
+			productRefGroup = 8560372218F7D3C400AC1890 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8560372018F7D3C400AC1890 /* orchestrator.js */,
+				8560374718F7D3C400AC1890 /* orchestrator.jsTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8560371F18F7D3C400AC1890 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				852F157C1907D6F700D00A6F /* DeviceStub.js in Resources */,
+				852F15791907D14600D00A6F /* TestLag.js in Resources */,
+				85D12FEC19069A6300808449 /* myscript2.js in Resources */,
+				8532BE5D18FF3126008BDACA /* TalkingCapability.js in Resources */,
+				8532BE5E18FF3126008BDACA /* myscript.js in Resources */,
+				8532BE5818FEF852008BDACA /* TestAction.js in Resources */,
+				8532BE5518FEEFE8008BDACA /* orig_deviceStub.js in Resources */,
+				8560378218F7E15100AC1890 /* silence.mp3 in Resources */,
+				8560377718F7D5FF00AC1890 /* .gitignore in Resources */,
+				8560373B18F7D3C400AC1890 /* Main_iPad.storyboard in Resources */,
+				8560374318F7D3C400AC1890 /* Images.xcassets in Resources */,
+				8560373818F7D3C400AC1890 /* Main_iPhone.storyboard in Resources */,
+				8560372F18F7D3C400AC1890 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8560374618F7D3C400AC1890 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8560375418F7D3C400AC1890 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8560371D18F7D3C400AC1890 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8532BE5718FEF5AF008BDACA /* TestAction.js in Sources */,
+				8560373E18F7D3C400AC1890 /* OJSFirstViewController.m in Sources */,
+				8532BE5318FEEBAF008BDACA /* orig_deviceStub.js in Sources */,
+				8560373118F7D3C400AC1890 /* main.m in Sources */,
+				8532BE6018FFB24D008BDACA /* myscript2.js in Sources */,
+				852F15781907D12C00D00A6F /* TestLag.js in Sources */,
+				852F157B1907D1A300D00A6F /* DeviceStub.js in Sources */,
+				8532BE5C18FF310B008BDACA /* myscript.js in Sources */,
+				8560377818F7D5FF00AC1890 /* SRWebSocket.m in Sources */,
+				8560377418F7D5FF00AC1890 /* SocketIOPacket.m in Sources */,
+				8560373518F7D3C400AC1890 /* OJSAppDelegate.m in Sources */,
+				8560377518F7D5FF00AC1890 /* SocketIOTransportWebsocket.m in Sources */,
+				8560374118F7D3C400AC1890 /* OJSSecondViewController.m in Sources */,
+				8532BE4C18FEDFB0008BDACA /* JsTalkingCapability.m in Sources */,
+				8560377218F7D5FF00AC1890 /* SocketIO.m in Sources */,
+				8560377318F7D5FF00AC1890 /* SocketIOJSONSerialization.m in Sources */,
+				8560377618F7D5FF00AC1890 /* SocketIOTransportXHR.m in Sources */,
+				8532BE5A18FEF8C2008BDACA /* TalkingCapability.js in Sources */,
+				85D12FEB1906962E00808449 /* OJSDeviceCoordinator.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8560374418F7D3C400AC1890 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8560375618F7D3C400AC1890 /* orchestrator_jsTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8560374E18F7D3C400AC1890 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8560372018F7D3C400AC1890 /* orchestrator.js */;
+			targetProxy = 8560374D18F7D3C400AC1890 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		8560372D18F7D3C400AC1890 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8560372E18F7D3C400AC1890 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		8560373618F7D3C400AC1890 /* Main_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8560373718F7D3C400AC1890 /* Base */,
+			);
+			name = Main_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
+		8560373918F7D3C400AC1890 /* Main_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8560373A18F7D3C400AC1890 /* Base */,
+			);
+			name = Main_iPad.storyboard;
+			sourceTree = "<group>";
+		};
+		8560375218F7D3C400AC1890 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8560375318F7D3C400AC1890 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		8560375718F7D3C400AC1890 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8560375818F7D3C400AC1890 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8560375A18F7D3C400AC1890 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "orchestrator.js/orchestrator.js-Prefix.pch";
+				INFOPLIST_FILE = "orchestrator.js/orchestrator.js-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		8560375B18F7D3C400AC1890 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "orchestrator.js/orchestrator.js-Prefix.pch";
+				INFOPLIST_FILE = "orchestrator.js/orchestrator.js-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		8560375D18F7D3C400AC1890 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/orchestrator.js.app/orchestrator.js";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "orchestrator.js/orchestrator.js-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "orchestrator.jsTests/orchestrator.jsTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		8560375E18F7D3C400AC1890 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/orchestrator.js.app/orchestrator.js";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "orchestrator.js/orchestrator.js-Prefix.pch";
+				INFOPLIST_FILE = "orchestrator.jsTests/orchestrator.jsTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8560371C18F7D3C400AC1890 /* Build configuration list for PBXProject "orchestrator.js" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8560375718F7D3C400AC1890 /* Debug */,
+				8560375818F7D3C400AC1890 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8560375918F7D3C400AC1890 /* Build configuration list for PBXNativeTarget "orchestrator.js" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8560375A18F7D3C400AC1890 /* Debug */,
+				8560375B18F7D3C400AC1890 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8560375C18F7D3C400AC1890 /* Build configuration list for PBXNativeTarget "orchestrator.jsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8560375D18F7D3C400AC1890 /* Debug */,
+				8560375E18F7D3C400AC1890 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8560371918F7D3C400AC1890 /* Project object */;
+}
