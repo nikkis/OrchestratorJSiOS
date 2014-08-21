@@ -1,6 +1,6 @@
 //var d1 = 'jee';//new DeviceStub('nikkis@iphone');
 
-//consoleLog('jei 1');
+consoleLog('jei 1');
 
 function() {
     

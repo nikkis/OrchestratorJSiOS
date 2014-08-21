@@ -20,7 +20,6 @@ function MyAction( dev1 ) {
 
 
 function DeviceStub( identity ) {
-    consoleLog("iOS7 supports JavaScript in our Native App !");
     
     function TalkingCapability() {
 

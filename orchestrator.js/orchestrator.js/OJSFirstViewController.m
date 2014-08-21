@@ -7,56 +7,37 @@
 //
 
 #import "OJSFirstViewController.h"
+#import "OJSConnection.h"
 
 #import "SocketIOPacket.h"
+#import "OJSSettingsManager.h"
 
-//#import "JsTalkingCapability.h"
 
-
+// Add private methods and variables here
 @interface OJSFirstViewController ()
+    
+//    @property NSString *currentActionId;
+//    @property NSString *currentMethodId;
+    
+//    @property (strong, nonatomic) OJSConnection *ojsConnection;
+    @property OJSSettingsManager *settingsManager;
+
 
 @end
 
+
+
+
+
 @implementation OJSFirstViewController
-
-
-- (void)initOJS
-{
-    
-    // init talking capability
-    synth = [[AVSpeechSynthesizer alloc] init];
-    
-    
-    socketIO = [[SocketIO alloc] initWithDelegate:self];
-    
-    //NSString *host = @"192.168.0.12";
-    NSString *host = @"orchestratorjs.org";
-    int port = 9000;
-    
-    [socketIO connectToHost:host onPort:port];
-}
-
--(void)disconnectOJS
-{
-    [socketIO disconnect];
-    socketIO = nil;
-}
 
 
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-    
-    
     
     //self.blink = (UIImageView *)[self.view viewWithTag:1];
-    
-    
-    
-    
-    
     
     
     // background hack begins here
@@ -74,6 +55,13 @@
     // hack ends here
     
     
+    
+    UIImageView *mainView = (UIImageView*)[self.view viewWithTag:1];
+    _coordinationController = [[OJSCoordinationController alloc] init];
+    [_coordinationController setMainUIView:mainView];
+
+    
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -82,99 +70,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-
-
-
-
-
-
-# pragma mark -
-# pragma mark socket.IO-objc delegate methods
-
-- (void) socketIODidConnect:(SocketIO *)socket
-{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *deviceIdentity = [defaults objectForKey:@"deviceIdentity"];
-    
-    NSLog(@"socket.io connected.");
-    
-    NSArray *arr = [NSArray arrayWithObjects:deviceIdentity, nil];
-    [socketIO sendEvent:@"login" withData:arr];
-    NSLog(@"sent the login event");
-}
-
-
-- (void) socketIO:(SocketIO *)socket socketIODidReceiveHeartbeat:(SocketIOPacket *)packet
-{
-    NSLog(@"socket.io heartbeat received.");
-    [self blinkImage];
-    
-}
-
-
-- (void) socketIO:(SocketIO *)socket didReceiveEvent:(SocketIOPacket *)packet
-{
-    
-    NSLog(@"type: %@", packet.name);
-    
-    NSLog(@"type: %@", packet.type);
-    if( [@"methodcall" isEqualToString:packet.name] ) {
-        
-        currentActionId = (NSString*)packet.args[0][0];
-        currentMethodId = (NSString*)packet.args[0][1];
-        
-        NSString *capabilityName = (NSString*)packet.args[0][2];
-        NSString *methodName = (NSString*)packet.args[0][3];
-        
-        NSArray *methodArguments = (NSArray*)packet.args[0][4];
-        
-        NSLog(@"executing method: %@", methodName );
-        NSLog(@"with args: %@", methodArguments );
-        
-        if( [@"TalkingCapability" isEqualToString:capabilityName] ) {
-
-            if( [@"say" isEqualToString:methodName] ) {
-                
-                NSString * line = methodArguments[0];
-                //NSString * filter = methodArguments[1];
-                //NSString * pitch = methodArguments[2];
-                
-                AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:line];
-                [synth speakUtterance:utterance];
-                
-            } else {
-                NSLog(@"unknown method %@", methodName );
-            }
-            
-        } else {
-            NSLog(@"unknown capability %@", capabilityName);
-        }
-        
-        NSArray *arr = [NSArray arrayWithObjects:currentActionId, currentMethodId, @"paluuarvo", @"STRING", nil];
-        [socketIO sendEvent:@"methodcallresponse" withData:arr];
-        NSLog(@"methodcall_response sent");
-    }
-    
-    
-}
-
-- (void) socketIO:(SocketIO *)socket onError:(NSError *)error
-{
-    
-    if ([error code] == SocketIOUnauthorized) {
-        NSLog(@"not authorized");
-    } else {
-        NSLog(@"onError() %@", error);
-    }
-}
-
-
-- (void) socketIODidDisconnect:(SocketIO *)socket disconnectedWithError:(NSError *)error
-{
-    NSLog(@"socket.io disconnected. did error occur? %@", error);
-}
-
-# pragma mark -
 
 
 -(void)blinkImage
@@ -195,13 +90,8 @@
 
 -(IBAction)connectBtnTabbed
 {
-    
-
-    [self blinkImage];
-    
-    
-    NSLog(@"reconnecting..");
-    [self initOJS];
+    NSLog(@"(re)connecting..");
+    [_coordinationController initOJS];
 }
 
 
@@ -209,37 +99,45 @@
 
 -(IBAction)disconnectBtnTabbed
 {
-
-    
     NSLog(@"disconnecting..");
-    [self disconnectOJS];
+    [_coordinationController disconnectOJS];
 }
+
+
+-(IBAction)startiBeaconTabbed
+{
+    NSLog(@"startiBeaconTabbed");
+}
+
+-(IBAction)startiBeaconTabbedOrig
+{
+}
+
+
 
 
 -(IBAction)initBTLEBtnTabbed
 {
-    self.deviceCoordinator = [[OJSDeviceCoordinator alloc] init];
-    [self.deviceCoordinator initBTLECentral];
 }
 
 
 -(IBAction)runActionBtnTabbed
 {
     NSLog(@"test btn");
-    
-    [self.deviceCoordinator runAction];
 }
 
 
 
 -(IBAction)rSendBtnTabbed
 {
-    [self.deviceCoordinator test];
+
 }
+
+
+
 
 -(IBAction)sinneJaTakasTabbed
 {
-    [self.deviceCoordinator sinneJaTakas];
 }
 
 

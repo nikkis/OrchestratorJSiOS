@@ -6,27 +6,28 @@
 //  Copyright (c) 2014 Niko Mäkitalo. All rights reserved.
 //
 
-#import "OJSDeviceCoordinator.h"
+//#import "OJSDeviceCoordinator.h"
 
 #import <AVFoundation/AVFoundation.h>
 #import <JavaScriptCore/JavaScriptCore.h>
+
+#import "OJSSettingsManager.h"
+//#import "OJSHelpers.h"
+
+//#import "OJSCapabilityController.h"
+
+#import "OJSCoordinationController.h"
 
 #import "SocketIO.h"
 #import <UIKit/UIKit.h>
 
 @interface OJSFirstViewController : UIViewController <SocketIODelegate> {
-    SocketIO *socketIO;
     
-    AVSpeechSynthesizer *synth;
-    
-    NSString *currentActionId;
-    NSString *currentMethodId;
-    
-//    OJSDeviceCoordinator *deviceCoordinator;
-
 }
 
-@property (nonatomic, strong) OJSDeviceCoordinator *deviceCoordinator;
+
+@property (strong) OJSCoordinationController * coordinationController;
+
 
 // For background hack
 @property (nonatomic, strong) AVPlayer *player;
@@ -34,6 +35,10 @@
 
 -(IBAction)connectBtnTabbed;
 -(IBAction)disconnectBtnTabbed;
+
+
+
+-(IBAction)startiBeaconTabbed;
 
 -(IBAction)initBTLEBtnTabbed;
 -(IBAction)runActionBtnTabbed;
@@ -43,7 +48,12 @@
 
 -(IBAction)sinneJaTakasTabbed;
 
+
+
+
 @property (weak, nonatomic) IBOutlet UIImageView *blink;
+
+
 
 
 @end

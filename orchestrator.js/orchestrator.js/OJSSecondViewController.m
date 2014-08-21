@@ -8,6 +8,8 @@
 
 #import "OJSSecondViewController.h"
 
+#import "OJSSettingsManager.h"
+
 @interface OJSSecondViewController ()
 
 @end
@@ -26,24 +28,20 @@
     
     UIWebView *webView = (UIWebView * )[self.view viewWithTag:12];
     [webView setDelegate:self];
+    [self.view addSubview:webView];
     
-    UITextField * hostTF = (UITextField *)[self.view viewWithTag:2];
-    NSString *host = hostTF.text;
-    
-    UITextField * portTF = (UITextField *)[self.view viewWithTag:3];
-    NSString *port = portTF.text;
-    
-    NSString *urlAddress = [NSString stringWithFormat:@"http://%@:%@", host, port];
-    //    NSString *urlAddress = @"http://orchestratorjs.org:9000/";
+    OJSSettingsManager *settingsManager = [OJSSettingsManager settingsManager];
+    NSString *urlAddress = [NSString stringWithFormat:@"http://%@:%@", [settingsManager getHostName], [settingsManager getHostPort]];
     
     NSLog(urlAddress);
     
-    
     NSURL *url = [NSURL URLWithString:urlAddress];
+    
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
+    
     [webView loadRequest:requestObj];
     
-    [self.view addSubview:webView];
+    
 }
 
 
@@ -54,18 +52,6 @@
 }
 
 
-
--(IBAction)deviceIdentitySaveBtnTabbed
-{
-    UITextField *devIdTF = (UITextField*)[self.view viewWithTag:5];
-    NSString *deviceIdentity = devIdTF.text;
-    NSLog(deviceIdentity);
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:deviceIdentity forKey:@"deviceIdentity"];
-    [defaults synchronize];
-    
-}
 
 
 
