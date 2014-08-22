@@ -6,9 +6,6 @@
 //  Copyright (c) 2014 Niko Mäkitalo. All rights reserved.
 //
 
-//#import "OJSDeviceCoordinator.h"
-
-#import "JsTalkingCapability.h"
 
 #import "SocketIOJSONSerialization.h"
 #import "OJSConnection.h"

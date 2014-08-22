@@ -7,21 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		852F15781907D12C00D00A6F /* TestLag.js in Sources */ = {isa = PBXBuildFile; fileRef = 852F15771907D12C00D00A6F /* TestLag.js */; };
-		852F15791907D14600D00A6F /* TestLag.js in Resources */ = {isa = PBXBuildFile; fileRef = 852F15771907D12C00D00A6F /* TestLag.js */; };
 		852F157B1907D1A300D00A6F /* DeviceStub.js in Sources */ = {isa = PBXBuildFile; fileRef = 852F157A1907D1A300D00A6F /* DeviceStub.js */; };
 		852F157C1907D6F700D00A6F /* DeviceStub.js in Resources */ = {isa = PBXBuildFile; fileRef = 852F157A1907D1A300D00A6F /* DeviceStub.js */; };
 		8532BE4518FED270008BDACA /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8532BE4418FED270008BDACA /* JavaScriptCore.framework */; };
-		8532BE4C18FEDFB0008BDACA /* JsTalkingCapability.m in Sources */ = {isa = PBXBuildFile; fileRef = 8532BE4B18FEDFB0008BDACA /* JsTalkingCapability.m */; };
-		8532BE5318FEEBAF008BDACA /* orig_deviceStub.js in Sources */ = {isa = PBXBuildFile; fileRef = 8532BE5218FEEBAF008BDACA /* orig_deviceStub.js */; };
-		8532BE5518FEEFE8008BDACA /* orig_deviceStub.js in Resources */ = {isa = PBXBuildFile; fileRef = 8532BE5218FEEBAF008BDACA /* orig_deviceStub.js */; };
-		8532BE5718FEF5AF008BDACA /* TestAction.js in Sources */ = {isa = PBXBuildFile; fileRef = 8532BE5618FEF5AF008BDACA /* TestAction.js */; };
-		8532BE5818FEF852008BDACA /* TestAction.js in Resources */ = {isa = PBXBuildFile; fileRef = 8532BE5618FEF5AF008BDACA /* TestAction.js */; };
-		8532BE5A18FEF8C2008BDACA /* TalkingCapability.js in Sources */ = {isa = PBXBuildFile; fileRef = 8532BE5918FEF8C2008BDACA /* TalkingCapability.js */; };
-		8532BE5C18FF310B008BDACA /* myscript.js in Sources */ = {isa = PBXBuildFile; fileRef = 8532BE5B18FF310B008BDACA /* myscript.js */; };
-		8532BE5D18FF3126008BDACA /* TalkingCapability.js in Resources */ = {isa = PBXBuildFile; fileRef = 8532BE5918FEF8C2008BDACA /* TalkingCapability.js */; };
-		8532BE5E18FF3126008BDACA /* myscript.js in Resources */ = {isa = PBXBuildFile; fileRef = 8532BE5B18FF310B008BDACA /* myscript.js */; };
-		8532BE6018FFB24D008BDACA /* myscript2.js in Sources */ = {isa = PBXBuildFile; fileRef = 8532BE5F18FFB24D008BDACA /* myscript2.js */; };
+		8532EC1C19A5DBEA009D3D4A /* OJSCoordinationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8532EC1B19A5DBEA009D3D4A /* OJSCoordinationController.m */; };
 		8560372518F7D3C400AC1890 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8560372418F7D3C400AC1890 /* Foundation.framework */; };
 		8560372718F7D3C400AC1890 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8560372618F7D3C400AC1890 /* CoreGraphics.framework */; };
 		8560372918F7D3C400AC1890 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8560372818F7D3C400AC1890 /* UIKit.framework */; };
@@ -50,9 +39,15 @@
 		8560377E18F7D7E400AC1890 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8560377D18F7D7E400AC1890 /* CFNetwork.framework */; };
 		8560378018F7E0BE00AC1890 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8560377F18F7E0BE00AC1890 /* AVFoundation.framework */; };
 		8560378218F7E15100AC1890 /* silence.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8560378118F7E15100AC1890 /* silence.mp3 */; };
-		85D12FEB1906962E00808449 /* OJSDeviceCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 85D12FEA1906962E00808449 /* OJSDeviceCoordinator.m */; };
-		85D12FEC19069A6300808449 /* myscript2.js in Resources */ = {isa = PBXBuildFile; fileRef = 8532BE5F18FFB24D008BDACA /* myscript2.js */; };
+		85A8CD47192247FC002F95FE /* OJSSettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A8CD46192247FC002F95FE /* OJSSettingsManager.m */; };
+		85C5C6A5198FA9DD002B95EB /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 85C5C6A4198FA9DD002B95EB /* Settings.bundle */; };
+		85D12FEB1906962E00808449 /* OJSCentral.m in Sources */ = {isa = PBXBuildFile; fileRef = 85D12FEA1906962E00808449 /* OJSCentral.m */; };
 		85D12FEF19069E8A00808449 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85D12FEE19069E8A00808449 /* CoreBluetooth.framework */; };
+		85D4C4D11993973D00D8BF23 /* OJSPeripheral.m in Sources */ = {isa = PBXBuildFile; fileRef = 85D4C4D01993973D00D8BF23 /* OJSPeripheral.m */; };
+		85D4C4D419939D0200D8BF23 /* OJSHelpers.h in Sources */ = {isa = PBXBuildFile; fileRef = 85D4C4D319939D0200D8BF23 /* OJSHelpers.h */; };
+		85D509CC199DDEDE00FA56F8 /* OJSActionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85D509CB199DDEDE00FA56F8 /* OJSActionController.m */; };
+		85D626E5199BED5A005CC6B2 /* OJSCapabilityController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85D626E4199BED5A005CC6B2 /* OJSCapabilityController.m */; };
+		85EB60B8199A3875006D0276 /* OJSConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 85EB60B7199A3875006D0276 /* OJSConnection.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,16 +61,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		852F15771907D12C00D00A6F /* TestLag.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = TestLag.js; sourceTree = "<group>"; };
+		8511634F19A5D5FB0057A1E3 /* OJSCoordinationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OJSCoordinationController.h; sourceTree = "<group>"; };
 		852F157A1907D1A300D00A6F /* DeviceStub.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = DeviceStub.js; sourceTree = "<group>"; };
 		8532BE4418FED270008BDACA /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		8532BE4A18FEDFB0008BDACA /* JsTalkingCapability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JsTalkingCapability.h; sourceTree = "<group>"; };
-		8532BE4B18FEDFB0008BDACA /* JsTalkingCapability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JsTalkingCapability.m; sourceTree = "<group>"; };
-		8532BE5218FEEBAF008BDACA /* orig_deviceStub.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = orig_deviceStub.js; sourceTree = "<group>"; };
-		8532BE5618FEF5AF008BDACA /* TestAction.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = TestAction.js; sourceTree = "<group>"; };
-		8532BE5918FEF8C2008BDACA /* TalkingCapability.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = TalkingCapability.js; sourceTree = "<group>"; };
-		8532BE5B18FF310B008BDACA /* myscript.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = myscript.js; sourceTree = "<group>"; };
-		8532BE5F18FFB24D008BDACA /* myscript2.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = myscript2.js; sourceTree = "<group>"; };
+		8532EC1B19A5DBEA009D3D4A /* OJSCoordinationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OJSCoordinationController.m; sourceTree = "<group>"; };
 		8560372118F7D3C400AC1890 /* orchestrator.js.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = orchestrator.js.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8560372418F7D3C400AC1890 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8560372618F7D3C400AC1890 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -118,10 +107,24 @@
 		8560377D18F7D7E400AC1890 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		8560377F18F7E0BE00AC1890 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		8560378118F7E15100AC1890 /* silence.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = silence.mp3; sourceTree = "<group>"; };
-		85D12FE91906962E00808449 /* OJSDeviceCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OJSDeviceCoordinator.h; sourceTree = "<group>"; };
-		85D12FEA1906962E00808449 /* OJSDeviceCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OJSDeviceCoordinator.m; sourceTree = "<group>"; };
+		85A8CD45192247FC002F95FE /* OJSSettingsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OJSSettingsManager.h; path = ../OJSSettingsManager.h; sourceTree = "<group>"; };
+		85A8CD46192247FC002F95FE /* OJSSettingsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OJSSettingsManager.m; path = ../OJSSettingsManager.m; sourceTree = "<group>"; };
+		85C5C6A4198FA9DD002B95EB /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		85D12FE91906962E00808449 /* OJSCentral.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OJSCentral.h; sourceTree = "<group>"; };
+		85D12FEA1906962E00808449 /* OJSCentral.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OJSCentral.m; sourceTree = "<group>"; };
 		85D12FED19069E2000808449 /* SERVICES.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SERVICES.h; sourceTree = "<group>"; };
 		85D12FEE19069E8A00808449 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		85D4C4D01993973D00D8BF23 /* OJSPeripheral.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OJSPeripheral.m; sourceTree = "<group>"; };
+		85D4C4D21993975800D8BF23 /* OJSPeripheral.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OJSPeripheral.h; sourceTree = "<group>"; };
+		85D4C4D319939D0200D8BF23 /* OJSHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OJSHelpers.h; sourceTree = "<group>"; };
+		85D509CA199DDE4C00FA56F8 /* OJSActionController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OJSActionController.h; sourceTree = "<group>"; };
+		85D509CB199DDEDE00FA56F8 /* OJSActionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OJSActionController.m; sourceTree = "<group>"; };
+		85D626E3199BED2B005CC6B2 /* OJSCapabilityController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OJSCapabilityController.h; sourceTree = "<group>"; };
+		85D626E4199BED5A005CC6B2 /* OJSCapabilityController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OJSCapabilityController.m; sourceTree = "<group>"; };
+		85DDE42A19A71E6E0053B2D2 /* TalkingCapability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TalkingCapability.h; sourceTree = "<group>"; };
+		85EB60B6199A3727006D0276 /* OJSConnection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OJSConnection.h; sourceTree = "<group>"; };
+		85EB60B7199A3875006D0276 /* OJSConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OJSConnection.m; sourceTree = "<group>"; };
+		85F012D219A4C5B30072B0F0 /* OJSDiscoveredPeripheral.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OJSDiscoveredPeripheral.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,32 +157,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8532BE4618FEDF5E008BDACA /* jsCapabilityStubs */ = {
+		8532BE5118FEEAA9008BDACA /* OJSJavaScriptHelpers */ = {
 			isa = PBXGroup;
 			children = (
-				8532BE4A18FEDFB0008BDACA /* JsTalkingCapability.h */,
-				8532BE4B18FEDFB0008BDACA /* JsTalkingCapability.m */,
-			);
-			name = jsCapabilityStubs;
-			sourceTree = "<group>";
-		};
-		8532BE5118FEEAA9008BDACA /* TestSpace */ = {
-			isa = PBXGroup;
-			children = (
-				8532BE5218FEEBAF008BDACA /* orig_deviceStub.js */,
-				8532BE5618FEF5AF008BDACA /* TestAction.js */,
-				8532BE5918FEF8C2008BDACA /* TalkingCapability.js */,
-				8532BE5B18FF310B008BDACA /* myscript.js */,
-				8532BE5F18FFB24D008BDACA /* myscript2.js */,
-				852F15771907D12C00D00A6F /* TestLag.js */,
 				852F157A1907D1A300D00A6F /* DeviceStub.js */,
 			);
-			name = TestSpace;
+			name = OJSJavaScriptHelpers;
+			sourceTree = "<group>";
+		};
+		8532EC1D19A62410009D3D4A /* Capabilities */ = {
+			isa = PBXGroup;
+			children = (
+				85DDE42A19A71E6E0053B2D2 /* TalkingCapability.h */,
+			);
+			name = Capabilities;
 			sourceTree = "<group>";
 		};
 		8560371818F7D3C400AC1890 = {
 			isa = PBXGroup;
 			children = (
+				85C5C6A4198FA9DD002B95EB /* Settings.bundle */,
 				8560372A18F7D3C400AC1890 /* orchestrator.js */,
 				8560374F18F7D3C400AC1890 /* orchestrator.jsTests */,
 				8560372318F7D3C400AC1890 /* Frameworks */,
@@ -216,16 +213,27 @@
 		8560372A18F7D3C400AC1890 /* orchestrator.js */ = {
 			isa = PBXGroup;
 			children = (
+				85A8CD481922483B002F95FE /* Settings */,
 				85D12FE8190695AE00808449 /* OJSDeviceCoordinator */,
 				8560375F18F7D5AC00AC1890 /* Socket.IO */,
 				8560373318F7D3C400AC1890 /* OJSAppDelegate.h */,
 				8560373418F7D3C400AC1890 /* OJSAppDelegate.m */,
 				8560373618F7D3C400AC1890 /* Main_iPhone.storyboard */,
 				8560373918F7D3C400AC1890 /* Main_iPad.storyboard */,
+				8511634F19A5D5FB0057A1E3 /* OJSCoordinationController.h */,
+				8532EC1B19A5DBEA009D3D4A /* OJSCoordinationController.m */,
+				85EB60B6199A3727006D0276 /* OJSConnection.h */,
+				85EB60B7199A3875006D0276 /* OJSConnection.m */,
+				85D509CA199DDE4C00FA56F8 /* OJSActionController.h */,
+				85D509CB199DDEDE00FA56F8 /* OJSActionController.m */,
+				85D626E3199BED2B005CC6B2 /* OJSCapabilityController.h */,
+				85D626E4199BED5A005CC6B2 /* OJSCapabilityController.m */,
+				8532EC1D19A62410009D3D4A /* Capabilities */,
 				8560373C18F7D3C400AC1890 /* OJSFirstViewController.h */,
 				8560373D18F7D3C400AC1890 /* OJSFirstViewController.m */,
 				8560373F18F7D3C400AC1890 /* OJSSecondViewController.h */,
 				8560374018F7D3C400AC1890 /* OJSSecondViewController.m */,
+				85D4C4D319939D0200D8BF23 /* OJSHelpers.h */,
 				8560374218F7D3C400AC1890 /* Images.xcassets */,
 				8560372B18F7D3C400AC1890 /* Supporting Files */,
 			);
@@ -308,14 +316,25 @@
 			path = SocketRocket;
 			sourceTree = "<group>";
 		};
+		85A8CD481922483B002F95FE /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				85A8CD45192247FC002F95FE /* OJSSettingsManager.h */,
+				85A8CD46192247FC002F95FE /* OJSSettingsManager.m */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
 		85D12FE8190695AE00808449 /* OJSDeviceCoordinator */ = {
 			isa = PBXGroup;
 			children = (
 				85D12FED19069E2000808449 /* SERVICES.h */,
-				8532BE4618FEDF5E008BDACA /* jsCapabilityStubs */,
-				8532BE5118FEEAA9008BDACA /* TestSpace */,
-				85D12FE91906962E00808449 /* OJSDeviceCoordinator.h */,
-				85D12FEA1906962E00808449 /* OJSDeviceCoordinator.m */,
+				8532BE5118FEEAA9008BDACA /* OJSJavaScriptHelpers */,
+				85F012D219A4C5B30072B0F0 /* OJSDiscoveredPeripheral.h */,
+				85D12FE91906962E00808449 /* OJSCentral.h */,
+				85D12FEA1906962E00808449 /* OJSCentral.m */,
+				85D4C4D21993975800D8BF23 /* OJSPeripheral.h */,
+				85D4C4D01993973D00D8BF23 /* OJSPeripheral.m */,
 			);
 			name = OJSDeviceCoordinator;
 			sourceTree = "<group>";
@@ -369,6 +388,7 @@
 				ORGANIZATIONNAME = "Niko Mäkitalo";
 				TargetAttributes = {
 					8560372018F7D3C400AC1890 = {
+						DevelopmentTeam = 7DYDXC9PZV;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -405,12 +425,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				852F157C1907D6F700D00A6F /* DeviceStub.js in Resources */,
-				852F15791907D14600D00A6F /* TestLag.js in Resources */,
-				85D12FEC19069A6300808449 /* myscript2.js in Resources */,
-				8532BE5D18FF3126008BDACA /* TalkingCapability.js in Resources */,
-				8532BE5E18FF3126008BDACA /* myscript.js in Resources */,
-				8532BE5818FEF852008BDACA /* TestAction.js in Resources */,
-				8532BE5518FEEFE8008BDACA /* orig_deviceStub.js in Resources */,
+				85C5C6A5198FA9DD002B95EB /* Settings.bundle in Resources */,
 				8560378218F7E15100AC1890 /* silence.mp3 in Resources */,
 				8560377718F7D5FF00AC1890 /* .gitignore in Resources */,
 				8560373B18F7D3C400AC1890 /* Main_iPad.storyboard in Resources */,
@@ -435,25 +450,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8532BE5718FEF5AF008BDACA /* TestAction.js in Sources */,
+				85D4C4D419939D0200D8BF23 /* OJSHelpers.h in Sources */,
 				8560373E18F7D3C400AC1890 /* OJSFirstViewController.m in Sources */,
-				8532BE5318FEEBAF008BDACA /* orig_deviceStub.js in Sources */,
 				8560373118F7D3C400AC1890 /* main.m in Sources */,
-				8532BE6018FFB24D008BDACA /* myscript2.js in Sources */,
-				852F15781907D12C00D00A6F /* TestLag.js in Sources */,
+				85D626E5199BED5A005CC6B2 /* OJSCapabilityController.m in Sources */,
 				852F157B1907D1A300D00A6F /* DeviceStub.js in Sources */,
-				8532BE5C18FF310B008BDACA /* myscript.js in Sources */,
 				8560377818F7D5FF00AC1890 /* SRWebSocket.m in Sources */,
 				8560377418F7D5FF00AC1890 /* SocketIOPacket.m in Sources */,
 				8560373518F7D3C400AC1890 /* OJSAppDelegate.m in Sources */,
+				8532EC1C19A5DBEA009D3D4A /* OJSCoordinationController.m in Sources */,
 				8560377518F7D5FF00AC1890 /* SocketIOTransportWebsocket.m in Sources */,
+				85EB60B8199A3875006D0276 /* OJSConnection.m in Sources */,
+				85A8CD47192247FC002F95FE /* OJSSettingsManager.m in Sources */,
 				8560374118F7D3C400AC1890 /* OJSSecondViewController.m in Sources */,
-				8532BE4C18FEDFB0008BDACA /* JsTalkingCapability.m in Sources */,
 				8560377218F7D5FF00AC1890 /* SocketIO.m in Sources */,
 				8560377318F7D5FF00AC1890 /* SocketIOJSONSerialization.m in Sources */,
 				8560377618F7D5FF00AC1890 /* SocketIOTransportXHR.m in Sources */,
-				8532BE5A18FEF8C2008BDACA /* TalkingCapability.js in Sources */,
-				85D12FEB1906962E00808449 /* OJSDeviceCoordinator.m in Sources */,
+				85D4C4D11993973D00D8BF23 /* OJSPeripheral.m in Sources */,
+				85D509CC199DDEDE00FA56F8 /* OJSActionController.m in Sources */,
+				85D12FEB1906962E00808449 /* OJSCentral.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -588,10 +603,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "orchestrator.js/orchestrator.js-Prefix.pch";
 				INFOPLIST_FILE = "orchestrator.js/orchestrator.js-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "orchestrator.js/orchestrator.js-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -601,10 +623,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "orchestrator.js/orchestrator.js-Prefix.pch";
 				INFOPLIST_FILE = "orchestrator.js/orchestrator.js-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "orchestrator.js/orchestrator.js-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

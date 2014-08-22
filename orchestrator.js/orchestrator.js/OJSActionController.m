@@ -41,6 +41,16 @@
 }
 
 
+
+
+- (void) initCapabilities
+{
+    [_capabilityController initCapabilities];
+    return;
+}
+
+
+
 //
 //  EXEC capability method
 //

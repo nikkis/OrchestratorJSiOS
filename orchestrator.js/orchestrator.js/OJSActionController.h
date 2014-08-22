@@ -11,15 +11,14 @@
 @property BOOL executingAction;
 
 
+- (void) initCapabilities;
+
 
 - (void) initializeActionInstance: (NSString *) actionID : (NSString *) actionName : (NSArray *) actionArgs : (NSArray *) participantInfo : (NSString *) actionVersionHash;
 
 - (NSObject *) executeCapability: (NSString *) capabilityName method: (NSString *) methodCallName with: (NSArray *) methodCallArguments;
 
 
-- (BOOL) initBLEPeripheral;
 
-// for testing only
-- (BOOL) initBLECentral;
 
 @end

@@ -38,8 +38,7 @@
         
         // begin to advertise and act as peripheral
         [_ojsPeripheral initBLEPeripheral: _actionController];
-        
-//        _capabilityController = [[OJSCapabilityController alloc] init];
+    
     }
     return self;
 }
@@ -49,6 +48,7 @@
 - (void) initOJS
 {
     [_ojsConnection initOJS:_actionController];
+    [_actionController initCapabilities];
 }
 
 

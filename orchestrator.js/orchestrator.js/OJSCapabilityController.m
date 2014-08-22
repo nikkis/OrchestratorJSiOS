@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <objc/runtime.h>
 
 #import "OJSCapabilityController.h"
 
@@ -18,15 +19,18 @@
 #import "OJSCentral.h"
 #import "OJSPeripheral.h"
 
+
+#import "TalkingCapability.h"
+
 @interface OJSCapabilityController ()
 
-// add private methods and variables here
-@property (strong, atomic) OJSSettingsManager* settingsManager;
+    // add private methods and variables here
+    @property (strong, atomic) OJSSettingsManager* settingsManager;
 
-@property (strong, nonatomic) OJSCentral* central;
-//@property (strong, nonatomic) OJSPeripheral* peripheral;
+    @property (strong, nonatomic) OJSCentral* central;
 
 
+    @property NSMutableDictionary * capabilities;
 
 @end
 
@@ -39,13 +43,31 @@
     self = [super init];
     if (self) {
         _settingsManager = [[OJSSettingsManager alloc] init];
-        
         _central = [[OJSCentral alloc] init];
-        
-//        _peripheral = [[OJSPeripheral alloc] init];
+        _capabilities = [[NSMutableDictionary alloc] init];
+
     }
     return self;
 }
+
+
+- (void) initCapabilities
+{
+    // initialize capabilities here based on settings
+    _capabilities = [[NSMutableDictionary alloc] init];
+    for (NSString *capabilityName in [_settingsManager getDeviceCapabilities])
+    {
+        @try {
+            id anObject = [[NSClassFromString(capabilityName) alloc] init];
+            [_capabilities setObject:anObject forKey:capabilityName];
+        }
+        @catch (NSException *exception) {
+            NSLog(@"Error while initializing: %@", capabilityName);
+        }
+    }
+    return;
+}
+
 
 
 - (BOOL) initBLECentral: (NSArray *) participantInfo
@@ -56,11 +78,7 @@
     return true;
 }
 
-/*
-- (BOOL) initBLEPeripheral
-{
-    return [_peripheral initBLEPeripheral];
-}*/
+
 
 
 
@@ -100,61 +118,77 @@
 
 - (NSObject *) executeCapability: (NSString *) capabilityName method: (NSString *) methodCallName with: (NSArray *) methodCallArguments
 {
+    NSObject *object = [_capabilities objectForKey:capabilityName];
+    return [self invokeMethod:capabilityName method:methodCallName with:methodCallArguments forNSObject:object];
+}
+
+
+
+
+
+
+- (NSObject *) invokeMethod: (NSString *) className method: (NSString *) methodName with: (NSArray *) methodArguments forNSObject: (NSObject *) object
+{
+
+    NSMutableString *selectorString = [[NSMutableString alloc]initWithString:methodName];
+    for (int i = 0; i < [methodArguments count]; i++) {
+        [selectorString appendString:@":"];
+    }
     
+    SEL selector = NSSelectorFromString(selectorString);
+
     
-    if( [@"TalkingCapability" isEqualToString:capabilityName] ) {
-        
-        if( [@"say" isEqualToString:methodCallName] ) {
-            NSLog(@"foo1 ");
-            NSString * line = methodCallArguments[0];
-            //NSString * filter = methodArguments[1];
-            //NSString * pitch = methodArguments[2];
-            NSLog(@"foo2 ");
-            
-            NSLog(@"line %@", line);
-            
-            // IMPORTANT! must check for nil values as NSInvalidArgumentException cannot be catched!
-            if (line == nil || line == (id)[NSNull null])
-            {
-                [NSException raise:@"InvalidParameter" format:@"Invalid value (%s) for parameter: line (method TalkingCapaility::say)", line];
-            }
-            
-            
-            AVSpeechSynthesizer *synth = [[AVSpeechSynthesizer alloc] init];
-            AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:line];
-            
-            
-            //[synUtt setRate:speechSpeed];
-            //[synUtt setVoice:[AVSpeechSynthesisVoice voiceWithLanguage:[AVSpeechSynthesisVoice currentLanguageCode]]];
-            //[synthesizer speakUtterance:synUtt];
-            
-            [synth speakUtterance:utterance];
-            
-            
-        } else {
-            NSLog(@"unknown method %@", methodCallName );
-        }
-        
-    } else {
-        NSLog(@"unknown capability %@", capabilityName);
+    Method method = class_getInstanceMethod([object class], selector);
+    int argumentCount = method_getNumberOfArguments(method);
+    
+    if(argumentCount > [methodArguments count] + 2) {
+        [NSException raise:@"WrongNumberOfArguments" format:@"Wrong number of arguments for method %@::%@", className, methodName];
     }
     
     
-    return nil;
+    NSMethodSignature *signature = [[object class] instanceMethodSignatureForSelector:selector];
+
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+    [invocation setTarget:object];
+    [invocation setSelector:selector];
+    
+    
+    for(int i=0; i<[methodArguments count]; i++)
+    {
+        id arg = [methodArguments objectAtIndex:i];
+        [invocation setArgument:&arg atIndex:i+2]; // The first two arguments are the hidden arguments self and _cmd
+    }
+    
+
+    [invocation invoke]; // Invoke the selector
+
+    char ret[ 256 ];
+    method_getReturnType( method, ret, 256 );
+    NSString *s = [[NSString alloc] initWithBytes:ret + 2 length:3 encoding:NSUTF8StringEncoding];
+    NSObject *returnValue;
+    if(*ret == '@')
+    {
+        NSObject *returnValue;
+        NSLog(@"NSObject -> returning: %@", returnValue);
+        [invocation getReturnValue:&returnValue];
+        return returnValue;
+    }
+    else if ( *ret == 'v')
+    {
+        NSLog(@"voidi -> returning nil");
+        return nil;
+    }
+    else
+    {
+        NSLog(@"some other type -> returning nil");
+        return nil;
+    }
 }
 
 
 
 
-/*
-- (void) connectToBLEDevices: (NSArray *) deviceIdentities
-{
-    
-    NSLog(@"connecting to BLE devices with deviceIdentities: %@", deviceIdentities);
-    
-    return;
-}
-*/
+
 
 
 

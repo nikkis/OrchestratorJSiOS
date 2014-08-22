@@ -19,8 +19,10 @@
 - (void) connectToBLEDevices: (NSArray *) deviceIdentities;
 
 
+
+- (void) initCapabilities;
+
 - (BOOL) initBLECentral: (NSArray *) participantInfo;
-//- (BOOL) initBLEPeripheral;
 
 - (NSObject *) executeCapability: (NSString *) capabilityName method: (NSString *) methodCallName with: (NSArray *) methodCallArguments by: (NSString*) deviceIdentity;
 

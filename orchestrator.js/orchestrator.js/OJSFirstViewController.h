@@ -38,18 +38,6 @@
 
 
 
--(IBAction)startiBeaconTabbed;
-
--(IBAction)initBTLEBtnTabbed;
--(IBAction)runActionBtnTabbed;
-
-
--(IBAction)rSendBtnTabbed;
-
--(IBAction)sinneJaTakasTabbed;
-
-
-
 
 @property (weak, nonatomic) IBOutlet UIImageView *blink;
 

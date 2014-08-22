@@ -104,43 +104,6 @@
 }
 
 
--(IBAction)startiBeaconTabbed
-{
-    NSLog(@"startiBeaconTabbed");
-}
-
--(IBAction)startiBeaconTabbedOrig
-{
-}
-
-
-
-
--(IBAction)initBTLEBtnTabbed
-{
-}
-
-
--(IBAction)runActionBtnTabbed
-{
-    NSLog(@"test btn");
-}
-
-
-
--(IBAction)rSendBtnTabbed
-{
-
-}
-
-
-
-
--(IBAction)sinneJaTakasTabbed
-{
-}
-
-
 
 
 @end
