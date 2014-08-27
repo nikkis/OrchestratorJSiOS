@@ -11,16 +11,19 @@
 
 #import "OJSCapabilityController.h"
 
+#import "orchestrator_js-Swift.h"
 
-// temporary here
-#import <AVFoundation/AVFoundation.h>
 #import "OJSSettingsManager.h"
 
 #import "OJSCentral.h"
 #import "OJSPeripheral.h"
 
+//#import "CAPABILITY_IMPORTS.h"
 
-#import "TalkingCapability.h"
+#import "orchestrator.js-Bridging-Header.h"
+//#import "orchestrator_js-Swift.h"
+
+
 
 @interface OJSCapabilityController ()
 
@@ -31,6 +34,10 @@
 
 
     @property NSMutableDictionary * capabilities;
+
+    @property BOOL waitingForMethodFinished;
+    @property NSCondition *waitUntilMethodFinished;
+    @property NSObject *returnObject;
 
 @end
 
@@ -53,18 +60,49 @@
 
 - (void) initCapabilities
 {
+    
+    //id ooo = [[TestCapability alloc] init];
+
+    //id oo = [[TalkingCapability alloc] init];
+
+    
+    //id oo = [[ alloc] init];
+    //[oo test];
+    
+    
+    
     // initialize capabilities here based on settings
     _capabilities = [[NSMutableDictionary alloc] init];
     for (NSString *capabilityName in [_settingsManager getDeviceCapabilities])
     {
         @try {
+            
+            
+            NSLog(@"importing capability %@", capabilityName);
             id anObject = [[NSClassFromString(capabilityName) alloc] init];
+            if(anObject == nil) {
+                NSString* swifClassName = [NSString stringWithFormat:@"%@%@",@"orchestrator_js.", capabilityName];
+                NSLog(@"trying to import swift class: %@", swifClassName);
+                anObject = [[NSClassFromString(swifClassName) alloc] init];
+            }
+            
             [_capabilities setObject:anObject forKey:capabilityName];
         }
         @catch (NSException *exception) {
-            NSLog(@"Error while initializing: %@", capabilityName);
+            NSLog(@"Error: %@ while initializing capability: %@", exception, capabilityName);
         }
     }
+    
+    
+    /*
+    NSString* swifClassName = @"orchestrator_js.TalkingCapability";
+    NSLog(@"trying to import swift class: %@", swifClassName);
+    id anObject2 = [[NSClassFromString(swifClassName) alloc] init];
+    if(anObject2) {
+        NSLog(@"NULLLLI");
+    } else {
+        NSLog(@"jeee");
+    }*/
     return;
 }
 
@@ -82,7 +120,6 @@
 
 
 
-//- (NSObject *) executeCapability: (NSString *) capabilityName method: (NSString *) methodCallName with: (NSArray *) methodCallArguments
 - (NSObject *) executeCapability: (NSString *) capabilityName method: (NSString *) methodCallName with: (NSArray *) methodCallArguments by: (NSString*) deviceIdentity
 {
     
@@ -115,11 +152,47 @@
 
 
 
-
+// Exec method call on THIS device
 - (NSObject *) executeCapability: (NSString *) capabilityName method: (NSString *) methodCallName with: (NSArray *) methodCallArguments
 {
-    NSObject *object = [_capabilities objectForKey:capabilityName];
-    return [self invokeMethod:capabilityName method:methodCallName with:methodCallArguments forNSObject:object];
+    _waitingForMethodFinished = TRUE;
+    _waitUntilMethodFinished = [[NSCondition alloc] init];
+    
+    _returnObject = nil;
+    
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0),^{
+
+        @try {
+            NSObject *object = [_capabilities objectForKey:capabilityName];
+            _returnObject = [self invokeMethod:capabilityName method:methodCallName with:methodCallArguments forNSObject:object];
+
+        }
+        @catch (NSException *exception) {
+            NSLog(@"Error while executing method: %@", exception);
+            // TODO: sent error to OJS (and notify all the devices)
+            _returnObject = nil;
+        }
+        @finally {
+            [_waitUntilMethodFinished lock];
+            _waitingForMethodFinished = FALSE;
+            [_waitUntilMethodFinished signal];
+            [_waitUntilMethodFinished unlock];
+        }
+
+        
+    });
+    
+    NSLog(@"waiting for method call to finish - BEGINS");
+    [_waitUntilMethodFinished lock];
+    while(_waitingForMethodFinished)
+    {
+        [_waitUntilMethodFinished wait];
+    }
+    [_waitUntilMethodFinished unlock];
+
+    NSLog(@"waiting for method call to finish - IS OVER");
+    return _returnObject;
 }
 
 
@@ -147,7 +220,11 @@
     
     
     NSMethodSignature *signature = [[object class] instanceMethodSignatureForSelector:selector];
-
+    if(signature == nil) {
+        NSLog(@"signature nil");
+        [NSException raise:@"NoSuchMethod" format:@"Method not found (%@::%@). Check capability definition and the number of method parameters.", className, methodName];
+    }
+    
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
     [invocation setTarget:object];
     [invocation setSelector:selector];
@@ -169,8 +246,8 @@
     if(*ret == '@')
     {
         NSObject *returnValue;
-        NSLog(@"NSObject -> returning: %@", returnValue);
         [invocation getReturnValue:&returnValue];
+        NSLog(@"NSObject -> returning: %@", returnValue);
         return returnValue;
     }
     else if ( *ret == 'v')

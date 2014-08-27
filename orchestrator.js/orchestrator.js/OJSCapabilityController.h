@@ -16,9 +16,6 @@
 }
 
 
-- (void) connectToBLEDevices: (NSArray *) deviceIdentities;
-
-
 
 - (void) initCapabilities;
 

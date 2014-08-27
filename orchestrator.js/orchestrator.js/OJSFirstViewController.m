@@ -91,7 +91,18 @@
 -(IBAction)connectBtnTabbed
 {
     NSLog(@"(re)connecting..");
-    [_coordinationController initOJS];
+    //[_coordinationController initOJS];
+    
+    NSString* swifClassName = @"orchestrator_js.TalkingCapability2";
+    NSLog(@"trying to import swift class: %@", swifClassName);
+    id anObject2 = [[NSClassFromString(swifClassName) alloc] init];
+    if(anObject2) {
+        NSLog(@"jeee");
+    } else {
+        NSLog(@"NULLLLI");
+    }
+
+
 }
 
 
