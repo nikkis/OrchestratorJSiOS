@@ -35,6 +35,9 @@
 
     @property NSMutableDictionary * capabilities;
 
+    // key format: CapabilityName::methodName
+    @property NSMutableDictionary * capabilityMethodSelectors;
+
     @property BOOL waitingForMethodFinished;
     @property NSCondition *waitUntilMethodFinished;
     @property NSObject *returnObject;
@@ -61,22 +64,12 @@
 - (void) initCapabilities
 {
     
-    //id ooo = [[TestCapability alloc] init];
-
-    //id oo = [[TalkingCapability alloc] init];
-
-    
-    //id oo = [[ alloc] init];
-    //[oo test];
-    
-    
-    
     // initialize capabilities here based on settings
     _capabilities = [[NSMutableDictionary alloc] init];
+    _capabilityMethodSelectors = [[NSMutableDictionary alloc] init];
     for (NSString *capabilityName in [_settingsManager getDeviceCapabilities])
     {
         @try {
-            
             
             NSLog(@"importing capability %@", capabilityName);
             id anObject = [[NSClassFromString(capabilityName) alloc] init];
@@ -86,23 +79,25 @@
                 anObject = [[NSClassFromString(swifClassName) alloc] init];
             }
             
-            [_capabilities setObject:anObject forKey:capabilityName];
+            if(anObject) {
+                NSLog(@"generating seletor for capability: %@", capabilityName);
+                int i=0;
+                unsigned int mc = 0;
+                Method * mlist = class_copyMethodList(object_getClass(anObject), &mc);
+                for(i=0;i<mc;i++) {
+                    NSString *selectorName = [NSString stringWithFormat:@"%s", sel_getName(method_getName(mlist[i]))];
+                    NSArray *selectorNameParts = [selectorName componentsSeparatedByString: @":"];
+                    if(selectorNameParts != nil && [selectorNameParts count] != 0) {
+                        [_capabilityMethodSelectors setObject:selectorName forKey:[NSString stringWithFormat:@"%@::%@",capabilityName,selectorNameParts[0]]];
+                        [_capabilities setObject:anObject forKey:capabilityName];
+                    }
+                }
+            }
         }
         @catch (NSException *exception) {
             NSLog(@"Error: %@ while initializing capability: %@", exception, capabilityName);
         }
     }
-    
-    
-    /*
-    NSString* swifClassName = @"orchestrator_js.TalkingCapability";
-    NSLog(@"trying to import swift class: %@", swifClassName);
-    id anObject2 = [[NSClassFromString(swifClassName) alloc] init];
-    if(anObject2) {
-        NSLog(@"NULLLLI");
-    } else {
-        NSLog(@"jeee");
-    }*/
     return;
 }
 
@@ -163,9 +158,10 @@
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0),^{
 
+        NSObject *rO;
         @try {
             NSObject *object = [_capabilities objectForKey:capabilityName];
-            _returnObject = [self invokeMethod:capabilityName method:methodCallName with:methodCallArguments forNSObject:object];
+            rO = [self invokeMethod:capabilityName method:methodCallName with:methodCallArguments forNSObject:object];
 
         }
         @catch (NSException *exception) {
@@ -175,6 +171,7 @@
         }
         @finally {
             [_waitUntilMethodFinished lock];
+            _returnObject = rO;
             _waitingForMethodFinished = FALSE;
             [_waitUntilMethodFinished signal];
             [_waitUntilMethodFinished unlock];
@@ -192,6 +189,7 @@
     [_waitUntilMethodFinished unlock];
 
     NSLog(@"waiting for method call to finish - IS OVER");
+    NSLog(@"_returnObject: %@",_returnObject);
     return _returnObject;
 }
 
@@ -203,32 +201,33 @@
 - (NSObject *) invokeMethod: (NSString *) className method: (NSString *) methodName with: (NSArray *) methodArguments forNSObject: (NSObject *) object
 {
 
-    NSMutableString *selectorString = [[NSMutableString alloc]initWithString:methodName];
-    for (int i = 0; i < [methodArguments count]; i++) {
-        [selectorString appendString:@":"];
-    }
+    NSString *selectorString = [_capabilityMethodSelectors objectForKey:[NSString stringWithFormat:@"%@::%@",className,methodName]];
+    
+    NSLog(@"selectorString: %@", selectorString);
     
     SEL selector = NSSelectorFromString(selectorString);
-
-    
     Method method = class_getInstanceMethod([object class], selector);
-    int argumentCount = method_getNumberOfArguments(method);
-    
-    if(argumentCount > [methodArguments count] + 2) {
-        [NSException raise:@"WrongNumberOfArguments" format:@"Wrong number of arguments for method %@::%@", className, methodName];
+    if(method == nil) {
+        [NSException raise:@"WrongNumberOfArguments" format:@"Wrong number of arguments OR wrong argument naming (selector string argument names) for method %@::%@ (code01)", className, methodName];
     }
     
+    int argumentCount = method_getNumberOfArguments(method);
+    NSLog(@"argumentCount %i",argumentCount);
+    NSLog(@"method Args count %lu",(unsigned long)[methodArguments count]);
+    if(argumentCount > [methodArguments count] + 2) {
+        [NSException raise:@"WrongNumberOfArguments" format:@"Wrong number of arguments for method %@::%@ (code02)", className, methodName];
+    }
     
     NSMethodSignature *signature = [[object class] instanceMethodSignatureForSelector:selector];
     if(signature == nil) {
         NSLog(@"signature nil");
-        [NSException raise:@"NoSuchMethod" format:@"Method not found (%@::%@). Check capability definition and the number of method parameters.", className, methodName];
+        [NSException raise:@"NoSuchMethod" format:@"Method not found (%@::%@). Check capability definition and the number of method parameters.(code03)", className, methodName];
     }
     
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
     [invocation setTarget:object];
-    [invocation setSelector:selector];
     
+    [invocation setSelector:selector];
     
     for(int i=0; i<[methodArguments count]; i++)
     {
@@ -236,12 +235,11 @@
         [invocation setArgument:&arg atIndex:i+2]; // The first two arguments are the hidden arguments self and _cmd
     }
     
-
     [invocation invoke]; // Invoke the selector
 
     char ret[ 256 ];
     method_getReturnType( method, ret, 256 );
-    NSString *s = [[NSString alloc] initWithBytes:ret + 2 length:3 encoding:NSUTF8StringEncoding];
+//    NSString *s = [[NSString alloc] initWithBytes:ret + 2 length:3 encoding:NSUTF8StringEncoding];
     NSObject *returnValue;
     if(*ret == '@')
     {

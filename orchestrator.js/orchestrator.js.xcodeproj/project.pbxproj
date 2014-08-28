@@ -11,7 +11,7 @@
 		852F157C1907D6F700D00A6F /* DeviceStub.js in Resources */ = {isa = PBXBuildFile; fileRef = 852F157A1907D1A300D00A6F /* DeviceStub.js */; };
 		8532BE4518FED270008BDACA /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8532BE4418FED270008BDACA /* JavaScriptCore.framework */; };
 		8532EC1C19A5DBEA009D3D4A /* OJSCoordinationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8532EC1B19A5DBEA009D3D4A /* OJSCoordinationController.m */; };
-		85448FE119ADD3BE00067E28 /* TalkingCapability.swift in Resources */ = {isa = PBXBuildFile; fileRef = 85448FE019ADD3BE00067E28 /* TalkingCapability.swift */; };
+		853EBA6919AF192E00F8D788 /* TalkingCapability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853EBA6819AF192E00F8D788 /* TalkingCapability.swift */; };
 		85448FE319ADD93300067E28 /* TalkingCapability2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85448FE219ADD93300067E28 /* TalkingCapability2.swift */; };
 		8560372518F7D3C400AC1890 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8560372418F7D3C400AC1890 /* Foundation.framework */; };
 		8560372718F7D3C400AC1890 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8560372618F7D3C400AC1890 /* CoreGraphics.framework */; };
@@ -68,9 +68,9 @@
 		852F157A1907D1A300D00A6F /* DeviceStub.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = DeviceStub.js; sourceTree = "<group>"; };
 		8532BE4418FED270008BDACA /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		8532EC1B19A5DBEA009D3D4A /* OJSCoordinationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OJSCoordinationController.m; sourceTree = "<group>"; };
+		853EBA6819AF192E00F8D788 /* TalkingCapability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TalkingCapability.swift; sourceTree = "<group>"; };
 		85448FDE19ADC23300067E28 /* orchestrator.js-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "orchestrator.js-Bridging-Header.h"; sourceTree = "<group>"; };
 		85448FDF19ADCE1900067E28 /* CAPABILITY_IMPORTS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAPABILITY_IMPORTS.h; sourceTree = "<group>"; };
-		85448FE019ADD3BE00067E28 /* TalkingCapability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TalkingCapability.swift; sourceTree = "<group>"; };
 		85448FE219ADD93300067E28 /* TalkingCapability2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TalkingCapability2.swift; sourceTree = "<group>"; };
 		8560372118F7D3C400AC1890 /* orchestrator.js.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = orchestrator.js.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8560372418F7D3C400AC1890 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -177,7 +177,7 @@
 			children = (
 				85448FDF19ADCE1900067E28 /* CAPABILITY_IMPORTS.h */,
 				85D7ED5919ADB2CA002D947B /* TestCapability.swift */,
-				85448FE019ADD3BE00067E28 /* TalkingCapability.swift */,
+				853EBA6819AF192E00F8D788 /* TalkingCapability.swift */,
 				85448FE219ADD93300067E28 /* TalkingCapability2.swift */,
 			);
 			name = Capabilities;
@@ -438,7 +438,6 @@
 				852F157C1907D6F700D00A6F /* DeviceStub.js in Resources */,
 				85C5C6A5198FA9DD002B95EB /* Settings.bundle in Resources */,
 				8560378218F7E15100AC1890 /* silence.mp3 in Resources */,
-				85448FE119ADD3BE00067E28 /* TalkingCapability.swift in Resources */,
 				8560377718F7D5FF00AC1890 /* .gitignore in Resources */,
 				8560373B18F7D3C400AC1890 /* Main_iPad.storyboard in Resources */,
 				8560374318F7D3C400AC1890 /* Images.xcassets in Resources */,
@@ -480,6 +479,7 @@
 				8560377318F7D5FF00AC1890 /* SocketIOJSONSerialization.m in Sources */,
 				8560377618F7D5FF00AC1890 /* SocketIOTransportXHR.m in Sources */,
 				85D4C4D11993973D00D8BF23 /* OJSPeripheral.m in Sources */,
+				853EBA6919AF192E00F8D788 /* TalkingCapability.swift in Sources */,
 				85D7ED5A19ADB2CA002D947B /* TestCapability.swift in Sources */,
 				85D509CC199DDEDE00FA56F8 /* OJSActionController.m in Sources */,
 				85D12FEB1906962E00808449 /* OJSCentral.m in Sources */,
