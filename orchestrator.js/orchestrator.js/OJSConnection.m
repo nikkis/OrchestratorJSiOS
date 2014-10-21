@@ -158,15 +158,15 @@
             
             
             NSObject * returnedValue = [_actionController executeCapability:capabilityName method:methodName with:methodArguments];
-//            NSObject * returnedValue = [_capabilityController executeCapability:capabilityName method:methodName with:methodArguments];
             
             
-            NSLog(@"response vvv %@", returnedValue);
+            NSLog(@"response val: %@", returnedValue);
             NSArray *arr = [NSArray arrayWithObjects:_currentActionId, _currentMethodId, returnedValue, @"STRING", nil];
             [_socketIO sendEvent:@"methodcallresponse" withData:arr];
             
             
             NSLog(@"methodcall_response sent");
+            
             
         }
         @catch (NSException *exception) {

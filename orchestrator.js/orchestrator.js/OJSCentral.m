@@ -33,7 +33,8 @@
     @property NSMutableDictionary *discoveredPeripherals;
 
 
-
+    @property (strong, nonatomic) NSString *selfDeviceIdentity;
+    @property (strong, atomic) OJSSettingsManager* settingsManager;
 
 @property (strong, nonatomic) NSObject *responseValue;
 @property (strong, nonatomic) NSString *responseJSONString;
@@ -59,47 +60,59 @@
 
 - (BOOL) initBTLECentral: (OJSConnection*) ojsConnection : (NSArray *) participantInfo
 {
-    
+    NSLog(@"koo - -5");
+//    _centralManager = nil;
+    NSLog(@"koo - -4");
+    _settingsManager = [[OJSSettingsManager alloc] init];
+    _selfDeviceIdentity = [_settingsManager getDeviceIdentity];
+    NSLog(@"koo - -3");
     _discoveredPeripherals = [[NSMutableDictionary alloc] init];
     _connectedPeripherals = [[NSMutableDictionary alloc] init];
-    
+        NSLog(@"koo - -2");
     _participantInfo = participantInfo;
     
     _participantServiceIDs = [[NSMutableArray alloc] init];
+        NSLog(@"koo - -1");
     for( id o in _participantInfo ) {
         NSString *di = [(NSDictionary*)o objectForKey:@"btUUID"];
         NSLog(@"participant: %@", di);
         [_participantServiceIDs addObject:[CBUUID UUIDWithString:di]];
     }
-  
+    NSLog(@"koo - 0");
     _ojsConnection = ojsConnection;
-    
-//    [self initCentral];
+    NSLog(@"koo - 1");
 
     // wait for until initialized ( connected to participants )
     
-    _waitForParticipants = TRUE;
+//    _waitForParticipants = TRUE;
 //    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0),^{
         [self initCentral];
-        
-        
-        
+            NSLog(@"koo - 2");
+
+    if([_participantInfo count] == 1 && [_selfDeviceIdentity isEqualToString:[_participantInfo objectAtIndex:0] ]) {
+        NSLog(@"I am the one and only participant -> no need to connect");
+        return TRUE;
+    
+    // If other participants, wait for them to connect
+    } else {
+
         NSLog(@"waiting for participants 0");
-        
+    
         // wait for response
         [_connectedToParticipants lock];
+        _waitForParticipants = TRUE;
         NSLog(@"waiting for participants 1");
         while(_waitForParticipants)
         {
             [_connectedToParticipants wait];
         }
         NSLog(@"waiting for participants 3");
-        _waitForParticipants = FALSE;
+        _waitForParticipants = TRUE;
         [_connectedToParticipants unlock];
-        
+    
         NSLog(@"CONNECTED!!!");
-        
-        
+    }
+    
 //    });
     return TRUE;
 
@@ -120,11 +133,18 @@
 
 - (void) initCentral
 {
-    _centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
+    NSLog(@"initCentral - 0");
+    if(_centralManager) {
+        _centralManager = nil;
+    }
+    NSLog(@"initCentral - 1");
+    if(_centralManager == nil) {
+        _centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
+    }
+    NSLog(@"initCentral - 2");
     _data = [[NSMutableData alloc] init];
     
     NSLog(@"init central 0");
-    
 }
 
 
@@ -133,6 +153,7 @@
     if (central.state != CBCentralManagerStatePoweredOn) {
         return;
     }
+    
     NSLog(@"init central 1");
     
     if (central.state == CBCentralManagerStatePoweredOn) {
@@ -149,6 +170,16 @@
     }
 }
 
+/*
+-(BOOL) checkDiscoveredPeripheralsForParticipants() {
+    
+    BOOL retVal = false;
+    [_centralManager ];
+    
+    
+    return false;
+}
+*/
 
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI {
 
@@ -190,8 +221,8 @@
     }
      */
     
-    if(![_discoveredPeripherals objectForKey:peripheral.name])
-    {
+    //if(![_discoveredPeripherals objectForKey:peripheral.name])
+    //{
         NSLog(@"saving peripheral for deviceidentity: %@", peripheral.name);
         
         OJSDiscoveredPeripheral *pp = [[OJSDiscoveredPeripheral alloc] init: peripheral.name : @"jaajaa" : peripheral];
@@ -203,7 +234,7 @@
         NSLog(@"Connecting to peripheral %@", peripheral);
         [_centralManager connectPeripheral:peripheral options:nil];
         
-    }
+    //}
     
     
     
@@ -270,6 +301,7 @@
     NSLog(@"..for peripheral %@ ", peripheral.name);
     
     if (error) {
+        NSLog(@"Error in: didDiscoverServices: %@", error);
         [self cleanup];
         return;
     }
@@ -317,6 +349,7 @@
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error {
     if (error) {
+        NSLog(@"Error in: didDiscoverCharacteristicsForService: %@", error);
         [self cleanup];
         return;
     }
@@ -359,6 +392,7 @@
         NSLog(@"loop");
     }
     
+    [_connectedToParticipants lock];
     NSLog(@"wait for connected device is over");
     _waitForParticipants = FALSE;
     [_connectedToParticipants signal];
@@ -436,73 +470,39 @@
     
 }
 
-- (void)cleanup {
-    /*
-    // See if we are subscribed to a characteristic on the peripheral
-    if (_discoveredPeripheral.services != nil) {
-        for (CBService *service in _discoveredPeripheral.services) {
-            if (service.characteristics != nil) {
-                for (CBCharacteristic *characteristic in service.characteristics) {
-                    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:TRANSFER_CHARACTERISTIC_UUID]]) {
-                        if (characteristic.isNotifying) {
-                            [_discoveredPeripheral setNotifyValue:NO forCharacteristic:characteristic];
-                            return;
+- (void) cleanup
+{
+    
+    for (CBPeripheral* discoveredPeripheral in _discoveredPeripherals) {
+
+        @try {
+            
+        // See if we are subscribed to a characteristic on the peripheral
+        if (discoveredPeripheral.services != nil) {
+            for (CBService *service in discoveredPeripheral.services) {
+                if (service.characteristics != nil) {
+                    for (CBCharacteristic *characteristic in service.characteristics) {
+                        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:TRANSFER_CHARACTERISTIC_UUID]]) {
+                            if (characteristic.isNotifying) {
+                                [discoveredPeripheral setNotifyValue:NO forCharacteristic:characteristic];
+                                return;
+                            }
                         }
                     }
                 }
             }
         }
+        
+            
+        //[_centralManager cancelPeripheralConnection:discoveredPeripheral];
+        }
+        @catch (NSException *exception) {
+            NSLog(@"Error in cleanup %@", exception);
+        }
     }
-    
-    [_centralManager cancelPeripheralConnection:_discoveredPeripheral];
-    */
 }
 
 
-
--(IBAction)scanBtnTabbed
-{
-    [self initCentral];
-}
-
-
--(void)sinneJaTakas
-{
-    NSLog(@"KETTU");
-//    NSString *st = @"kettu kettu kettu kettu kettu kettu kettu kettu kettu kettu kettu kettu kettu kettu kettu";
-    NSString *st = @"kettu kettu";
-    [self sendText:st toDevice: @"nikkis@iphone"];
-}
-
-
--(void)test
-{
-    NSLog(@"test btn");
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-    
-        [self testThreadAction];
-    
-    });
-}
-
-
-
--(void) testThreadAction
-{
-/*
-    NSString * jsonString = @"TEST";
-    
-    NSArray *args = [[NSArray alloc] init];
-    
-    [self syncRemoteCall:@"TestCapability" :@"initMeasurement" :args];
-    
-    for (int i=0; i<16; i+=1) {
-        //[self sendText:jsonString];
-        [self syncRemoteCall:@"TestCapability" :@"dummyMethod" :args];
-    }
- */
-}
 
 
 
@@ -539,7 +539,7 @@
     NSString * jsonString = methodcallString;
     [self sendText:jsonString toDevice: deviceIdentity];
     
-    /*
+    
     // wait for response
     [_condition lock];
     while(_waitingForMethodcallResponse)
@@ -549,7 +549,7 @@
     
     _waitingForMethodcallResponse = FALSE;
     [_condition unlock];
-    */
+    
     
     NSLog(@"Got responseValue %@", _responseValue);
     
@@ -566,14 +566,6 @@
 
 
 
-
--(IBAction)rSendBtnPressed
-{
-    NSLog(@"r send!!");
-    
-    NSString * jsonString = @"asdfasfasd asdfasdf asdf asdf sadf asdf asdf sadf asdf dasf dsaf  sadfadsfasdf sadf sadf asdf asdf asfd";
-    [self sendText:jsonString toDevice: @"nikkis@iphone"];
-}
 
 
 
@@ -665,9 +657,9 @@
             NSLog(@"Cannot parse responseVal: %@", exception);
         }
         
+        [_condition lock];
         _responseJSONString = responseText;
         _waitingForMethodcallResponse = FALSE;
-        
         [_condition signal];
         [_condition unlock];
         

@@ -21,7 +21,7 @@
 //#import "CAPABILITY_IMPORTS.h"
 
 #import "orchestrator.js-Bridging-Header.h"
-//#import "orchestrator_js-Swift.h"
+
 
 
 
@@ -40,7 +40,10 @@
 
     @property BOOL waitingForMethodFinished;
     @property NSCondition *waitUntilMethodFinished;
-    @property NSObject *returnObject;
+
+
+@property (strong, atomic) NSObject *returnObject;
+
 
 @end
 
@@ -103,16 +106,18 @@
 
 
 
-- (BOOL) initBLECentral: (NSArray *) participantInfo
+- (BOOL) initBleCentral: (NSArray *) participantInfo
 {
-    
     [_central initBTLECentral:nil: participantInfo];
-    
     return true;
 }
 
 
-
+- (void) bleCleanup
+{
+    [_central cleanup];
+    return;
+}
 
 
 - (NSObject *) executeCapability: (NSString *) capabilityName method: (NSString *) methodCallName with: (NSArray *) methodCallArguments by: (NSString*) deviceIdentity
@@ -152,26 +157,45 @@
 {
     _waitingForMethodFinished = TRUE;
     _waitUntilMethodFinished = [[NSCondition alloc] init];
-    
-    _returnObject = nil;
-    
 
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0),^{
+    NSLog(@"bar - 0");
 
-        NSObject *rO;
+//    [self setReturnObject:nil];
+    NSLog(@"bar - 1");
+
+    dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0),^{
+NSLog(@"bar - 00");
+        NSObject *rO = [[NSObject alloc] init];
         @try {
             NSObject *object = [_capabilities objectForKey:capabilityName];
+NSLog(@"bar - 01");
             rO = [self invokeMethod:capabilityName method:methodCallName with:methodCallArguments forNSObject:object];
+NSLog(@"bar - 02");
 
         }
         @catch (NSException *exception) {
             NSLog(@"Error while executing method: %@", exception);
             // TODO: sent error to OJS (and notify all the devices)
-            _returnObject = nil;
+//            [self setReturnObject:nil];
         }
         @finally {
+NSLog(@"bar - 03");
             [_waitUntilMethodFinished lock];
-            _returnObject = rO;
+            
+            NSLog(@"rO: %@",rO);
+            
+            // toimii
+            //rO = @"muimoi";
+            //[self setReturnObject:rO];
+            
+            
+            // This might be the solution!!!!
+            NSMutableString *mm = [[NSMutableString alloc] initWithFormat:@"jaa%@", (NSString*)rO];
+            
+            // ei toimi
+            [self setReturnObject:mm];
+NSLog(@"bar - 04");
+            
             _waitingForMethodFinished = FALSE;
             [_waitUntilMethodFinished signal];
             [_waitUntilMethodFinished unlock];
@@ -179,18 +203,23 @@
 
         
     });
+    NSLog(@"bar - 2");
     
+    NSObject *retObj = [[NSObject alloc] init];
     NSLog(@"waiting for method call to finish - BEGINS");
     [_waitUntilMethodFinished lock];
     while(_waitingForMethodFinished)
     {
         [_waitUntilMethodFinished wait];
     }
+    retObj = [_returnObject copy];
+    NSLog(@"_returnObject: %@",_returnObject);
     [_waitUntilMethodFinished unlock];
 
+    retObj = [_returnObject copy];
+    
     NSLog(@"waiting for method call to finish - IS OVER");
-    NSLog(@"_returnObject: %@",_returnObject);
-    return _returnObject;
+    return retObj;
 }
 
 
@@ -240,13 +269,36 @@
     char ret[ 256 ];
     method_getReturnType( method, ret, 256 );
 //    NSString *s = [[NSString alloc] initWithBytes:ret + 2 length:3 encoding:NSUTF8StringEncoding];
-    NSObject *returnValue;
     if(*ret == '@')
     {
-        NSObject *returnValue;
-        [invocation getReturnValue:&returnValue];
-        NSLog(@"NSObject -> returning: %@", returnValue);
-        return returnValue;
+        
+        ///// TESTING BEGINS
+        
+        
+        // MAYBE WORKS
+        CFTypeRef result;
+        [invocation getReturnValue:&result];
+        if (result)
+            CFRetain(result);
+        NSObject *rrrr = (__bridge_transfer NSObject *)result;
+        
+        return rrrr;
+        
+        ///// TESTING ENDS
+
+        
+        
+        // DOES NOT WORKS
+        //NSObject *returnValue = [[NSObject alloc] init];
+        //[invocation getReturnValue:&returnValue];
+        //NSLog(@"NSObject -> returning: %@", returnValue);
+        
+        // EXC_BAD_ACCESS
+        //return [returnValue copy];
+        
+        
+        // WORKS
+        //return nil;
     }
     else if ( *ret == 'v')
     {
@@ -262,9 +314,28 @@
 
 
 
+/*
+-(void)setReturnObject:(NSObject *)returnObject
+{
+    @synchronized(self) {
+        _returnObject = returnObject;
+    }
+}
 
 
 
 
+- (NSObject *)returnObject
+{
+    NSObject *ret = nil;
+    
+    @synchronized (self)
+    {
+        ret = [[_returnObject retain] autorelease];
+    }
+    
+    return ret;
+}
+*/
 
 @end

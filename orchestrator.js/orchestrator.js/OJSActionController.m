@@ -91,12 +91,14 @@
 
 - (void) runActionInstanceThread: (NSString *) actionID : (NSString *) actionName : (NSArray *) actionArgs : (NSArray *) participantInfo : (NSString *) actionVersionHash
 {
-    
+    //[_capabilityController bleCleanup];
+   
     NSLog(@"Downloading action %@", actionName);
     NSString *filePath = [self downloadAction:actionName:actionVersionHash];
     
+    NSLog(@"Connecting to devices");
     // Connect to devices
-    if ([_capabilityController initBLECentral: participantInfo])
+    if ([_capabilityController initBleCentral: participantInfo])
     {
         NSLog(@"Connected to all devices -> running action");
         NSLog(@"filepath %@", filePath);
@@ -116,6 +118,12 @@
     
     
     JSContext *context = [[JSContext alloc] initWithVirtualMachine:[[JSVirtualMachine alloc] init]];
+
+    context[@"bleCleanup"] = ^() {
+        NSLog(@"💜 cleaning up Ble connections");
+        //[_capabilityController bleCleanup];
+    };
+    
     
     context[@"consoleLog"] = ^(NSString *message) {
         NSLog(@"💜 Action console.log: %@", message);
@@ -179,15 +187,19 @@
     // execute the action code here
     [ss appendString:@"\nvar func = module.exports.body;\n"];
     [ss appendString:@"\nfunc.apply( this, parameters );\n"];
-    
+
+
 
     
     NSLog(@"jsCode: %@", ss);
     
     
     [context evaluateScript:ss];
+    NSLog(@"Action instance begin");
     
-    NSLog(@"Action instance started!");
+    
+//    NSLog(@"Action instance ended -> cleanup!");
+//    [_capabilityController bleCleanup];
     
 }
 

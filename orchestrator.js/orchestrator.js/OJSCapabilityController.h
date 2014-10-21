@@ -19,7 +19,9 @@
 
 - (void) initCapabilities;
 
-- (BOOL) initBLECentral: (NSArray *) participantInfo;
+
+- (BOOL) initBleCentral: (NSArray *) participantInfo;
+- (void) bleCleanup;
 
 - (NSObject *) executeCapability: (NSString *) capabilityName method: (NSString *) methodCallName with: (NSArray *) methodCallArguments by: (NSString*) deviceIdentity;
 

@@ -30,14 +30,14 @@
         _ojsConnection = [[OJSConnection alloc] init];
         
         _settingsManager = [[OJSSettingsManager alloc] init];
-        _ojsPeripheral = [[OJSPeripheral alloc] init];
+//        _ojsPeripheral = [[OJSPeripheral alloc] init];
         _actionController = [[OJSActionController alloc] init];
 
         // use setter for this
         _mainUIView = nil;
         
         // begin to advertise and act as peripheral
-        [_ojsPeripheral initBLEPeripheral: _actionController];
+//        [_ojsPeripheral initBLEPeripheral: _actionController];
     
     }
     return self;

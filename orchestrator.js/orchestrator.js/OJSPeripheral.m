@@ -54,10 +54,15 @@
     NSString *btuuid = [_settingsManager getDeviceBTUUID];
     NSLog(@"starting ibeacon.. with btuuid: %@", btuuid);
     
-    [self startAdvertising];
+    if (btuuid == nil) {
+        NSLog(@"no btuuid.. cancel ibeacon..");
+        return false;
+    } else {
+        // advertising
+        NSLog(@"starting to advertise..");
+        [self startAdvertising];
+    }
     
-    // advertising
-    NSLog(@"starting to advertise..");
     
     return true;
 }
@@ -251,10 +256,25 @@
 }
 
 
-
-
-
-
+- (void)setCurrentActionId:(NSString *)currentActionId
+{
+    @synchronized(self){
+        _currentActionId = currentActionId;
+    }
+}
+/*
+- (NSString *)currentActionId {
+    @synchronized(self) {
+        return [[myString retain] autorelease];
+    }
+}
+*/
+- (void)setCurrentMethodId:(NSString *)currentMethodId
+{
+    @synchronized(self){
+        _currentMethodId = currentMethodId;
+    }
+}
 
 - (void)peripheralManager:(CBPeripheralManager *)peripheral didReceiveReadRequest:(CBATTRequest *)request
 {
@@ -301,8 +321,10 @@
         
         NSArray *args = JSON[@"args"];
         
-        _currentActionId = (NSString*)args[0][0];
-        _currentMethodId = (NSString*)args[0][1];
+        [self setCurrentActionId:(NSString*)args[0][0]];
+        [self setCurrentMethodId:(NSString*)args[0][1]];
+//        _currentActionId = (NSString*)args[0][0];
+//        _currentMethodId = (NSString*)args[0][1];
         
         NSString *capabilityName = (NSString*)args[0][2];
         NSString *methodName = (NSString*)args[0][3];

@@ -24,6 +24,8 @@
 -(void)test;
 -(void)sinneJaTakas;
 
+- (void) cleanup;
+
 - (BOOL) initBTLECentral: (OJSConnection*) ojsConnection : (NSArray *) participantInfo;
 //-(void)initBTLECentral: (OJSConnection*) ojsConnection;
 

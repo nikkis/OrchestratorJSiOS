@@ -22,20 +22,25 @@ class TalkingCapability : NSObject, AVSpeechSynthesizerDelegate
     }
     
     
-    func say(line: String, filter: String, pitch: String) {
+    func say(line: String, filter: String, pitch: String) -> String {
         println("say method")
         let utterance = AVSpeechUtterance(string: line)
         speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
         speechSynthesizer.speakUtterance(utterance)
         
+  
         // wait so that the speaking starts
-        NSThread.sleepForTimeInterval(0.1)
+        NSThread.sleepForTimeInterval(0.4)
         
         // wait until speaking is over (TODO: timeout based on line length)
         while(speechSynthesizer.speaking) {
             NSThread.sleepForTimeInterval(0.2)
         }
+
+        
         println("speaking is over")
+        
+        return "return_value"
     }
     
     
