@@ -12,6 +12,8 @@
 #import "SocketIOPacket.h"
 #import "OJSSettingsManager.h"
 
+#import "orchestrator.js-Bridging-Header.h"
+#import "orchestrator_js-Swift.h"
 
 // Add private methods and variables here
 @interface OJSFirstViewController ()
@@ -113,6 +115,19 @@
 {
     NSLog(@"disconnecting..");
     [_coordinationController disconnectOJS];
+}
+
+
+
+-(IBAction)btnTabbed
+{
+    NSLog(@"testing..");
+    
+    TestCapability *ttt = [[TestCapability alloc] init];
+    
+    [ttt test];
+    
+    
 }
 
 

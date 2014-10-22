@@ -229,6 +229,7 @@ NSLog(@"bar - 04");
 
 - (NSObject *) invokeMethod: (NSString *) className method: (NSString *) methodName with: (NSArray *) methodArguments forNSObject: (NSObject *) object
 {
+    
 
     NSString *selectorString = [_capabilityMethodSelectors objectForKey:[NSString stringWithFormat:@"%@::%@",className,methodName]];
     
@@ -237,6 +238,7 @@ NSLog(@"bar - 04");
     SEL selector = NSSelectorFromString(selectorString);
     Method method = class_getInstanceMethod([object class], selector);
     if(method == nil) {
+        NSLog(@"method nil");
         [NSException raise:@"WrongNumberOfArguments" format:@"Wrong number of arguments OR wrong argument naming (selector string argument names) for method %@::%@ (code01)", className, methodName];
     }
     
@@ -244,6 +246,7 @@ NSLog(@"bar - 04");
     NSLog(@"argumentCount %i",argumentCount);
     NSLog(@"method Args count %lu",(unsigned long)[methodArguments count]);
     if(argumentCount > [methodArguments count] + 2) {
+        NSLog(@"argument count does not match");
         [NSException raise:@"WrongNumberOfArguments" format:@"Wrong number of arguments for method %@::%@ (code02)", className, methodName];
     }
     
@@ -252,23 +255,22 @@ NSLog(@"bar - 04");
         NSLog(@"signature nil");
         [NSException raise:@"NoSuchMethod" format:@"Method not found (%@::%@). Check capability definition and the number of method parameters.(code03)", className, methodName];
     }
-    
+
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
     [invocation setTarget:object];
-    
+
     [invocation setSelector:selector];
-    
+
     for(int i=0; i<[methodArguments count]; i++)
     {
         id arg = [methodArguments objectAtIndex:i];
         [invocation setArgument:&arg atIndex:i+2]; // The first two arguments are the hidden arguments self and _cmd
     }
-    
+
     [invocation invoke]; // Invoke the selector
 
     char ret[ 256 ];
     method_getReturnType( method, ret, 256 );
-//    NSString *s = [[NSString alloc] initWithBytes:ret + 2 length:3 encoding:NSUTF8StringEncoding];
     if(*ret == '@')
     {
         
@@ -281,8 +283,8 @@ NSLog(@"bar - 04");
         if (result)
             CFRetain(result);
         NSObject *rrrr = (__bridge_transfer NSObject *)result;
-        
         return rrrr;
+        
         
         ///// TESTING ENDS
 
@@ -292,7 +294,6 @@ NSLog(@"bar - 04");
         //NSObject *returnValue = [[NSObject alloc] init];
         //[invocation getReturnValue:&returnValue];
         //NSLog(@"NSObject -> returning: %@", returnValue);
-        
         // EXC_BAD_ACCESS
         //return [returnValue copy];
         

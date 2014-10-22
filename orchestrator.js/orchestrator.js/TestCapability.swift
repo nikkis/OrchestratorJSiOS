@@ -17,17 +17,18 @@ class TestCapability : NSObject, AVSpeechSynthesizerDelegate
     
     override init() {
         super.init()
-        speechSynthesizer.delegate = self
+        println("iitu")
+        //speechSynthesizer.delegate = self
 
     }
     
     
     func test() {
         println("test method")
-        let line = "moikka"
-        let utterance = AVSpeechUtterance(string: line)
-        speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
-        speechSynthesizer.speakUtterance(utterance)
+        //let line = "moikka"
+        //let utterance = AVSpeechUtterance(string: line)
+        //speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
+        //speechSynthesizer.speakUtterance(utterance)
     }
     
     func say(line: String, filter: String, pitch: String) {
