@@ -22,6 +22,22 @@ class TestCapability : NSObject, AVSpeechSynthesizerDelegate
 
     }
     
+    func initMeasurement() {
+        println("init measurement")
+    }
+    
+    func calculateAverage() {
+        println("calculate average")
+    }
+    
+    
+    func dummyMethod() {
+        println("Dummy")
+    }
+    
+    
+    
+    
     
     func test() {
         println("test method")
@@ -66,7 +82,7 @@ class TestCapability : NSObject, AVSpeechSynthesizerDelegate
     func speechSynthesizer(synthesizer: AVSpeechSynthesizer!,
         didFinishSpeechUtterance utterance: AVSpeechUtterance!)
     {
-        println("LOPPU SLUT")
+        println("LOPPU")
     }
 
     

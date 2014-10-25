@@ -129,11 +129,8 @@
 
 - (void)peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didSubscribeToCharacteristic:(CBCharacteristic *)characteristic
 {
-    
-    NSLog(@"char uuid %@", characteristic.UUID);
-    
+    NSLog(@"didSubscribeToCharacteristic with uuid %@", characteristic.UUID);
     NSLog(@"central id %@", central.identifier);
-    NSLog(@"jeejeejuu");
 }
 
 
@@ -228,17 +225,11 @@
 
 -(void)simpleSend:(NSString*)textToSend
 {
-    
-    NSLog(@"foo 1");
+    NSLog(@"simpleSend begin");
     NSData * data = [textToSend dataUsingEncoding:NSUTF8StringEncoding];
-    
-    NSLog(@"foo 2");
     BOOL didSend = [self.peripheralManager updateValue:data forCharacteristic:self.transferCharacteristic onSubscribedCentrals:nil];
     didSend = [self.peripheralManager updateValue:[@"EOM" dataUsingEncoding:NSUTF8StringEncoding] forCharacteristic:self.transferCharacteristic onSubscribedCentrals:nil];
-    
-    
-    
-    NSLog(@"foo 3");
+    NSLog(@"simpleSend end");
 }
 
 
@@ -262,13 +253,7 @@
         _currentActionId = currentActionId;
     }
 }
-/*
-- (NSString *)currentActionId {
-    @synchronized(self) {
-        return [[myString retain] autorelease];
-    }
-}
-*/
+
 - (void)setCurrentMethodId:(NSString *)currentMethodId
 {
     @synchronized(self){
@@ -323,8 +308,6 @@
         
         [self setCurrentActionId:(NSString*)args[0][0]];
         [self setCurrentMethodId:(NSString*)args[0][1]];
-//        _currentActionId = (NSString*)args[0][0];
-//        _currentMethodId = (NSString*)args[0][1];
         
         NSString *capabilityName = (NSString*)args[0][2];
         NSString *methodName = (NSString*)args[0][3];
@@ -388,11 +371,6 @@
     
     NSData *data = [NSJSONSerialization dataWithJSONObject:methodCallResponseObject options:0 error:nil];
     NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    
-    
-    /////
-    //NSString *jsonString = [SocketIOJSONSerialization JSONStringFromObject:methodCallResponseObject error:nil];
-    /////
     
     NSLog(jsonString);
     [self sendData:jsonString];

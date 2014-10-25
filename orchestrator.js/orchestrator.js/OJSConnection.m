@@ -84,6 +84,8 @@
 -(void)sendContextData: (NSDictionary*) contextData //for: (NSString *) key
 {
 
+    NSLog(@"FOOO1");
+    
     NSArray *arr = [NSArray arrayWithObjects: @"", [_settingsManager getDeviceIdentity], contextData, nil];
     NSLog(@"Sending context_data %@", arr);
     

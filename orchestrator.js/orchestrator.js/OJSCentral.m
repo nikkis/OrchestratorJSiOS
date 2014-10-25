@@ -196,12 +196,17 @@
         
         NSLog(@"Report this id: %@ with this rssid to ojs: %@", discoverdDeviceUUID, RSSI);
         
+        //// TEST SPACE BEGINS
         // report to ojs
+        NSLog(@"jaahu 1");
         NSArray *discoverd_device = [NSArray arrayWithObjects:discoverdDeviceUUID, (NSNumber*)RSSI, nil];
         NSArray *bt_devices = [NSArray arrayWithObjects:discoverd_device, nil];
         NSDictionary *proximityData = [NSDictionary dictionaryWithObject:bt_devices forKey:@"bt_devices"];
-        //[_ojsConnection sendContextData:proximityData];
+        [_ojsConnection sendContextData:proximityData];
+
+        NSLog(@"jaahu 2");
         
+        //// TEST SPACE ENDS
         
     }
     @catch (NSException *exception) {

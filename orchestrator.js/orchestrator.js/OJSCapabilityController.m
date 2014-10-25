@@ -33,7 +33,7 @@
     @property (strong, nonatomic) OJSCentral* central;
 
 
-    @property NSMutableDictionary * capabilities;
+    @property (strong, nonatomic) NSMutableDictionary * capabilities;
 
     // key format: CapabilityName::methodName
     @property NSMutableDictionary * capabilityMethodSelectors;
@@ -166,21 +166,23 @@
     dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0),^{
 NSLog(@"bar - 00");
         NSObject *rO = [[NSObject alloc] init];
-        @try {
-            NSObject *object = [_capabilities objectForKey:capabilityName];
+        //@try {
+        [_waitUntilMethodFinished lock];
+            NSObject *object = [[TestCapability alloc] init];//[_capabilities objectForKey:capabilityName];
 NSLog(@"bar - 01");
             rO = [self invokeMethod:capabilityName method:methodCallName with:methodCallArguments forNSObject:object];
+            //object = nil;
 NSLog(@"bar - 02");
 
-        }
-        @catch (NSException *exception) {
-            NSLog(@"Error while executing method: %@", exception);
+        //} @catch (NSException *exception) {
+          //  NSLog(@"Error while executing method: %@", exception);
             // TODO: sent error to OJS (and notify all the devices)
-//            [self setReturnObject:nil];
-        }
-        @finally {
-NSLog(@"bar - 03");
-            [_waitUntilMethodFinished lock];
+            //            [self setReturnObject:nil];
+        //} @finally {
+
+            NSLog(@"bar - 03");
+            
+            //[_waitUntilMethodFinished lock];
             
             NSLog(@"rO: %@",rO);
             
@@ -193,13 +195,14 @@ NSLog(@"bar - 03");
             NSMutableString *mm = [[NSMutableString alloc] initWithFormat:@"jaa%@", (NSString*)rO];
             
             // ei toimi
-            [self setReturnObject:mm];
+//            [self setReturnObject:mm];
+                    [self setReturnObject:@"jaa"];
 NSLog(@"bar - 04");
             
             _waitingForMethodFinished = FALSE;
             [_waitUntilMethodFinished signal];
             [_waitUntilMethodFinished unlock];
-        }
+        //}
 
         
     });

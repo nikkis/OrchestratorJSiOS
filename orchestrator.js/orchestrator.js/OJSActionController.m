@@ -22,8 +22,6 @@
     @property (strong, atomic) OJSCapabilityController* capabilityController;
     @property (strong, atomic) OJSSettingsManager* settingsManager;
 
-    
-
 
 @end
 
