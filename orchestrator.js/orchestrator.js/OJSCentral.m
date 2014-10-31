@@ -316,12 +316,14 @@
         NSLog(@"bar 0");
         NSLog(@"service uuid %@", service.UUID);
         
-        if([[CBUUID UUIDWithString:@"346240a2-f72e-4a51-a0c2-0c562a716d27"] isEqual:service.UUID])
+        //346240a2-f72e-4a51-a0c2-0c562a716d27
+        if([[CBUUID UUIDWithString:@"5bf2e050-4730-46de-b6a7-2c8be4d9fa36"] isEqual:service.UUID])
         {
             NSLog(@"discovered device nikkis@iphone5s");
         }
 
-        if([[CBUUID UUIDWithString:@"a9ce4e1f-b18a-4f1d-bc92-4b4ef3775915"] isEqual:service.UUID])
+        // a9ce4e1f-b18a-4f1d-bc92-4b4ef3775915
+        if([[CBUUID UUIDWithString:@"2432174f-3080-4112-aa8b-9668dde6aed8"] isEqual:service.UUID])
         {
             NSLog(@"discovered device nikkis@iphone");
         }

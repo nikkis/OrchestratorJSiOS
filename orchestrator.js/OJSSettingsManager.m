@@ -180,6 +180,7 @@
 
 -(NSString*) getDeviceBTUUID
 {
+    NSLog(@"GET BTUUID %s",[_userDefaults objectForKey:@"btuuid_preference"]);
     return [_userDefaults objectForKey:@"btuuid_preference"];
 }
 
