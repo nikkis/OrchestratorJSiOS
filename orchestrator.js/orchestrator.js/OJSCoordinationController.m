@@ -82,7 +82,6 @@ double CONTEXT_REPORT_INTERVAL = 1;
     _bb = [[OJSBLEScanner alloc] init];
     [_bb initScan];
     
-    
     /*
      NSMutableArray *devices = [[NSMutableArray alloc]init];
      [devices addObject:@[@"84:B1:53:F0:39:96",@"-90"]];

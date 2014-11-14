@@ -14,6 +14,7 @@
 @interface OJSBLEScanner : NSObject<CBCentralManagerDelegate>
 
 @property BOOL SCAN_ALL;
+@property BOOL LOGGING_ON;
 
 -(void)initScan;
 -(void)stopScan;

@@ -90,7 +90,7 @@
             // scan only OJS-known (listed) devices
             [_centralManager scanForPeripheralsWithServices:_participantServiceIDs options:@{ CBCentralManagerScanOptionAllowDuplicatesKey : @YES }];
         }
-        NSLog(@"OJS BLE Scanning started");
+        [self log:@"OJS BLE Scanning started"];
     }
 }
 
@@ -101,7 +101,8 @@
     
     @try {
         
-        NSLog(@"Discovered %@ at %@, with identifier %@", peripheral.name, RSSI, peripheral.identifier);
+        
+        [self log: [NSString stringWithFormat:@"Discovered %@ at %@, with identifier %@", peripheral.name, RSSI, peripheral.identifier]];
         
         
         //NSString *uuid = [advertisementData objectForKey:@"kCBAdvDataServiceUUIDs"];
@@ -169,6 +170,11 @@
  
  */
 
+
+-(void) log: (NSString*) m {
+    if(_LOGGING_ON)
+        NSLog(@"BLE SCAN: %@",m);
+}
 
 
 @end
