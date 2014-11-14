@@ -55,15 +55,15 @@
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles:nil];
         [alert show];
-
+        
         
     }
-
+    
     NSString* deviceSettings = [NSString stringWithFormat:@"http://%@:%@/api/1/user/%@/device/%@",[_userDefaults objectForKey:@"hostname_preference"], [_userDefaults objectForKey:@"hostport_preference"], [_userDefaults objectForKey:@"username_preference"], [_userDefaults objectForKey:@"devicename_preference"]];
     
     NSLog(deviceSettings);
     
- 
+    
     //NSURL* deviceSettingsUrl = [NSURL URLWithString:deviceSettings];
     //NSData* data = [NSData dataWithContentsOfURL:deviceSettingsUrl];
     
@@ -73,9 +73,9 @@
     //NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
     
     //NSLog(json);
- 
     
-
+    
+    
     NSURL* url = [NSURL URLWithString:deviceSettings];
     NSMutableURLRequest* urlRequest = [NSURLRequest requestWithURL:url];
     NSOperationQueue* queue = [[NSOperationQueue alloc] init];
@@ -85,62 +85,62 @@
                            completionHandler:^(NSURLResponse* response,
                                                NSData* data,
                                                NSError* error)
-    {
-        if (data) {
-            NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
-            // check status code and possibly MIME type (which shall start with "application/json"):
-            NSRange range = [response.MIMEType rangeOfString:@"application/json"];
-            
-            if (httpResponse.statusCode == 200 && range.length != 0) {
-                NSError* error;
-                id jsonObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-                //NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-                if (jsonObject) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        
-                        // generate settings here, and connect to ojs
-
-                        NSLog(@"jsonObject: %@", jsonObject);
-                        NSString *btUUID = [jsonObject valueForKey:@"btUUID"];
-                        
-                        [_userDefaults setObject:btUUID forKey:@"btuuid_preference"];
-                        NSLog(@"btUUID %@", btUUID);
-                        
-                        NSArray *capabilities = [jsonObject valueForKey:@"capabilities"];
-                        [_userDefaults setObject:capabilities forKey:@"capabilities_preference"];
-
-                        
-                    });
-                } else {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        //[self handleError:error];
-                        NSLog(@"ERROR: %@", error);
-                    });
-                }
-            }
-            else {
-                // status code indicates error, or didn't receive type of data requested
-                NSString* desc = [[NSString alloc] initWithFormat:@"HTTP Request failed with status code: %d (%@)",
-                                  (int)(httpResponse.statusCode),
-                                  [NSHTTPURLResponse localizedStringForStatusCode:httpResponse.statusCode]];
-                NSError* error = [NSError errorWithDomain:@"HTTP Request"
-                                                     code:-1000
-                                                 userInfo:@{NSLocalizedDescriptionKey: desc}];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    //[self handleError:error];  // execute on main thread!
-                    NSLog(@"ERROR: %@", error);
-                });
-            }
-        }
-        else {
-            // request failed - error contains info about the failure
-            dispatch_async(dispatch_get_main_queue(), ^{
-                //[self handleError:error]; // execute on main thread!
-                NSLog(@"ERROR: %@", error);
-            });
-        }
-    }];
-
+     {
+         if (data) {
+             NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+             // check status code and possibly MIME type (which shall start with "application/json"):
+             NSRange range = [response.MIMEType rangeOfString:@"application/json"];
+             
+             if (httpResponse.statusCode == 200 && range.length != 0) {
+                 NSError* error;
+                 id jsonObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                 //NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                 if (jsonObject) {
+                     dispatch_async(dispatch_get_main_queue(), ^{
+                         
+                         // generate settings here, and connect to ojs
+                         
+                         NSLog(@"jsonObject: %@", jsonObject);
+                         NSString *btUUID = [jsonObject valueForKey:@"btUUID"];
+                         
+                         [_userDefaults setObject:btUUID forKey:@"btuuid_preference"];
+                         NSLog(@"btUUID %@", btUUID);
+                         
+                         NSArray *capabilities = [jsonObject valueForKey:@"capabilities"];
+                         [_userDefaults setObject:capabilities forKey:@"capabilities_preference"];
+                         
+                         
+                     });
+                 } else {
+                     dispatch_async(dispatch_get_main_queue(), ^{
+                         //[self handleError:error];
+                         NSLog(@"ERROR: %@", error);
+                     });
+                 }
+             }
+             else {
+                 // status code indicates error, or didn't receive type of data requested
+                 NSString* desc = [[NSString alloc] initWithFormat:@"HTTP Request failed with status code: %d (%@)",
+                                   (int)(httpResponse.statusCode),
+                                   [NSHTTPURLResponse localizedStringForStatusCode:httpResponse.statusCode]];
+                 NSError* error = [NSError errorWithDomain:@"HTTP Request"
+                                                      code:-1000
+                                                  userInfo:@{NSLocalizedDescriptionKey: desc}];
+                 dispatch_async(dispatch_get_main_queue(), ^{
+                     //[self handleError:error];  // execute on main thread!
+                     NSLog(@"ERROR: %@", error);
+                 });
+             }
+         }
+         else {
+             // request failed - error contains info about the failure
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 //[self handleError:error]; // execute on main thread!
+                 NSLog(@"ERROR: %@", error);
+             });
+         }
+     }];
+    
     
     return;
 }
@@ -160,21 +160,20 @@
 
 -(NSString*) getDeviceIdentity
 {
- 
+    
     NSString* deviceIdentity = [NSString stringWithFormat:@"%@@%@",[_userDefaults objectForKey:@"username_preference"], [_userDefaults objectForKey:@"devicename_preference"]];
     NSLog(deviceIdentity);
     
     
     // maybe check that ios 8?
     // check if username is nil or devicename is nil or empty..
-    if([_userDefaults objectForKey:@"username_preference"] == nil || [_userDefaults objectForKey:@"devicename_preference"] == nil)
+    if([_userDefaults objectForKey:@"username_preference"] == nil )
     {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
         return nil;
+    } else {
+        return deviceIdentity;
     }
-    
-    
-    return deviceIdentity;
 }
 
 

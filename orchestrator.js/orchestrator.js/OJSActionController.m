@@ -232,6 +232,15 @@
 
 
 
+# pragma mark -
+# pragma mark contextdata delegate methods
+
+- (NSDictionary *) getContextData
+{
+    return [_capabilityController getContextData];
+}
+
+# pragma mark -
 
 
 @end

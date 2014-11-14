@@ -41,6 +41,8 @@
 		8560377E18F7D7E400AC1890 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8560377D18F7D7E400AC1890 /* CFNetwork.framework */; };
 		8560378018F7E0BE00AC1890 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8560377F18F7E0BE00AC1890 /* AVFoundation.framework */; };
 		8560378218F7E15100AC1890 /* silence.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8560378118F7E15100AC1890 /* silence.mp3 */; };
+		8577B0511A0B998E007B3638 /* OJSBLEDiscoverer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8577B0501A0B998E007B3638 /* OJSBLEDiscoverer.m */; };
+		8578A22C1A1352B500612998 /* OJSBLEScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 8578A22B1A1352B500612998 /* OJSBLEScanner.m */; };
 		85A8CD47192247FC002F95FE /* OJSSettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A8CD46192247FC002F95FE /* OJSSettingsManager.m */; };
 		85BADD4919F7CF1D0093D617 /* OJSContextData.m in Sources */ = {isa = PBXBuildFile; fileRef = 85BADD4819F7CF1D0093D617 /* OJSContextData.m */; };
 		85C5C6A5198FA9DD002B95EB /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 85C5C6A4198FA9DD002B95EB /* Settings.bundle */; };
@@ -114,6 +116,10 @@
 		8560377D18F7D7E400AC1890 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		8560377F18F7E0BE00AC1890 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		8560378118F7E15100AC1890 /* silence.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = silence.mp3; sourceTree = "<group>"; };
+		8577B04F1A0B998E007B3638 /* OJSBLEDiscoverer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OJSBLEDiscoverer.h; sourceTree = "<group>"; };
+		8577B0501A0B998E007B3638 /* OJSBLEDiscoverer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OJSBLEDiscoverer.m; sourceTree = "<group>"; };
+		8578A22A1A1352B500612998 /* OJSBLEScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OJSBLEScanner.h; sourceTree = "<group>"; };
+		8578A22B1A1352B500612998 /* OJSBLEScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OJSBLEScanner.m; sourceTree = "<group>"; };
 		85A8CD45192247FC002F95FE /* OJSSettingsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OJSSettingsManager.h; path = ../OJSSettingsManager.h; sourceTree = "<group>"; };
 		85A8CD46192247FC002F95FE /* OJSSettingsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OJSSettingsManager.m; path = ../OJSSettingsManager.m; sourceTree = "<group>"; };
 		85BADD4719F7CF060093D617 /* OJSContextData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OJSContextData.h; sourceTree = "<group>"; };
@@ -229,8 +235,6 @@
 				8560375F18F7D5AC00AC1890 /* Socket.IO */,
 				8560373318F7D3C400AC1890 /* OJSAppDelegate.h */,
 				8560373418F7D3C400AC1890 /* OJSAppDelegate.m */,
-				8560373618F7D3C400AC1890 /* Main_iPhone.storyboard */,
-				8560373918F7D3C400AC1890 /* Main_iPad.storyboard */,
 				85BADD4719F7CF060093D617 /* OJSContextData.h */,
 				85BADD4819F7CF1D0093D617 /* OJSContextData.m */,
 				8511634F19A5D5FB0057A1E3 /* OJSCoordinationController.h */,
@@ -247,6 +251,8 @@
 				85448FDE19ADC23300067E28 /* orchestrator.js-Bridging-Header.h */,
 				8560373F18F7D3C400AC1890 /* OJSSecondViewController.h */,
 				8560374018F7D3C400AC1890 /* OJSSecondViewController.m */,
+				8560373618F7D3C400AC1890 /* Main_iPhone.storyboard */,
+				8560373918F7D3C400AC1890 /* Main_iPad.storyboard */,
 				85D4C4D319939D0200D8BF23 /* OJSHelpers.h */,
 				8560374218F7D3C400AC1890 /* Images.xcassets */,
 				8560372B18F7D3C400AC1890 /* Supporting Files */,
@@ -347,6 +353,10 @@
 				85F012D219A4C5B30072B0F0 /* OJSDiscoveredPeripheral.h */,
 				85D12FE91906962E00808449 /* OJSCentral.h */,
 				85D12FEA1906962E00808449 /* OJSCentral.m */,
+				8578A22A1A1352B500612998 /* OJSBLEScanner.h */,
+				8578A22B1A1352B500612998 /* OJSBLEScanner.m */,
+				8577B04F1A0B998E007B3638 /* OJSBLEDiscoverer.h */,
+				8577B0501A0B998E007B3638 /* OJSBLEDiscoverer.m */,
 				85D4C4D21993975800D8BF23 /* OJSPeripheral.h */,
 				85D4C4D01993973D00D8BF23 /* OJSPeripheral.m */,
 			);
@@ -467,6 +477,7 @@
 				85D4C4D419939D0200D8BF23 /* OJSHelpers.h in Sources */,
 				8560373E18F7D3C400AC1890 /* OJSFirstViewController.m in Sources */,
 				85448FE319ADD93300067E28 /* TalkingCapability2.swift in Sources */,
+				8578A22C1A1352B500612998 /* OJSBLEScanner.m in Sources */,
 				8560373118F7D3C400AC1890 /* main.m in Sources */,
 				85D626E5199BED5A005CC6B2 /* OJSCapabilityController.m in Sources */,
 				852F157B1907D1A300D00A6F /* DeviceStub.js in Sources */,
@@ -474,6 +485,7 @@
 				8560377418F7D5FF00AC1890 /* SocketIOPacket.m in Sources */,
 				8560373518F7D3C400AC1890 /* OJSAppDelegate.m in Sources */,
 				8532EC1C19A5DBEA009D3D4A /* OJSCoordinationController.m in Sources */,
+				8577B0511A0B998E007B3638 /* OJSBLEDiscoverer.m in Sources */,
 				8560377518F7D5FF00AC1890 /* SocketIOTransportWebsocket.m in Sources */,
 				85EB60B8199A3875006D0276 /* OJSConnection.m in Sources */,
 				85A8CD47192247FC002F95FE /* OJSSettingsManager.m in Sources */,

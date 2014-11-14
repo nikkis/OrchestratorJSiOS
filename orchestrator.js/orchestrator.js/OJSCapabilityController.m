@@ -108,7 +108,7 @@
 
 - (BOOL) initBleCentral: (NSArray *) participantInfo
 {
-    [_central initBTLECentral:nil: participantInfo];
+    [_central initBTLECentral: participantInfo];
     return true;
 }
 
@@ -318,28 +318,25 @@ NSLog(@"bar - 04");
 
 
 
-/*
--(void)setReturnObject:(NSObject *)returnObject
+
+# pragma mark -
+# pragma mark contextdata delegate methods
+
+- (NSDictionary *) getContextData
 {
-    @synchronized(self) {
-        _returnObject = returnObject;
-    }
-}
-
-
-
-
-- (NSObject *)returnObject
-{
-    NSObject *ret = nil;
+    NSDictionary *contextDataDict = [[NSDictionary alloc] init];
     
-    @synchronized (self)
-    {
-        ret = [[_returnObject retain] autorelease];
+    NSMutableDictionary* discoveredUUIDs = [_central getDiscoveredUUIDs];
+    
+    for (NSArray* uuid in discoveredUUIDs) {
+        NSLog(@"jaapa");
     }
     
-    return ret;
+    
+    return contextDataDict;
 }
-*/
+
+# pragma mark -
+
 
 @end

@@ -86,7 +86,10 @@
 
     NSLog(@"FOOO1");
     
+    //NSArray *arr = [NSArray arrayWithObjects: @"", [_settingsManager getDeviceIdentity], contextData, nil];
+    
     NSArray *arr = [NSArray arrayWithObjects: @"", [_settingsManager getDeviceIdentity], contextData, nil];
+    
     NSLog(@"Sending context_data %@", arr);
     
     
@@ -120,7 +123,7 @@
 - (void) socketIODidConnect:(SocketIO *)socket
 {
     NSLog(@"socket.io connected.");
-    
+        _IS_CONNECTED = TRUE;
     NSArray *arr = [NSArray arrayWithObjects:[_settingsManager getDeviceIdentity], nil];
     [_socketIO sendEvent:@"login" withData:arr];
     NSLog(@"sent the login event");
@@ -140,7 +143,7 @@
     
     NSLog(@"type: %@", packet.name);
     
-    
+    _IS_CONNECTED = TRUE;
     
     NSLog(@"type: %@", packet.type);
     if( [@"methodcall" isEqualToString:packet.name] ) {
@@ -226,6 +229,7 @@
 - (void) socketIODidDisconnect:(SocketIO *)socket disconnectedWithError:(NSError *)error
 {
     NSLog(@"socket.io disconnected. did error occur? %@", error);
+    _IS_CONNECTED = FALSE;
 }
 
 # pragma mark -

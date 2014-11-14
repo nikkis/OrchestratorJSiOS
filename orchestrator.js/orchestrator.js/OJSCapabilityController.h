@@ -26,6 +26,7 @@
 - (NSObject *) executeCapability: (NSString *) capabilityName method: (NSString *) methodCallName with: (NSArray *) methodCallArguments by: (NSString*) deviceIdentity;
 
 
+- (NSDictionary *) getContextData;
 
 
 @end

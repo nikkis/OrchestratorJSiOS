@@ -32,6 +32,8 @@
     // discovered peripherals
     @property NSMutableDictionary *discoveredPeripherals;
 
+@property NSMutableDictionary *discoveredUUIDs;
+
 
     @property (strong, nonatomic) NSString *selfDeviceIdentity;
     @property (strong, atomic) OJSSettingsManager* settingsManager;
@@ -58,29 +60,27 @@
 
 
 
-- (BOOL) initBTLECentral: (OJSConnection*) ojsConnection : (NSArray *) participantInfo
+- (BOOL) initBTLECentral: (NSArray *) participantInfo
 {
-    NSLog(@"koo - -5");
-//    _centralManager = nil;
-    NSLog(@"koo - -4");
     _settingsManager = [[OJSSettingsManager alloc] init];
     _selfDeviceIdentity = [_settingsManager getDeviceIdentity];
-    NSLog(@"koo - -3");
+
     _discoveredPeripherals = [[NSMutableDictionary alloc] init];
     _connectedPeripherals = [[NSMutableDictionary alloc] init];
-        NSLog(@"koo - -2");
     _participantInfo = participantInfo;
     
     _participantServiceIDs = [[NSMutableArray alloc] init];
-        NSLog(@"koo - -1");
+
     for( id o in _participantInfo ) {
         NSString *di = [(NSDictionary*)o objectForKey:@"btUUID"];
         NSLog(@"participant: %@", di);
         [_participantServiceIDs addObject:[CBUUID UUIDWithString:di]];
     }
-    NSLog(@"koo - 0");
-    _ojsConnection = ojsConnection;
-    NSLog(@"koo - 1");
+    
+    
+    _discoveredUUIDs = [[NSMutableDictionary alloc] init];
+    
+
 
     // wait for until initialized ( connected to participants )
     
@@ -199,11 +199,17 @@
         //// TEST SPACE BEGINS
         // report to ojs
         NSLog(@"jaahu 1");
-        NSArray *discoverd_device = [NSArray arrayWithObjects:discoverdDeviceUUID, (NSNumber*)RSSI, nil];
+        
+        NSDate* now = [NSDate date];
+        NSArray *discoverd_device = [NSArray arrayWithObjects:discoverdDeviceUUID, (NSNumber*)RSSI, [NSDate date], nil];
+        [_discoveredUUIDs setObject:discoverd_device forKey:discoverdDeviceUUID];
+        
+        /*
         NSArray *bt_devices = [NSArray arrayWithObjects:discoverd_device, nil];
         NSDictionary *proximityData = [NSDictionary dictionaryWithObject:bt_devices forKey:@"bt_devices"];
         [_ojsConnection sendContextData:proximityData];
-
+*/
+        
         NSLog(@"jaahu 2");
         
         //// TEST SPACE ENDS
@@ -323,7 +329,7 @@
         }
 
         // a9ce4e1f-b18a-4f1d-bc92-4b4ef3775915
-        if([[CBUUID UUIDWithString:@"2432174f-3080-4112-aa8b-9668dde6aed8"] isEqual:service.UUID])
+        if([[CBUUID UUIDWithString:@"717f860e-f0e6-4c93-a4e3-cc724d27e05e"] isEqual:service.UUID])
         {
             NSLog(@"discovered device nikkis@iphone");
         }
@@ -785,5 +791,15 @@
 }
 
 
+
+# pragma mark -
+# pragma mark contextdata delegate methods
+
+- (NSMutableDictionary*) getDiscoveredUUIDs
+{
+    return _discoveredUUIDs;
+}
+
+# pragma mark -
 
 @end

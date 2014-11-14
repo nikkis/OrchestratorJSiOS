@@ -34,4 +34,7 @@
 - (void) disconnectOJS;
 
 
+- (void) initScan;
+
+
 @end

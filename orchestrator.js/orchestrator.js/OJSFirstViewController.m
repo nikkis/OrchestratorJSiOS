@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Niko Mäkitalo. All rights reserved.
 //
 
+#import "OJSBLEScanner.h"
+
 #import "OJSFirstViewController.h"
 #import "OJSConnection.h"
 
@@ -24,6 +26,8 @@
 //    @property (strong, nonatomic) OJSConnection *ojsConnection;
     @property OJSSettingsManager *settingsManager;
 
+
+//@property OJSBLEScanner *bb;
 
 @end
 
@@ -94,18 +98,6 @@
 {
     NSLog(@"(re)connecting..");
     [_coordinationController initOJS];
-    
-    /*
-    NSString* swifClassName = @"orchestrator_js.TestCapability";
-    NSLog(@"trying to import swift class: %@", swifClassName);
-    id anObject2 = [[NSClassFromString(swifClassName) alloc] init];
-    if(anObject2) {
-        NSLog(@"jeee");
-    } else {
-        NSLog(@"NULLLLI");
-    }
-*/
-
 }
 
 
@@ -123,10 +115,14 @@
 {
     NSLog(@"testing..");
     
-    TestCapability *ttt = [[TestCapability alloc] init];
+    //_bb = [[OJSBLEScanner alloc] init];
+    //[_bb initScan];
     
-    [ttt test];
+    [_coordinationController initScan];
     
+
+    NSLog(@"testing..2");
+
     
 }
 

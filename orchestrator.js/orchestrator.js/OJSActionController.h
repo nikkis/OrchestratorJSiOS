@@ -19,6 +19,7 @@
 - (NSObject *) executeCapability: (NSString *) capabilityName method: (NSString *) methodCallName with: (NSArray *) methodCallArguments;
 
 
+- (NSDictionary *) getContextData;
 
 
 @end

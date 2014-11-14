@@ -19,7 +19,7 @@
 
 - (void) sendContextData: (NSDictionary*) contextData;
 
-
+@property BOOL IS_CONNECTED;
 
 @property (strong, atomic) OJSActionController *actionController;
 

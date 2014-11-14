@@ -16,25 +16,25 @@
 
 @interface OJSPeripheral ()
 
-    @property OJSSettingsManager *settingsManager;
+@property OJSSettingsManager *settingsManager;
 
-    @property (strong, nonatomic) CBPeripheralManager *peripheralManager;
+@property (strong, nonatomic) CBPeripheralManager *peripheralManager;
 
-    @property (strong, nonatomic) CBMutableCharacteristic *transferCharacteristic;
-    @property (strong, nonatomic) CBMutableCharacteristic *responseCharacteristic;
-    @property (strong, nonatomic) CBMutableCharacteristic *testReadCharacteristic;
-    @property (strong, nonatomic) NSData *dataToSend;
-
-
+@property (strong, nonatomic) CBMutableCharacteristic *transferCharacteristic;
+@property (strong, nonatomic) CBMutableCharacteristic *responseCharacteristic;
+@property (strong, nonatomic) CBMutableCharacteristic *testReadCharacteristic;
+@property (strong, nonatomic) NSData *dataToSend;
 
 
-    @property (nonatomic, readwrite) NSInteger sendDataIndex;
 
 
-    @property NSString *currentActionId;
-    @property NSString *currentMethodId;
+@property (nonatomic, readwrite) NSInteger sendDataIndex;
 
-    @property OJSActionController * actionController;
+
+@property NSString *currentActionId;
+@property NSString *currentMethodId;
+
+@property OJSActionController * actionController;
 
 
 @end
@@ -46,7 +46,7 @@
 - (BOOL) initBLEPeripheral: (OJSActionController *) actionCtrl
 {
     NSLog(@"starting iBeacon advertisement");
-
+    
     
     _actionController = actionCtrl;
     _settingsManager = [OJSSettingsManager settingsManager];
@@ -77,17 +77,19 @@
     NSLog(@"starting ibeacon.. with btuuid: %@", btuuid);
     
     
-     _peripheralManager = [[CBPeripheralManager alloc] initWithDelegate:self queue:nil];
-     
-     
-     NSDictionary *advertisingData = @{CBAdvertisementDataLocalNameKey:[_settingsManager getDeviceIdentity], CBAdvertisementDataServiceUUIDsKey:@[[CBUUID UUIDWithString:[_settingsManager getDeviceBTUUID]]]};
-     [_peripheralManager startAdvertising:advertisingData];
+    _peripheralManager = [[CBPeripheralManager alloc] initWithDelegate:self queue:nil];
+    
+    
+//    NSDictionary *advertisingData = @{CBAdvertisementDataLocalNameKey:[_settingsManager getDeviceIdentity], CBAdvertisementDataServiceUUIDsKey:@[[CBUUID UUIDWithString:[_settingsManager getDeviceBTUUID]]]};
+    NSDictionary *advertisingData = @{CBAdvertisementDataLocalNameKey:@"kakkapylly", CBAdvertisementDataServiceUUIDsKey:@[[CBUUID UUIDWithString:[_settingsManager getDeviceBTUUID]]]};
+    
+    [_peripheralManager startAdvertising:advertisingData];
     
 }
 
 
 - (void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral {
-
+    
     NSLog(@"peripheralManagerDidUpdateState");
     
     if (peripheral.state != CBPeripheralManagerStatePoweredOn) {
@@ -100,10 +102,10 @@
         
         _transferCharacteristic = [[CBMutableCharacteristic alloc] initWithType:[CBUUID UUIDWithString:TRANSFER_CHARACTERISTIC_UUID] properties:CBCharacteristicPropertyNotify value:nil permissions:CBAttributePermissionsReadable];
         
-//        _testReadCharacteristic = [[CBMutableCharacteristic alloc] initWithType:[CBUUID UUIDWithString:TEST_CHARACTERISTIC_UUID] properties:CBCharacteristicPropertyRead value:nil permissions:CBAttributePermissionsReadable];
+        //        _testReadCharacteristic = [[CBMutableCharacteristic alloc] initWithType:[CBUUID UUIDWithString:TEST_CHARACTERISTIC_UUID] properties:CBCharacteristicPropertyRead value:nil permissions:CBAttributePermissionsReadable];
         
         
-//      _responseCharacteristic = [[CBMutableCharacteristic alloc] initWithType:[CBUUID UUIDWithString:RESPONSE_CHARACTERISTIC_UUID] properties:              CBCharacteristicPropertyWriteWithoutResponse value:nil permissions:CBAttributePermissionsWriteable];
+        //      _responseCharacteristic = [[CBMutableCharacteristic alloc] initWithType:[CBUUID UUIDWithString:RESPONSE_CHARACTERISTIC_UUID] properties:              CBCharacteristicPropertyWriteWithoutResponse value:nil permissions:CBAttributePermissionsWriteable];
         
         _responseCharacteristic = [[CBMutableCharacteristic alloc] initWithType:[CBUUID UUIDWithString:RESPONSE_CHARACTERISTIC_UUID] properties:        CBCharacteristicPropertyWrite value:nil permissions:CBAttributePermissionsWriteable];
         
@@ -324,7 +326,7 @@
         
         [self sendMethodCallResponse:responseVal];
         return;
-
+        
         
     }
     

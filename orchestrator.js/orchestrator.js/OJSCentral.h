@@ -26,8 +26,7 @@
 
 - (void) cleanup;
 
-- (BOOL) initBTLECentral: (OJSConnection*) ojsConnection : (NSArray *) participantInfo;
-//-(void)initBTLECentral: (OJSConnection*) ojsConnection;
+- (BOOL) initBTLECentral: (NSArray *) participantInfo;
 
 - (NSObject*) syncRemoteCall: (NSString *) deviceIdentity: (NSString *) capabilityName: (NSString *) methodName: (NSArray *) methodArgs;
 
@@ -35,7 +34,7 @@
 - (CBPeripheral*) getDiscoveredPeripheralBy: (NSString *) deviceIdentity;
 - (CBPeripheral*) getConnectedPeripheralBy: (NSString *) deviceIdentity;
 
-
+- (NSMutableDictionary*) getDiscoveredUUIDs;
 
 
 /*
