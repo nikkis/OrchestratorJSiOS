@@ -123,6 +123,11 @@ double CONTEXT_REPORT_INTERVAL = 1;
             float pp = [RSSIs count];
             tempRSSI = tempRSSI / pp;
             
+            // some times, for some reason gets value of positive 127 -> use -35 instead..
+            if (tempRSSI > 0) {
+                tempRSSI = -35;
+            }
+            
             [devices addObject:@[serviceUUID, [NSNumber numberWithFloat:tempRSSI]]];
             
         }

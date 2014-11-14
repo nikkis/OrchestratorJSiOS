@@ -32,6 +32,9 @@
 
 -(void)initScan
 {
+    
+    _LOGGING_ON = FALSE;
+    
     if(_centralManager == nil) {
         _centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
     }
