@@ -9,3 +9,6 @@ Orchestrator.js Framework for iOS
 
 
 More information on [orchestrator.js](http://orchestratorjs.org) page.
+
+
+![alt tag](https://raw.githubusercontent.com/nikkis/OrchestratorJSiOS/master/docs/classDiagram.png)
