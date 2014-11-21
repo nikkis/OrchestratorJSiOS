@@ -22,6 +22,8 @@ double CONTEXT_REPORT_INTERVAL = 1;
 
 @property OJSBLEScanner *bb;
 
+@property NSMutableDictionary* previousResults;
+
 @end
 
 
@@ -79,6 +81,7 @@ double CONTEXT_REPORT_INTERVAL = 1;
     if(_ojsConnection == nil || !_ojsConnection.IS_CONNECTED)
         return;
     
+    _previousResults = [[NSMutableDictionary alloc]init];
     _bb = [[OJSBLEScanner alloc] init];
     [_bb initScan];
     
@@ -108,6 +111,76 @@ double CONTEXT_REPORT_INTERVAL = 1;
         
         [_bb stopScan];
         
+        NSMutableDictionary* mm = [_previousResults copy];
+        
+        NSMutableArray* devices = [[NSMutableArray alloc] init];
+        for (NSString* serviceUUID in _bb.scanResults) {
+            
+            NSArray* RSSIs = [_bb.scanResults objectForKey:serviceUUID];
+            float tempRSSI = 0; //[RSSIs valueForKeyPath:@"avg"];
+            
+            int i;
+            for ( i = 0; i < [RSSIs count]; i++ ) {
+                NSNumber* t = (NSNumber*)[ [_bb.scanResults objectForKey:serviceUUID] objectAtIndex:i];
+                tempRSSI += [t floatValue];
+            }
+            
+            float pp = [RSSIs count];
+            tempRSSI = tempRSSI / pp;
+            
+            // some times, for some reason gets value of positive 127 -> use -35 instead..
+            if (tempRSSI > 0) {
+                if([_previousResults objectForKey:serviceUUID] != nil) {
+                    tempRSSI = [[_previousResults objectForKey:serviceUUID] floatValue];
+                } else {
+                    tempRSSI = -35;
+                }
+            }
+            [_previousResults setObject:[NSNumber numberWithFloat:tempRSSI] forKey:serviceUUID];
+            [devices addObject:@[serviceUUID, [NSNumber numberWithFloat:tempRSSI]]];
+        }
+        
+        // Correct occasionally missing results:
+        //      If a device was not in results, use one time value from prev.results, then nil its value for prev.results
+        for (id prevResServiceUUID in mm) {
+            if ([mm objectForKey:prevResServiceUUID] != nil) {
+                BOOL deviceMissing = TRUE;
+                for (int i = 0; i < [devices count]; i++) {
+                    if([devices objectAtIndex:i] != nil && [[devices objectAtIndex:i] count] > 0 && [[devices objectAtIndex:i] objectAtIndex:1] != nil) {
+                        deviceMissing = FALSE;
+                    }
+                }
+                
+                if(deviceMissing) {
+                    [devices addObject:@[prevResServiceUUID, [mm objectForKey:prevResServiceUUID]]];
+                    [_previousResults removeObjectForKey:prevResServiceUUID];
+                }
+            }
+        }
+        
+        
+        
+        NSMutableDictionary* reportData = [[NSMutableDictionary alloc]init];
+        [reportData setObject:devices forKey:@"bt_devices"];
+        
+        [_ojsConnection sendContextData:reportData];
+        
+        
+        _bb = [[OJSBLEScanner alloc] init];
+        [_bb initScan];
+    }
+}
+
+
+
+/*
+- (void) reportContextData
+{
+    
+    if( _ojsConnection != nil && _bb != nil ) {
+        
+        [_bb stopScan];
+        
         NSMutableArray* devices = [[NSMutableArray alloc] init];
         for (NSString* serviceUUID in _bb.scanResults) {
             
@@ -129,32 +202,21 @@ double CONTEXT_REPORT_INTERVAL = 1;
             }
             
             [devices addObject:@[serviceUUID, [NSNumber numberWithFloat:tempRSSI]]];
-            
         }
         NSMutableDictionary* mm = [[NSMutableDictionary alloc]init];
         [mm setObject:devices forKey:@"bt_devices"];
         
         [_ojsConnection sendContextData:mm];
         
+        
         _bb = [[OJSBLEScanner alloc] init];
         [_bb initScan];
-        
-        
-        
     }
-    
-    
-    /*
-     NSMutableArray *devices = [[NSMutableArray alloc]init];
-     [devices addObject:@[@"84:B1:53:F0:39:96",@"-90"]];
-     [devices addObject:@[@"D0:E7:82:08:66:06",@"-60"]];
-     
-     NSMutableDictionary* mm = [[NSMutableDictionary alloc]init];
-     [mm setObject:devices forKey:@"bt_devices"];
-     
-     [_ojsConnection sendContextData:mm];
-     */
 }
+
+*/
+
+
 
 - (void) cancelPeriodicalContextDataReporting
 {
