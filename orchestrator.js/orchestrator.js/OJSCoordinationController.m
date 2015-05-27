@@ -28,6 +28,8 @@ double BLE_MOVING_AVG     = 1;
 
 @property NSMutableDictionary* previousResults;
 
+@property double BLE_PROXIMITY_MODE;
+
 @end
 
 
@@ -102,6 +104,8 @@ double BLE_MOVING_AVG     = 1;
     
     
     // init the moving average calculator
+    //self.BLE_PROXIMITY_MODE = BLE_MOVING_AVG;
+    self.BLE_PROXIMITY_MODE = BLE_CUMULATIVE_AVG;
     _movingAvg = [[MovingAverage alloc] initWithPeriod:3];
     
 }
@@ -226,10 +230,15 @@ double BLE_MOVING_AVG     = 1;
                 }
             }*/
             
-            tempRSSI = [_movingAvg movingAverage];
-            //tempRSSI = [_movingAvg cumulativeAverage];
-            NSLog(@"Moving avg: %f",tempRSSI);
-            //_movingAvg = [[MovingAverage alloc] initWithPeriod:3];
+            if(self.BLE_PROXIMITY_MODE == BLE_MOVING_AVG) {
+                tempRSSI = [_movingAvg movingAverage];
+                NSLog(@"Moving AVG: %f",tempRSSI);
+            } else {
+                tempRSSI = [_movingAvg cumulativeAverage];
+                _movingAvg = [[MovingAverage alloc] initWithPeriod:3];
+                NSLog(@"Cumulative AVG: %f",tempRSSI);
+            }
+
             [_previousResults setObject:[NSNumber numberWithFloat:tempRSSI] forKey:serviceUUID];
             [devices addObject:@[serviceUUID, [NSNumber numberWithFloat:tempRSSI]]];
         }
