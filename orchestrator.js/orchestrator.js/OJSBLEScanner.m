@@ -45,8 +45,8 @@
     //_ojs = ojs;
     
     // TODO: fetch from OJS
-    _SCAN_ALL = TRUE;
-    
+    _SCAN_ALL = FALSE;
+ /*
     // 5s
     [_participantServiceIDs addObject:[CBUUID UUIDWithString:@"5bf2e050-4730-46de-b6a7-2c8be4d9fa36"]];
     // 6
@@ -54,7 +54,7 @@
     
     // mac
     [_participantServiceIDs addObject:[CBUUID UUIDWithString:@"FB694B90-F49E-4597-8306-171BBA78F844"]];
-    
+    */
     // beacon
     [_participantServiceIDs addObject:[CBUUID UUIDWithString:@"8b034f7b-fa9b-540f-acf3-88c0ca70c84f"]];
     

@@ -14,6 +14,8 @@
 
 #import "OJSPeripheral.h"
 
+#import "CalcHelper.h"
+
 @interface OJSCoordinationController : NSObject
 
 @property (strong) OJSActionController * actionController;
@@ -28,6 +30,7 @@
 @property (strong) UIImageView * mainUIView;
 
 
+@property (strong) MovingAverage * movingAvg;
 
 
 - (void) initOJS;

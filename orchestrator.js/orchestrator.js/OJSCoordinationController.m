@@ -15,6 +15,10 @@
 // Move this to settings
 double CONTEXT_REPORT_INTERVAL = 1;
 
+// Different modes for measuring proximity
+double BLE_CUMULATIVE_AVG = 0;
+double BLE_MOVING_AVG     = 1;
+
 // Private propersties here
 @interface OJSCoordinationController ()
 
@@ -95,6 +99,11 @@ double CONTEXT_REPORT_INTERVAL = 1;
      
      [_ojsConnection sendContextData:mm];
      */
+    
+    
+    // init the moving average calculator
+    _movingAvg = [[MovingAverage alloc] initWithPeriod:3];
+    
 }
 
 
@@ -104,6 +113,8 @@ double CONTEXT_REPORT_INTERVAL = 1;
 }
 
 
+/*
+// Original (that works, but the results are not very stable)
 - (void) reportContextData
 {
     
@@ -170,6 +181,90 @@ double CONTEXT_REPORT_INTERVAL = 1;
         [_bb initScan];
     }
 }
+*/
+
+
+// The best one!!
+- (void) reportContextData
+{
+    
+    if( _ojsConnection != nil && _bb != nil ) {
+        
+        [_bb stopScan];
+        
+        NSMutableDictionary* mm = [_previousResults copy];
+        
+        NSMutableArray* devices = [[NSMutableArray alloc] init];
+        for (NSString* serviceUUID in _bb.scanResults) {
+            
+            NSArray* RSSIs = [_bb.scanResults objectForKey:serviceUUID];
+            float tempRSSI = 0; //[RSSIs valueForKeyPath:@"avg"];
+            
+            int i;
+            for ( i = 0; i < [RSSIs count]; i++ ) {
+                NSNumber* t = (NSNumber*)[ [_bb.scanResults objectForKey:serviceUUID] objectAtIndex:i];
+                if([t intValue] < 0) {
+                    // add to que
+                    [_movingAvg addDatum:t];
+                    NSLog(@"RSSI %@ added",t);
+                } else {
+                    NSLog(@"RSSI %@ skipped",t);
+                }
+                
+            }
+            
+            /*
+            float pp = [RSSIs count];
+            tempRSSI = tempRSSI / pp;
+            
+            // some times, for some reason gets value of positive 127 -> use -35 instead..
+            if (tempRSSI > 0) {
+                if([_previousResults objectForKey:serviceUUID] != nil) {
+                    tempRSSI = [[_previousResults objectForKey:serviceUUID] floatValue];
+                } else {
+                    tempRSSI = -35;
+                }
+            }*/
+            
+            tempRSSI = [_movingAvg movingAverage];
+            //tempRSSI = [_movingAvg cumulativeAverage];
+            NSLog(@"Moving avg: %f",tempRSSI);
+            //_movingAvg = [[MovingAverage alloc] initWithPeriod:3];
+            [_previousResults setObject:[NSNumber numberWithFloat:tempRSSI] forKey:serviceUUID];
+            [devices addObject:@[serviceUUID, [NSNumber numberWithFloat:tempRSSI]]];
+        }
+        
+        // Correct occasionally missing results:
+        //      If a device was not in results, use one time value from prev.results, then nil its value for prev.results
+        for (id prevResServiceUUID in mm) {
+            if ([mm objectForKey:prevResServiceUUID] != nil) {
+                BOOL deviceMissing = TRUE;
+                for (int i = 0; i < [devices count]; i++) {
+                    if([devices objectAtIndex:i] != nil && [[devices objectAtIndex:i] count] > 0 && [[devices objectAtIndex:i] objectAtIndex:1] != nil) {
+                        deviceMissing = FALSE;
+                    }
+                }
+                
+                if(deviceMissing) {
+                    [devices addObject:@[prevResServiceUUID, [mm objectForKey:prevResServiceUUID]]];
+                    [_previousResults removeObjectForKey:prevResServiceUUID];
+                }
+            }
+        }
+        
+        
+        
+        NSMutableDictionary* reportData = [[NSMutableDictionary alloc]init];
+        [reportData setObject:devices forKey:@"bt_devices"];
+        
+        [_ojsConnection sendContextData:reportData];
+        
+        
+        _bb = [[OJSBLEScanner alloc] init];
+        [_bb initScan];
+    }
+}
+
 
 
 

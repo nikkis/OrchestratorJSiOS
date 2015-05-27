@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		852B2AF81B15D5C30033D4F9 /* CalcHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 852B2AF71B15D5C30033D4F9 /* CalcHelper.m */; };
 		852F157B1907D1A300D00A6F /* DeviceStub.js in Sources */ = {isa = PBXBuildFile; fileRef = 852F157A1907D1A300D00A6F /* DeviceStub.js */; };
 		852F157C1907D6F700D00A6F /* DeviceStub.js in Resources */ = {isa = PBXBuildFile; fileRef = 852F157A1907D1A300D00A6F /* DeviceStub.js */; };
 		8532BE4518FED270008BDACA /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8532BE4418FED270008BDACA /* JavaScriptCore.framework */; };
@@ -68,6 +69,8 @@
 
 /* Begin PBXFileReference section */
 		8511634F19A5D5FB0057A1E3 /* OJSCoordinationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OJSCoordinationController.h; sourceTree = "<group>"; };
+		852B2AF61B15D0B50033D4F9 /* CalcHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalcHelper.h; sourceTree = "<group>"; };
+		852B2AF71B15D5C30033D4F9 /* CalcHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalcHelper.m; sourceTree = "<group>"; };
 		852F157A1907D1A300D00A6F /* DeviceStub.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = DeviceStub.js; sourceTree = "<group>"; };
 		8532BE4418FED270008BDACA /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		8532EC1B19A5DBEA009D3D4A /* OJSCoordinationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OJSCoordinationController.m; sourceTree = "<group>"; };
@@ -254,6 +257,8 @@
 				8560373618F7D3C400AC1890 /* Main_iPhone.storyboard */,
 				8560373918F7D3C400AC1890 /* Main_iPad.storyboard */,
 				85D4C4D319939D0200D8BF23 /* OJSHelpers.h */,
+				852B2AF61B15D0B50033D4F9 /* CalcHelper.h */,
+				852B2AF71B15D5C30033D4F9 /* CalcHelper.m */,
 				8560374218F7D3C400AC1890 /* Images.xcassets */,
 				8560372B18F7D3C400AC1890 /* Supporting Files */,
 			);
@@ -484,6 +489,7 @@
 				8560377818F7D5FF00AC1890 /* SRWebSocket.m in Sources */,
 				8560377418F7D5FF00AC1890 /* SocketIOPacket.m in Sources */,
 				8560373518F7D3C400AC1890 /* OJSAppDelegate.m in Sources */,
+				852B2AF81B15D5C30033D4F9 /* CalcHelper.m in Sources */,
 				8532EC1C19A5DBEA009D3D4A /* OJSCoordinationController.m in Sources */,
 				8577B0511A0B998E007B3638 /* OJSBLEDiscoverer.m in Sources */,
 				8560377518F7D5FF00AC1890 /* SocketIOTransportWebsocket.m in Sources */,
