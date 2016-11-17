@@ -82,8 +82,8 @@
     }];
     
     [self.socketIO on:@"ojs_action_instance" callback:^(NSArray* data, SocketAckEmitter* ack) {
-        NSLog(@"methodcall");
-        [self methodcallWith:data];
+        NSLog(@"ojs_action_instance");
+        [self actionInstanceWith:data];
     }];
     
     [self.socketIO on:@"heartbeat" callback:^(NSArray* data, SocketAckEmitter* ack) {
@@ -135,16 +135,8 @@
 
 -(void)sendContextData: (NSDictionary*) contextData //for: (NSString *) key
 {
-    
-    NSLog(@"FOOO1");
-    
-    //NSArray *arr = [NSArray arrayWithObjects: @"", [_settingsManager getDeviceIdentity], contextData, nil];
-    
     NSArray *arr = [NSArray arrayWithObjects: @"", [_settingsManager getDeviceIdentity], contextData, nil];
-    
     NSLog(@"Sending context_data %@", arr);
-    
-    
     [self.socketIO emit:@"ojs_context_data" with:arr];
     return;
 }
@@ -217,7 +209,6 @@
         NSLog(@"response val: %@", returnedValue);
         NSArray *arr = [NSArray arrayWithObjects:_currentActionId, _currentMethodId, returnedValue, @"STRING", nil];
         
-        //[_socketIO sendEvent:@"methodcallresponse" withData:arr];
         [_socketIO emit:@"methodcallresponse" with:arr];
         
         NSLog(@"methodcall_response sent");

@@ -15,7 +15,6 @@
 
 #import "OJSHelpers.h"
 
-//#import "SocketIOJSONSerialization.h"
 
 @interface OJSActionController ()
 
@@ -91,6 +90,8 @@
 {
     //[_capabilityController bleCleanup];
    
+    NSLog(@"WTFFFF");
+    
     NSLog(@"Downloading action %@", actionName);
     NSString *filePath = [self downloadAction:actionName:actionVersionHash];
     

@@ -544,6 +544,9 @@
         [methodCallObject setObject:[NSArray arrayWithObject:args] forKey:@"args"];
     }
     
+    
+    NSLog(@"PINPPI 1");
+    
     //NSString *methodcallString = [SocketIOJSONSerialization JSONStringFromObject:methodCallObject error:nil];
     
     //NSDictionary *JSONDic=[[NSDictionary alloc] init];
@@ -554,7 +557,7 @@
                                                          error:&error];
     NSString *methodcallString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     
-    
+    NSLog(@"PINPPI 2");
     
     NSLog(@"methodcallString: %@", methodcallString);
     

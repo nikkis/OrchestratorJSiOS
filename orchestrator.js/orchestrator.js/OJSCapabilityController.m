@@ -232,7 +232,7 @@ NSLog(@"bar - 04");
 
 - (NSObject *) invokeMethod: (NSString *) className method: (NSString *) methodName with: (NSArray *) methodArguments forNSObject: (NSObject *) object
 {
-    
+    NSLog(@"Invoking method");
 
     NSString *selectorString = [_capabilityMethodSelectors objectForKey:[NSString stringWithFormat:@"%@::%@",className,methodName]];
     
