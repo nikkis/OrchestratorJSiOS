@@ -8,10 +8,12 @@
 
 #import "OJSBLEScanner.h"
 
+#import "ToastView.h"
+
 #import "OJSFirstViewController.h"
 #import "OJSConnection.h"
 
-#import "SocketIOPacket.h"
+//#import "SocketIOPacket.h"
 #import "OJSSettingsManager.h"
 
 #import "orchestrator.js-Bridging-Header.h"
@@ -98,6 +100,9 @@
 {
     NSLog(@"(re)connecting..");
     [_coordinationController initOJS];
+    
+    [_coordinationController setView:self.view];
+    
 }
 
 
@@ -126,6 +131,11 @@
     
 }
 
+- (IBAction)openSettings:(id)sender {
+    NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+    [[UIApplication sharedApplication] openURL:url];
+    
+}
 
 
 

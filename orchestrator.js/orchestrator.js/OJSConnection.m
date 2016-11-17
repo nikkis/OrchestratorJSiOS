@@ -9,26 +9,33 @@
 #import <Foundation/Foundation.h>
 
 #import "OJSConnection.h"
+#import "ToastView.h"
 
-#import "SocketIOPacket.h"
+
 #import <AVFoundation/AVFoundation.h>
+
+
+#import "orchestrator.js-Bridging-Header.h"
+#import "orchestrator_js-Swift.h"
+
 
 @interface OJSConnection ()
 
 // add private methods and variables here
 
-//    @property OJSCapabilityController *capabilityController;
-    @property (strong, nonatomic) OJSSettingsManager *settingsManager;
+@property (strong, nonatomic) OJSSettingsManager *settingsManager;
 
-    @property SocketIO *socketIO;
+@property SocketIOClient *socketIO;
 
-    @property NSString *currentActionId;
-    @property NSString *currentMethodId;
-
-    // backgound hack
-    @property (nonatomic, strong) AVPlayer *player;
+@property NSString *currentActionId;
+@property NSString *currentMethodId;
 
 
+// backgound hack
+@property (nonatomic, strong) AVPlayer *player;
+
+
+@property UIView *mainView;
 
 @end
 
@@ -39,21 +46,66 @@
 
 
 
-//- (void) initOJS: (UIImageView *) heartbeatIndicator
 - (void) initOJS: (OJSActionController *) actionCtrl
 {
     
     
     _settingsManager = [OJSSettingsManager settingsManager];
-
+    
     _actionController = actionCtrl;
     
-    _socketIO = [[SocketIO alloc] initWithDelegate:self];
+    
+    //_socketIO = [[SocketIO alloc] initWithDelegate:self];
     
     NSString *host = [_settingsManager getHostName];
-    int port = [[_settingsManager getHostPort] intValue];
+    NSInteger *port = [[_settingsManager getHostPort] intValue];
     
-    [_socketIO connectToHost:host onPort:port];
+    NSString *urlString = [[NSString alloc] initWithFormat:@"http://%@:%d", host, port];
+    NSURL* url = [[NSURL alloc] initWithString: urlString];
+    
+    
+    self.socketIO = [[SocketIOClient alloc] initWithSocketURL:url config:@{@"log": @YES, @"forcePolling": @NO}];
+    
+    
+    
+    
+    
+    [self.socketIO on:@"connect" callback:^(NSArray* data, SocketAckEmitter* ack) {
+        NSLog(@"socket connected");
+        [self socketIODidConnect:data withAck:ack];
+    }];
+    
+    
+    [self.socketIO on:@"methodcall" callback:^(NSArray* data, SocketAckEmitter* ack) {
+        NSLog(@"methodcall");
+        [self methodcallWith:data];
+    }];
+    
+    [self.socketIO on:@"ojs_action_instance" callback:^(NSArray* data, SocketAckEmitter* ack) {
+        NSLog(@"methodcall");
+        [self methodcallWith:data];
+    }];
+    
+    [self.socketIO on:@"heartbeat" callback:^(NSArray* data, SocketAckEmitter* ack) {
+        [self _blinkImage];
+    }];
+    
+    
+    
+    
+    [self.socketIO on:@"disconnect" callback:^(NSArray* data, SocketAckEmitter* ack) {
+        NSLog(@"socket disconnected");
+        [self socketIODidDisconnectWithData:data andWithAck:ack];
+    }];
+    
+    
+    [self.socketIO on:@"error" callback:^(NSArray* data, SocketAckEmitter* ack) {
+        NSLog(@"socket error");
+        [self socketIOErrorWithData:data andWithAck:ack];
+    }];
+    
+    
+    [self.socketIO connect];
     
     
     
@@ -83,7 +135,7 @@
 
 -(void)sendContextData: (NSDictionary*) contextData //for: (NSString *) key
 {
-
+    
     NSLog(@"FOOO1");
     
     //NSArray *arr = [NSArray arrayWithObjects: @"", [_settingsManager getDeviceIdentity], contextData, nil];
@@ -93,26 +145,25 @@
     NSLog(@"Sending context_data %@", arr);
     
     
-    [_socketIO sendEvent:@"ojs_context_data" withData:arr];
+    [self.socketIO emit:@"ojs_context_data" with:arr];
     return;
 }
 
 
-/*
+
 // UI stuff
 -(void) _blinkImage
 {
-    //_bb = (UIImageView*)[self.view viewWithTag:1];
+    UIImageView* _bb = (UIImageView*)[_mainView viewWithTag:1];
     [_bb setHidden:NO];
     
-    double delayInSeconds = 1.5;
+    double delayInSeconds = 2.0;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         //UIImageView * bb = (UIImageView*)[self.view viewWithTag:1];
         [_bb setHidden:YES];
     });
 }
-*/
 
 
 
@@ -120,122 +171,123 @@
 # pragma mark -
 # pragma mark socket.IO-objc delegate methods
 
-- (void) socketIODidConnect:(SocketIO *)socket
+
+- (void) socketIODidConnect: (NSArray*) data withAck: (SocketAckEmitter*) ack
 {
     NSLog(@"socket.io connected.");
-        _IS_CONNECTED = TRUE;
+    _IS_CONNECTED = TRUE;
     NSArray *arr = [NSArray arrayWithObjects:[_settingsManager getDeviceIdentity], nil];
-    [_socketIO sendEvent:@"login" withData:arr];
+    
+    
+    
+    [_socketIO emit:@"login" with:arr];
+    
+    
     NSLog(@"sent the login event");
+    [self _blinkImage];
 }
 
 
-- (void) socketIO:(SocketIO *)socket socketIODidReceiveHeartbeat:(SocketIOPacket *)packet
-{
-    NSLog(@"socket.io heartbeat received.");
-    //[self _blinkImage];
-    
-}
 
 
-- (void) socketIO:(SocketIO *)socket didReceiveEvent:(SocketIOPacket *)packet
+- (void) methodcallWith: (NSArray*) arguments
 {
     
-    NSLog(@"type: %@", packet.name);
     
     _IS_CONNECTED = TRUE;
     
-    NSLog(@"type: %@", packet.type);
-    if( [@"methodcall" isEqualToString:packet.name] ) {
-        
-        @try {
-            
-            _currentActionId = (NSString*)packet.args[0][0];
-            _currentMethodId = (NSString*)packet.args[0][1];
-            
-            NSString *capabilityName = (NSString*)packet.args[0][2];
-            NSString *methodName = (NSString*)packet.args[0][3];
-            
-            NSArray *methodArguments = (NSArray*)packet.args[0][4];
-            
-            NSLog(@"executing method: %@", methodName );
-            NSLog(@"with args: %@", methodArguments );
-            
-            
-            NSObject * returnedValue = [_actionController executeCapability:capabilityName method:methodName with:methodArguments];
-            
-            
-            NSLog(@"response val: %@", returnedValue);
-            NSArray *arr = [NSArray arrayWithObjects:_currentActionId, _currentMethodId, returnedValue, @"STRING", nil];
-            [_socketIO sendEvent:@"methodcallresponse" withData:arr];
-            
-            
-            NSLog(@"methodcall_response sent");
-            
-            
-        }
-        @catch (NSException *exception) {
-            NSLog(@"Error while handling method call %@", exception);
-            
-            NSArray *arr = [NSArray arrayWithObjects:_currentActionId, _currentMethodId, [_settingsManager getDeviceIdentity], (NSString*)exception.reason, nil];
-            [_socketIO sendEvent:@"ojs_exception" withData:arr];
-        }
-        
-        
-        
-        
-    } else if( [@"ojs_action_instance" isEqualToString:packet.name] ) {
-        NSLog(@"ojs_action_instance");
-        
-        @try {
-            
-            NSDictionary *actionArgs = (NSArray*)packet.args[0];
-
-            NSString *actionName = [actionArgs objectForKey:@"actionName"];
-            NSString *actionID = [actionArgs objectForKey:@"actionID"];
-            NSArray *actionParams = [actionArgs objectForKey:@"actionParams"];
-            NSArray *participantInfo = [actionArgs objectForKey:@"participantInfo"];
-            NSString *actionVersionHash = [actionArgs objectForKey:@"actionVersionHash"];
-            [_actionController initializeActionInstance: actionID : actionName : actionParams : participantInfo : actionVersionHash];
-            
-        }
-        @catch (NSException *exception) {
-            NSLog(@"Error whili initializing action instance: %@", exception);
-        }
     
+    @try {
+        
+        _currentActionId = arguments[0][0];
+        _currentMethodId = arguments[0][1];
+        
+        NSString *capabilityName = arguments[0][2];
+        NSString *methodName = arguments[0][3];
+        
+        NSArray *methodArguments = arguments[0][4];
+        
+        NSLog(@"executing method: %@", methodName );
+        NSLog(@"with args: %@", methodArguments );
         
         
+        NSObject * returnedValue = [_actionController executeCapability:capabilityName method:methodName with:methodArguments];
         
-    // UNKNOWN COMMAND
-    } else {
-        NSLog(@"unknown command");
+        
+        NSLog(@"response val: %@", returnedValue);
+        NSArray *arr = [NSArray arrayWithObjects:_currentActionId, _currentMethodId, returnedValue, @"STRING", nil];
+        
+        //[_socketIO sendEvent:@"methodcallresponse" withData:arr];
+        [_socketIO emit:@"methodcallresponse" with:arr];
+        
+        NSLog(@"methodcall_response sent");
+        
+        
     }
+    @catch (NSException *exception) {
+        NSLog(@"Error while handling method call %@", exception);
+        
+        NSArray *arr = [NSArray arrayWithObjects:_currentActionId, _currentMethodId, [_settingsManager getDeviceIdentity], (NSString*)exception.reason, nil];
+        [_socketIO emit:@"ojs_exception" with:arr];
+        
+    }
+}
 
+- (void) actionInstanceWith: (NSArray*) arguments
+{
+    
+    NSLog(@"ojs_action_instance");
+    
+    @try {
+        
+        NSDictionary *actionArgs = arguments[0];
+        
+        NSString *actionName = [actionArgs objectForKey:@"actionName"];
+        NSString *actionID = [actionArgs objectForKey:@"actionID"];
+        NSArray *actionParams = [actionArgs objectForKey:@"actionParams"];
+        NSArray *participantInfo = [actionArgs objectForKey:@"participantInfo"];
+        NSString *actionVersionHash = [actionArgs objectForKey:@"actionVersionHash"];
+        [_actionController initializeActionInstance: actionID : actionName : actionParams : participantInfo : actionVersionHash];
+        
+    }
+    @catch (NSException *exception) {
+        NSLog(@"Error whili initializing action instance: %@", exception);
+    }
+    
 }
 
 
 
-- (void) socketIO:(SocketIO *)socket onError:(NSError *)error
+
+- (void) socketIOErrorWithData:(NSArray*) data andWithAck: (SocketAckEmitter*) ack
 {
     
-    if ([error code] == SocketIOUnauthorized) {
-        NSLog(@"not authorized");
-    } else {
-        NSLog(@"onError() %@", error);
-    }
+//    if ([error code] == SocketIOUnauthorized) {
+//        NSLog(@"not authorized");
+//        [ToastView showToastInParentView:_mainView withText:@"Unauthorized" withDuaration:TOAST_DURATION_LONG];
+//    } else {
+        NSLog(@"onError() %@", data[0]);
+        [ToastView showToastInParentView:_mainView withText:@"Issues while connecting!" withDuaration:TOAST_DURATION_LONG];
+//    }
+    
 }
 
 
-- (void) socketIODidDisconnect:(SocketIO *)socket disconnectedWithError:(NSError *)error
+
+- (void) socketIODidDisconnectWithData:(NSArray*) data andWithAck: (SocketAckEmitter*) ack
 {
-    NSLog(@"socket.io disconnected. did error occur? %@", error);
+    [ToastView showToastInParentView:_mainView withText:@"Disconnected!" withDuaration:TOAST_DURATION_LONG];
+    NSLog(@"socket.io disconnected. did error occur? %@", data[0]);
     _IS_CONNECTED = FALSE;
 }
 
 # pragma mark -
 
 
-
+- (void) setView:(UIView*)view
+{
+    _mainView = view;
+}
 
 
 

@@ -20,25 +20,25 @@ class TalkingCapability2 : NSObject
     }
     
     func test() {
-        println("test method")
+        print("test method")
         let line = "moikka"
         let utterance = AVSpeechUtterance(string: line)
-        speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
-        speechSynthesizer.speakUtterance(utterance)
+        speechSynthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
+        speechSynthesizer.speak(utterance)
     }
     
-    func say(line: String, filter: String, pitch: Double) {
-        println("say method")
+    func say(_ line: String, filter: String, pitch: Double) {
+        print("say method")
         let utterance = AVSpeechUtterance(string: line)
-        speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
-        speechSynthesizer.speakUtterance(utterance)
+        speechSynthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
+        speechSynthesizer.speak(utterance)
     }
 
     
-    func shout(line: String, filter: String, pitch: Double) {
+    func shout(_ line: String, filter: String, pitch: Double) {
         let utterance = AVSpeechUtterance(string: line)
-        speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
-        speechSynthesizer.speakUtterance(utterance)
+        speechSynthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
+        speechSynthesizer.speak(utterance)
     }
 
     

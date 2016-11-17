@@ -8,9 +8,9 @@
 
 #import "OJSActionController.h"
 #import "OJSSettingsManager.h"
-#import "SocketIO.h"
 
-@interface OJSConnection : NSObject <SocketIODelegate>
+
+@interface OJSConnection : NSObject // <SocketIODelegate>
 {
 }
 
@@ -22,5 +22,8 @@
 @property BOOL IS_CONNECTED;
 
 @property (strong, atomic) OJSActionController *actionController;
+
+
+- (void) setView:(UIView*)view;
 
 @end

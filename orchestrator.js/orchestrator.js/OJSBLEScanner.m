@@ -46,17 +46,30 @@
     
     // TODO: fetch from OJS
     _SCAN_ALL = FALSE;
- /*
+ 
     // 5s
     [_participantServiceIDs addObject:[CBUUID UUIDWithString:@"5bf2e050-4730-46de-b6a7-2c8be4d9fa36"]];
-    // 6
+    // 7
     [_participantServiceIDs addObject:[CBUUID UUIDWithString:@"717f860e-f0e6-4c93-a4e3-cc724d27e05e"]];
     
     // mac
     [_participantServiceIDs addObject:[CBUUID UUIDWithString:@"FB694B90-F49E-4597-8306-171BBA78F844"]];
-    */
+  
     // beacon
     [_participantServiceIDs addObject:[CBUUID UUIDWithString:@"8b034f7b-fa9b-540f-acf3-88c0ca70c84f"]];
+    
+    // nikkis@nexus5
+    [_participantServiceIDs addObject:[CBUUID UUIDWithString:@"7e1c75be-596e-495e-f152-f988687ea8ab"]];
+
+    // nikkis@ihere
+    
+    // 00001803-0000-1000-8000-00805f9b34fb
+    // 00001802-0000-1000-8000-00805f9b34fb
+    // 00001804-0000-1000-8000-00805f9b34fb
+    
+    //[_participantServiceIDs addObject:[CBUUID UUIDWithString:@"1803"]];
+    //[_participantServiceIDs addObject:[CBUUID UUIDWithString:@"00001803-0000-1000-8000-00805f9b34fb"]];
+    [_participantServiceIDs addObject:[CBUUID UUIDWithString:@"00001804-0000-1000-8000-00805f9b34fb"]];
     
     _scanResults = [[NSMutableDictionary alloc] init];
 }
@@ -108,6 +121,7 @@
         [self log: [NSString stringWithFormat:@"Discovered %@ at %@, with identifier %@", peripheral.name, RSSI, peripheral.identifier]];
         
         
+        
         //NSString *uuid = [advertisementData objectForKey:@"kCBAdvDataServiceUUIDs"];
         //NSLog(@"Report this id: %@ with this rssid to ojs: %@", uuid, RSSI);
         
@@ -119,13 +133,26 @@
         {
             CBUUID *cu = [discoverdDeviceUUID objectAtIndex:0];
             NSString *serviceUUID = cu.UUIDString;
+            //NSString *serviceUUID = CBU//CFUUIDCreateString(nil, cu);
+/*
+            int count = 16;
+            unsigned char *buffer = (unsigned char *)calloc(count, sizeof(unsigned char));
+//cu.data.
             
+            //[data bytes];
+            
+            NSString *serviceUUID = [self representativeString:cu.data];
+            NSLog(@"IIII: %@",serviceUUID);
+//NSString *serviceUUID = [[NSString alloc] initWithData:cu.data encoding:NSUTF8StringEncoding];
+*/
             NSMutableArray* tempRes = [_scanResults objectForKey:serviceUUID];
             if( tempRes == nil ) {
                 tempRes = [[NSMutableArray alloc] init];
             }
             [tempRes addObject:RSSI];
             [_scanResults setObject:tempRes forKey:serviceUUID];
+            
+            
             
             /*
              // sends result right to OJS
@@ -177,6 +204,34 @@
 -(void) log: (NSString*) m {
     if(_LOGGING_ON)
         NSLog(@"BLE SCAN: %@",m);
+}
+
+
+
+- (NSString *)representativeString: (NSData*) data
+{
+//    NSData *data = [self data];
+    
+    NSData* data2 = data;
+    
+    NSUInteger bytesToConvert = [data length];
+    const unsigned char *uuidBytes = [data bytes];
+    NSMutableString *outputString = [NSMutableString stringWithCapacity:16];
+    
+    for (NSUInteger currentByteIndex = 0; currentByteIndex < bytesToConvert; currentByteIndex++)
+    {
+        switch (currentByteIndex)
+        {
+            case 3:
+            case 5:
+            case 7:
+            case 9:[outputString appendFormat:@"%02x-", uuidBytes[currentByteIndex]]; break;
+            default:[outputString appendFormat:@"%02x", uuidBytes[currentByteIndex]];
+        }
+        
+    }
+    
+    return outputString;
 }
 
 

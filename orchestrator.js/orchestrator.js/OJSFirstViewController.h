@@ -21,7 +21,7 @@
 #import "SocketIO.h"
 #import <UIKit/UIKit.h>
 
-@interface OJSFirstViewController : UIViewController <SocketIODelegate> {
+@interface OJSFirstViewController : UIViewController {
     
 }
 

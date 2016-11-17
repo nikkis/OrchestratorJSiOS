@@ -7,7 +7,7 @@
 //
 
 
-#import "SocketIOJSONSerialization.h"
+//#import "SocketIOJSONSerialization.h"
 #import "OJSConnection.h"
 
 #import "OJSCentral.h"
@@ -16,27 +16,27 @@
 
 @interface OJSCentral ()
 
-    @property NSArray *participantInfo;
-    @property NSMutableArray *participantServiceIDs;
+@property NSArray *participantInfo;
+@property NSMutableArray *participantServiceIDs;
 
-    @property NSCondition* condition;
-    @property OJSConnection *ojsConnection;
+@property NSCondition* condition;
+@property OJSConnection *ojsConnection;
 
-    @property NSCondition* connectedToParticipants;
-    @property BOOL waitForParticipants;
+@property NSCondition* connectedToParticipants;
+@property BOOL waitForParticipants;
 
 
-    // connected peripherals
-    @property NSMutableDictionary *connectedPeripherals;
+// connected peripherals
+@property NSMutableDictionary *connectedPeripherals;
 
-    // discovered peripherals
-    @property NSMutableDictionary *discoveredPeripherals;
+// discovered peripherals
+@property NSMutableDictionary *discoveredPeripherals;
 
 @property NSMutableDictionary *discoveredUUIDs;
 
 
-    @property (strong, nonatomic) NSString *selfDeviceIdentity;
-    @property (strong, atomic) OJSSettingsManager* settingsManager;
+@property (strong, nonatomic) NSString *selfDeviceIdentity;
+@property (strong, atomic) OJSSettingsManager* settingsManager;
 
 @property (strong, nonatomic) NSObject *responseValue;
 @property (strong, nonatomic) NSString *responseJSONString;
@@ -64,13 +64,13 @@
 {
     _settingsManager = [[OJSSettingsManager alloc] init];
     _selfDeviceIdentity = [_settingsManager getDeviceIdentity];
-
+    
     _discoveredPeripherals = [[NSMutableDictionary alloc] init];
     _connectedPeripherals = [[NSMutableDictionary alloc] init];
     _participantInfo = participantInfo;
     
     _participantServiceIDs = [[NSMutableArray alloc] init];
-
+    
     for( id o in _participantInfo ) {
         NSString *di = [(NSDictionary*)o objectForKey:@"btUUID"];
         NSLog(@"participant: %@", di);
@@ -80,24 +80,24 @@
     
     _discoveredUUIDs = [[NSMutableDictionary alloc] init];
     
-
-
+    
+    
     // wait for until initialized ( connected to participants )
     
-//    _waitForParticipants = TRUE;
-//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0),^{
-        [self initCentral];
-            NSLog(@"koo - 2");
-
+    //    _waitForParticipants = TRUE;
+    //    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0),^{
+    [self initCentral];
+    NSLog(@"koo - 2");
+    
     if([_participantInfo count] == 1 && [_selfDeviceIdentity isEqualToString:[_participantInfo objectAtIndex:0] ]) {
         NSLog(@"I am the one and only participant -> no need to connect");
         return TRUE;
-    
-    // If other participants, wait for them to connect
+        
+        // If other participants, wait for them to connect
     } else {
-
+        
         NSLog(@"waiting for participants 0");
-    
+        
         // wait for response
         [_connectedToParticipants lock];
         _waitForParticipants = TRUE;
@@ -109,13 +109,13 @@
         NSLog(@"waiting for participants 3");
         _waitForParticipants = TRUE;
         [_connectedToParticipants unlock];
-    
+        
         NSLog(@"CONNECTED!!!");
     }
     
-//    });
+    //    });
     return TRUE;
-
+    
 }
 
 
@@ -158,39 +158,39 @@
     
     if (central.state == CBCentralManagerStatePoweredOn) {
         // Scan for devices
-//        [_centralManager scanForPeripheralsWithServices:@[[CBUUID UUIDWithString:TRANSFER_SERVICE_UUID]] options:@{ CBCentralManagerScanOptionAllowDuplicatesKey : @YES }];
+        //        [_centralManager scanForPeripheralsWithServices:@[[CBUUID UUIDWithString:TRANSFER_SERVICE_UUID]] options:@{ CBCentralManagerScanOptionAllowDuplicatesKey : @YES }];
         
-
+        
         [_centralManager scanForPeripheralsWithServices:_participantServiceIDs options:@{ CBCentralManagerScanOptionAllowDuplicatesKey : @YES }];
-
+        
         //[_centralManager scanForPeripheralsWithServices:@[[CBUUID UUIDWithString:TRANSFER_SERVICE_UUID], [CBUUID UUIDWithString:@"a9ce4e1f-b18a-4f1d-bc92-4b4ef3775915"], [CBUUID UUIDWithString:@"346240a2-f72e-4a51-a0c2-0c562a716d27"]] options:@{ CBCentralManagerScanOptionAllowDuplicatesKey : @YES }];
-
+        
         
         NSLog(@"Scanning started");
     }
 }
 
 /*
--(BOOL) checkDiscoveredPeripheralsForParticipants() {
-    
-    BOOL retVal = false;
-    [_centralManager ];
-    
-    
-    return false;
-}
-*/
+ -(BOOL) checkDiscoveredPeripheralsForParticipants() {
+ 
+ BOOL retVal = false;
+ [_centralManager ];
+ 
+ 
+ return false;
+ }
+ */
 
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI {
-
+    
     
     NSLog(@"Discovered %@ at %@, with identifier %@", peripheral.name, RSSI, peripheral.identifier);
     
     
     @try {
         
-//        NSArray *servuuid = (NSArray*)[advertisementData objectForKey:@"kCBAdvDataServiceUUIDs"];
-//        NSString *discoverdDeviceUUID = (NSString*)(servuuid[0]);
+        //        NSArray *servuuid = (NSArray*)[advertisementData objectForKey:@"kCBAdvDataServiceUUIDs"];
+        //        NSString *discoverdDeviceUUID = (NSString*)(servuuid[0]);
         NSString *discoverdDeviceUUID = (NSString*)[advertisementData objectForKey:@"kCBAdvDataServiceUUIDs"];
         
         
@@ -205,10 +205,10 @@
         [_discoveredUUIDs setObject:discoverd_device forKey:discoverdDeviceUUID];
         
         /*
-        NSArray *bt_devices = [NSArray arrayWithObjects:discoverd_device, nil];
-        NSDictionary *proximityData = [NSDictionary dictionaryWithObject:bt_devices forKey:@"bt_devices"];
-        [_ojsConnection sendContextData:proximityData];
-*/
+         NSArray *bt_devices = [NSArray arrayWithObjects:discoverd_device, nil];
+         NSDictionary *proximityData = [NSDictionary dictionaryWithObject:bt_devices forKey:@"bt_devices"];
+         [_ojsConnection sendContextData:proximityData];
+         */
         
         NSLog(@"jaahu 2");
         
@@ -222,29 +222,29 @@
     
     
     /*
-    if(peripheral.name)
-    {
-        //NSLog(@"saving peripheral for deviceidentity: %@", peripheral.name);
-        
-        OJSDiscoveredPeripheral *pp = [[OJSDiscoveredPeripheral alloc] init: peripheral.name : @"jaajaa" : peripheral];
-        
-        [_discoveredPeripherals setObject: pp forKey: peripheral.name];
-    }
+     if(peripheral.name)
+     {
+     //NSLog(@"saving peripheral for deviceidentity: %@", peripheral.name);
+     
+     OJSDiscoveredPeripheral *pp = [[OJSDiscoveredPeripheral alloc] init: peripheral.name : @"jaajaa" : peripheral];
+     
+     [_discoveredPeripherals setObject: pp forKey: peripheral.name];
+     }
      */
     
     //if(![_discoveredPeripherals objectForKey:peripheral.name])
     //{
-        NSLog(@"saving peripheral for deviceidentity: %@", peripheral.name);
-        
-        OJSDiscoveredPeripheral *pp = [[OJSDiscoveredPeripheral alloc] init: peripheral.name : @"jaajaa" : peripheral];
-        
-        [_discoveredPeripherals setObject: pp forKey: peripheral.name];
-        
-        
-        // And connect
-        NSLog(@"Connecting to peripheral %@", peripheral);
-        [_centralManager connectPeripheral:peripheral options:nil];
-        
+    NSLog(@"saving peripheral for deviceidentity: %@", peripheral.name);
+    
+    OJSDiscoveredPeripheral *pp = [[OJSDiscoveredPeripheral alloc] init: peripheral.name : @"jaajaa" : peripheral];
+    
+    [_discoveredPeripherals setObject: pp forKey: peripheral.name];
+    
+    
+    // And connect
+    NSLog(@"Connecting to peripheral %@", peripheral);
+    [_centralManager connectPeripheral:peripheral options:nil];
+    
     //}
     
     
@@ -255,19 +255,19 @@
     
     
     /*
-    if (_discoveredPeripheral != peripheral) {
-        // Save a local copy of the peripheral, so CoreBluetooth doesn't get rid of it
-        _discoveredPeripheral = peripheral;
-        
-        // And connect
-        NSLog(@"Connecting to peripheral %@", peripheral);
-        [_centralManager connectPeripheral:peripheral options:nil];
-    }
+     if (_discoveredPeripheral != peripheral) {
+     // Save a local copy of the peripheral, so CoreBluetooth doesn't get rid of it
+     _discoveredPeripheral = peripheral;
      
-    */
+     // And connect
+     NSLog(@"Connecting to peripheral %@", peripheral);
+     [_centralManager connectPeripheral:peripheral options:nil];
+     }
+     
+     */
     for (CBService *service in peripheral.services) {
         NSLog(@"jaahu 1 %@", service.UUID);
-    
+        
     }
     
 }
@@ -294,20 +294,20 @@
     
     [peripheral discoverServices: _participantServiceIDs];
     
-//    [peripheral discoverServices:@[[CBUUID UUIDWithString:TRANSFER_SERVICE_UUID], [CBUUID UUIDWithString:@"a9ce4e1f-b18a-4f1d-bc92-4b4ef3775915"], [CBUUID UUIDWithString:@"346240a2-f72e-4a51-a0c2-0c562a716d27"] ]];
+    //    [peripheral discoverServices:@[[CBUUID UUIDWithString:TRANSFER_SERVICE_UUID], [CBUUID UUIDWithString:@"a9ce4e1f-b18a-4f1d-bc92-4b4ef3775915"], [CBUUID UUIDWithString:@"346240a2-f72e-4a51-a0c2-0c562a716d27"] ]];
     
-/*
-    NSLog(@"wait for connected device is over");
-    _waitForParticipants = FALSE;
-    [_connectedToParticipants signal];
-    [_connectedToParticipants unlock];
-*/
+    /*
+     NSLog(@"wait for connected device is over");
+     _waitForParticipants = FALSE;
+     [_connectedToParticipants signal];
+     [_connectedToParticipants unlock];
+     */
 }
 
 
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error {
-
+    
     NSLog(@"didDiscoverServices 0");
     NSLog(@"..for peripheral %@ ", peripheral.name);
     
@@ -327,7 +327,7 @@
         {
             NSLog(@"discovered device nikkis@iphone5s");
         }
-
+        
         // a9ce4e1f-b18a-4f1d-bc92-4b4ef3775915
         if([[CBUUID UUIDWithString:@"717f860e-f0e6-4c93-a4e3-cc724d27e05e"] isEqual:service.UUID])
         {
@@ -340,11 +340,11 @@
         [peripheral discoverCharacteristics:@[[CBUUID UUIDWithString:TRANSFER_CHARACTERISTIC_UUID]] forService:service];
         [peripheral discoverCharacteristics:@[[CBUUID UUIDWithString:RESPONSE_CHARACTERISTIC_UUID]] forService:service];
         
-//        [peripheral discoverCharacteristics:@[[CBUUID UUIDWithString:TEST_CHARACTERISTIC_UUID]] forService:service];
+        //        [peripheral discoverCharacteristics:@[[CBUUID UUIDWithString:TEST_CHARACTERISTIC_UUID]] forService:service];
     }
     
     
-
+    
     for (CBService *service in peripheral.services) {
         [peripheral discoverCharacteristics:@[[CBUUID UUIDWithString:TRANSFER_CHARACTERISTIC_UUID]] forService:service];
     }
@@ -352,10 +352,10 @@
         [peripheral discoverCharacteristics:@[[CBUUID UUIDWithString:RESPONSE_CHARACTERISTIC_UUID]] forService:service];
     }
     /*
-    for (CBService *service in peripheral.services) {
-        [peripheral discoverCharacteristics:@[[CBUUID UUIDWithString:TEST_CHARACTERISTIC_UUID]] forService:service];
-    }*/
-
+     for (CBService *service in peripheral.services) {
+     [peripheral discoverCharacteristics:@[[CBUUID UUIDWithString:TEST_CHARACTERISTIC_UUID]] forService:service];
+     }*/
+    
     
     // Discover other characteristics
 }
@@ -370,7 +370,7 @@
     for (CBCharacteristic *characteristic in service.characteristics) {
         if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:TRANSFER_CHARACTERISTIC_UUID]]) {
             NSLog(@"TRANSFER CHAR SET");
-
+            
             [peripheral setNotifyValue:YES forCharacteristic:characteristic];
             
             OJSDiscoveredPeripheral *p = (OJSDiscoveredPeripheral*)[_discoveredPeripherals objectForKey:peripheral.name];
@@ -386,22 +386,22 @@
             NSLog(@"RESPONSE CHAR SET");
             
             [peripheral setNotifyValue:YES forCharacteristic:characteristic];
-
+            
             OJSDiscoveredPeripheral *p = (OJSDiscoveredPeripheral*)[_discoveredPeripherals objectForKey:peripheral.name];
             [p setResponseCharacteristic: (CBMutableCharacteristic *)characteristic];
             [_discoveredPeripherals setObject:p forKey:p.deviceIdentity];
-
+            
             _responseCharacteristic = (CBMutableCharacteristic *)characteristic;
             
         }
         
         /*
-        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:TEST_CHARACTERISTIC_UUID]]) {
-            NSLog(@"TEST READ CHAR SET");
-            [peripheral setNotifyValue:NO forCharacteristic:characteristic];
-            _testReadCharacteristic = (CBMutableCharacteristic *)characteristic;
-        }
-        */
+         if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:TEST_CHARACTERISTIC_UUID]]) {
+         NSLog(@"TEST READ CHAR SET");
+         [peripheral setNotifyValue:NO forCharacteristic:characteristic];
+         _testReadCharacteristic = (CBMutableCharacteristic *)characteristic;
+         }
+         */
         NSLog(@"loop");
     }
     
@@ -410,7 +410,7 @@
     _waitForParticipants = FALSE;
     [_connectedToParticipants signal];
     [_connectedToParticipants unlock];
-
+    
     
 }
 
@@ -471,8 +471,8 @@
 }
 
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
-//    _discoveredPeripheral = nil;
-
+    //    _discoveredPeripheral = nil;
+    
     NSLog(@"disconnected from peripheral: %@",peripheral.name);
     [_connectedPeripherals removeObjectForKey:peripheral.name];
     
@@ -487,27 +487,27 @@
 {
     
     for (CBPeripheral* discoveredPeripheral in _discoveredPeripherals) {
-
+        
         @try {
             
-        // See if we are subscribed to a characteristic on the peripheral
-        if (discoveredPeripheral.services != nil) {
-            for (CBService *service in discoveredPeripheral.services) {
-                if (service.characteristics != nil) {
-                    for (CBCharacteristic *characteristic in service.characteristics) {
-                        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:TRANSFER_CHARACTERISTIC_UUID]]) {
-                            if (characteristic.isNotifying) {
-                                [discoveredPeripheral setNotifyValue:NO forCharacteristic:characteristic];
-                                return;
+            // See if we are subscribed to a characteristic on the peripheral
+            if (discoveredPeripheral.services != nil) {
+                for (CBService *service in discoveredPeripheral.services) {
+                    if (service.characteristics != nil) {
+                        for (CBCharacteristic *characteristic in service.characteristics) {
+                            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:TRANSFER_CHARACTERISTIC_UUID]]) {
+                                if (characteristic.isNotifying) {
+                                    [discoveredPeripheral setNotifyValue:NO forCharacteristic:characteristic];
+                                    return;
+                                }
                             }
                         }
                     }
                 }
             }
-        }
-        
             
-        //[_centralManager cancelPeripheralConnection:discoveredPeripheral];
+            
+            //[_centralManager cancelPeripheralConnection:discoveredPeripheral];
         }
         @catch (NSException *exception) {
             NSLog(@"Error in cleanup %@", exception);
@@ -544,7 +544,16 @@
         [methodCallObject setObject:[NSArray arrayWithObject:args] forKey:@"args"];
     }
     
-    NSString *methodcallString = [SocketIOJSONSerialization JSONStringFromObject:methodCallObject error:nil];
+    //NSString *methodcallString = [SocketIOJSONSerialization JSONStringFromObject:methodCallObject error:nil];
+    
+    //NSDictionary *JSONDic=[[NSDictionary alloc] init];
+    NSDictionary *JSONDic=methodCallObject;
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:JSONDic
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:&error];
+    NSString *methodcallString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    
     
     
     NSLog(@"methodcallString: %@", methodcallString);
@@ -607,16 +616,16 @@
     
     @try {
         
-//        CBPeripheral *peripheral = p.peripheral;
+        //        CBPeripheral *peripheral = p.peripheral;
         
         // calls didWriteValueForCharacteristic when client receives
         [p.peripheral writeValue:data forCharacteristic:responseCharacteristic type:CBCharacteristicWriteWithResponse];
         //[peripheral writeValue:data forCharacteristic:responseCharacteristic type:CBCharacteristicWriteWithoutResponse];
-  
-
+        
+        
         
         NSLog(@"SENT MC");
-
+        
     }
     @catch (NSException *exception) {
         NSLog(@"Error while sending text %@", exception);
@@ -647,7 +656,7 @@
     
     NSError *e;
     NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData: [responseText dataUsingEncoding:NSUTF8StringEncoding] options: NSJSONReadingMutableContainers error: &e];
-
+    
     
     NSLog(@"name %@", JSON[@"name"]);
     if( [@"methodcallresponse" isEqualToString:JSON[@"name"]] )
@@ -657,7 +666,7 @@
         
         NSString * currentActionId = (NSString*)args[0][0];
         NSString * currentMethodId = (NSString*)args[0][1];
-
+        
         
         // TODO: check that the response is from right method call!!
         
@@ -679,7 +688,7 @@
     }
     
     
-
+    
 }
 
 
@@ -696,81 +705,81 @@
 
 
 /*
-- (void)dataSender {
-    
-    static BOOL sendingEOM = NO;
-    
-    // end of message?
-    if (sendingEOM) {
-        BOOL didSend = [_peripheralManager updateValue:[@"EOM" dataUsingEncoding:NSUTF8StringEncoding] forCharacteristic:_transferCharacteristic onSubscribedCentrals:nil];
-        
-        if (didSend) {
-            // It did, so mark it as sent
-            sendingEOM = NO;
-        }
-        // didn't send, so we'll exit and wait for peripheralManagerIsReadyToUpdateSubscribers to call sendData again
-        return;
-    }
-    
-    // We're sending data
-    // Is there any left to send?
-    if (_sendDataIndex >= _dataToSend.length) {
-        // No data left.  Do nothing
-        return;
-    }
-    
-    // There's data left, so send until the callback fails, or we're done.
-    BOOL didSend = YES;
-    
-    while (didSend) {
-        // Work out how big it should be
-        NSInteger amountToSend = _dataToSend.length - _sendDataIndex;
-        
-        // Can't be longer than 20 bytes
-        if (amountToSend > NOTIFY_MTU) amountToSend = NOTIFY_MTU;
-        
-        // Copy out the data we want
-        NSData *chunk = [NSData dataWithBytes:_dataToSend.bytes+_sendDataIndex length:amountToSend];
-        
-//        didSend = [_peripheralManager updateValue:chunk forCharacteristic:_responseCharacteristic onSubscribedCentrals:nil];
-        [_discoveredPeripheral writeValue:chunk forCharacteristic:_responseCharacteristic type:CBCharacteristicWriteWithoutResponse];
-      
-        // If it didn't work, drop out and wait for the callback
-        //if (!didSend) {
-        //    return;
-        //}
-        
-        NSString *stringFromData = [[NSString alloc] initWithData:chunk encoding:NSUTF8StringEncoding];
-        //        NSLog(@"Sent: %@", stringFromData);
-        
-        // It did send, so update our index
-        _sendDataIndex += amountToSend;
-        
-        // Was it the last one?
-        if (_sendDataIndex >= _dataToSend.length) {
-            
-            // Set this so if the send fails, we'll send it next time
-            sendingEOM = YES;
-            
-            BOOL eomSent = [_peripheralManager updateValue:[@"EOM" dataUsingEncoding:NSUTF8StringEncoding] forCharacteristic:_transferCharacteristic onSubscribedCentrals:nil];
-            
-            if (eomSent) {
-                // It sent, we're all done
-                sendingEOM = NO;
-                NSLog(@"Sent: EOM");
-            }
-            
-            return;
-        }
-    }
-}
-
-
-
-- (void)peripheralManagerIsReadyToUpdateSubscribers:(CBPeripheralManager *)peripheral {
-    [self dataSender];
-}
-*/
+ - (void)dataSender {
+ 
+ static BOOL sendingEOM = NO;
+ 
+ // end of message?
+ if (sendingEOM) {
+ BOOL didSend = [_peripheralManager updateValue:[@"EOM" dataUsingEncoding:NSUTF8StringEncoding] forCharacteristic:_transferCharacteristic onSubscribedCentrals:nil];
+ 
+ if (didSend) {
+ // It did, so mark it as sent
+ sendingEOM = NO;
+ }
+ // didn't send, so we'll exit and wait for peripheralManagerIsReadyToUpdateSubscribers to call sendData again
+ return;
+ }
+ 
+ // We're sending data
+ // Is there any left to send?
+ if (_sendDataIndex >= _dataToSend.length) {
+ // No data left.  Do nothing
+ return;
+ }
+ 
+ // There's data left, so send until the callback fails, or we're done.
+ BOOL didSend = YES;
+ 
+ while (didSend) {
+ // Work out how big it should be
+ NSInteger amountToSend = _dataToSend.length - _sendDataIndex;
+ 
+ // Can't be longer than 20 bytes
+ if (amountToSend > NOTIFY_MTU) amountToSend = NOTIFY_MTU;
+ 
+ // Copy out the data we want
+ NSData *chunk = [NSData dataWithBytes:_dataToSend.bytes+_sendDataIndex length:amountToSend];
+ 
+ //        didSend = [_peripheralManager updateValue:chunk forCharacteristic:_responseCharacteristic onSubscribedCentrals:nil];
+ [_discoveredPeripheral writeValue:chunk forCharacteristic:_responseCharacteristic type:CBCharacteristicWriteWithoutResponse];
+ 
+ // If it didn't work, drop out and wait for the callback
+ //if (!didSend) {
+ //    return;
+ //}
+ 
+ NSString *stringFromData = [[NSString alloc] initWithData:chunk encoding:NSUTF8StringEncoding];
+ //        NSLog(@"Sent: %@", stringFromData);
+ 
+ // It did send, so update our index
+ _sendDataIndex += amountToSend;
+ 
+ // Was it the last one?
+ if (_sendDataIndex >= _dataToSend.length) {
+ 
+ // Set this so if the send fails, we'll send it next time
+ sendingEOM = YES;
+ 
+ BOOL eomSent = [_peripheralManager updateValue:[@"EOM" dataUsingEncoding:NSUTF8StringEncoding] forCharacteristic:_transferCharacteristic onSubscribedCentrals:nil];
+ 
+ if (eomSent) {
+ // It sent, we're all done
+ sendingEOM = NO;
+ NSLog(@"Sent: EOM");
+ }
+ 
+ return;
+ }
+ }
+ }
+ 
+ 
+ 
+ - (void)peripheralManagerIsReadyToUpdateSubscribers:(CBPeripheralManager *)peripheral {
+ [self dataSender];
+ }
+ */
 
 
 

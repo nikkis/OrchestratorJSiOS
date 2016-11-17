@@ -44,7 +44,7 @@
 -(void) _loadSettings
 {
     
-    if([_userDefaults objectForKey:@"username_preference"] == nil || [_userDefaults objectForKey:@"devicename_preference"] == nil ||
+/*    if([_userDefaults objectForKey:@"username_preference"] == nil || [_userDefaults objectForKey:@"devicename_preference"] == nil ||
        [_userDefaults objectForKey:@"hostname_preference"] == nil || [_userDefaults objectForKey:@"hostport_preference"] == nil )
     {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
@@ -56,10 +56,31 @@
                                               otherButtonTitles:nil];
         [alert show];
         
+    }*/
+    
+    
+    if([_userDefaults objectForKey:@"username_preference"] == nil || [_userDefaults objectForKey:@"devicename_preference"] == nil )
+    {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Edit settings first!"
+                                                        message:@"You must set all the settings befor connecting to OJS."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
         
     }
     
-    NSString* deviceSettings = [NSString stringWithFormat:@"http://%@:%@/api/1/user/%@/device/%@",[_userDefaults objectForKey:@"hostname_preference"], [_userDefaults objectForKey:@"hostport_preference"], [_userDefaults objectForKey:@"username_preference"], [_userDefaults objectForKey:@"devicename_preference"]];
+    NSString* deviceSettings;
+    if ([_userDefaults boolForKey:@"orchestratorjsorg_preference"]) {
+        
+        NSLog(@"orchestratorjs.org as host");
+        deviceSettings = [NSString stringWithFormat:@"http://%@:%@/api/1/user/%@/device/%@",@"orchestratorjs.org", [_userDefaults objectForKey:@"hostport_preference"], [_userDefaults objectForKey:@"username_preference"], [_userDefaults objectForKey:@"devicename_preference"]];
+    } else {
+        deviceSettings = [NSString stringWithFormat:@"http://%@:%@/api/1/user/%@/device/%@",[_userDefaults objectForKey:@"hostname_preference"], [_userDefaults objectForKey:@"hostport_preference"], [_userDefaults objectForKey:@"username_preference"], [_userDefaults objectForKey:@"devicename_preference"]];
+    }
+    
     
     NSLog(deviceSettings);
     
@@ -198,7 +219,8 @@
 
 -(NSString*) getHostName
 {
-    return [_userDefaults objectForKey:@"hostname_preference"];
+    return [_userDefaults boolForKey:@"orchestratorjsorg_preference"] ? @"orchestratorjs.org" : [_userDefaults objectForKey:@"hostname_preference"];
+    //return [_userDefaults objectForKey:@"hostname_preference"];
 }
 
 

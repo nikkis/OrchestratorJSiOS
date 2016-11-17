@@ -12,7 +12,7 @@
 #import "OJSSettingsManager.h"
 
 
-#import "SocketIOJSONSerialization.h"
+//#import "SocketIOJSONSerialization.h"
 
 @interface OJSPeripheral ()
 

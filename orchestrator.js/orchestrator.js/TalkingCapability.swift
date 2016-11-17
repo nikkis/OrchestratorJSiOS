@@ -22,46 +22,46 @@ class TalkingCapability : NSObject, AVSpeechSynthesizerDelegate
     }
     
     
-    func say(line: String, filter: String, pitch: String) -> String {
-        println("say method")
+    func say(_ line: String, filter: String, pitch: String) -> String {
+        print("say method")
         let utterance = AVSpeechUtterance(string: line)
-        speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
-        speechSynthesizer.speakUtterance(utterance)
+        speechSynthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
+        speechSynthesizer.speak(utterance)
         
   
         // wait so that the speaking starts
-        NSThread.sleepForTimeInterval(0.4)
+        Thread.sleep(forTimeInterval: 0.4)
         
         // wait until speaking is over (TODO: timeout based on line length)
-        while(speechSynthesizer.speaking) {
-            NSThread.sleepForTimeInterval(0.2)
+        while(speechSynthesizer.isSpeaking) {
+            Thread.sleep(forTimeInterval: 0.2)
         }
 
         
-        println("speaking is over")
+        print("speaking is over")
         
         return "return_value"
     }
     
     
-    func shout(line: String, filter2: String, pitch: Double) {
+    func shout(_ line: String, filter2: String, pitch: Double) {
         let utterance = AVSpeechUtterance(string: line)
-        speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
-        speechSynthesizer.speakUtterance(utterance)
+        speechSynthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
+        speechSynthesizer.speak(utterance)
         
         // wait so that the speaking starts
-        NSThread.sleepForTimeInterval(0.1)
+        Thread.sleep(forTimeInterval: 0.1)
         
         // wait until speaking is over (TODO: timeout based on line length)
-        while(speechSynthesizer.speaking) {
-            NSThread.sleepForTimeInterval(0.2)
+        while(speechSynthesizer.isSpeaking) {
+            Thread.sleep(forTimeInterval: 0.2)
         }
     }
     
     // optional, called when speaking is over
-    func speechSynthesizer(synthesizer: AVSpeechSynthesizer!, didFinishSpeechUtterance utterance: AVSpeechUtterance!)
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance)
     {
-        println("LOPPU")
+        print("LOPPU")
     }
     
 }

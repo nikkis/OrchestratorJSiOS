@@ -39,5 +39,7 @@
 
 - (void) initScan;
 
+- (void) setView:(UIView*)view;
+
 
 @end

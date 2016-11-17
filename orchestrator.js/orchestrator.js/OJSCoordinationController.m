@@ -327,6 +327,14 @@ double BLE_MOVING_AVG     = 1;
     [_contextReportTimer invalidate];
 }
 
+- (void) setView:(UIView*)view
+{
+    if (_ojsConnection != NULL) {
+        [_ojsConnection setView:view];
+    }
+}
+
+
 
 
 @end

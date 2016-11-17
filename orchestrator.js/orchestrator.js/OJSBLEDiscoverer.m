@@ -41,9 +41,9 @@
 
 - (void) scan
 {
-    NSLog(@"scan.. burger..");
+    NSLog(@"scan.. ");
     [_locationManager startMonitoringForRegion:_beaconRegion];
-    NSLog(@"scan.. burger.. 1");
+    NSLog(@"scan.. 1");
 }
 
 
@@ -53,7 +53,7 @@
 }
 
 -(void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region {
-    NSLog(@"Left Region");
+    NSLog(@"Left from region");
     [_locationManager stopRangingBeaconsInRegion:_beaconRegion];
 }
 
