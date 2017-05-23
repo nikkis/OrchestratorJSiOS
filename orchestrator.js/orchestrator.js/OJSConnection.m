@@ -25,6 +25,9 @@
 
 @property (strong, nonatomic) OJSSettingsManager *settingsManager;
 
+//#import <SocketIOClientSwift/SocketIOClientSwift-Swift.h>
+
+
 @property SocketIOClient *socketIO;
 
 @property NSString *currentActionId;

@@ -18,7 +18,9 @@
 
 #import "OJSCoordinationController.h"
 
-#import "SocketIO.h"
+
+@import SocketIO;
+
 #import <UIKit/UIKit.h>
 
 @interface OJSFirstViewController : UIViewController {
