@@ -39,12 +39,13 @@ class TestCapability : NSObject, AVSpeechSynthesizerDelegate
     
     
     
-    func test() {
+    func test() -> String {
         print("test method")
         //let line = "moikka"
         //let utterance = AVSpeechUtterance(string: line)
         //speechSynthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
         //speechSynthesizer.speakUtterance(utterance)
+        return "foobar"
     }
     
     func say(_ line: String, filter: String, pitch: String) {
