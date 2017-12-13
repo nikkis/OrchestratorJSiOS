@@ -57,7 +57,7 @@
     
     _actionController = actionCtrl;
     
-        
+    
     NSString *host = [_settingsManager getHostName];
     NSInteger *port = [[_settingsManager getHostPort] intValue];
     
