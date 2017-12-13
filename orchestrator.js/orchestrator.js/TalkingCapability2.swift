@@ -13,32 +13,32 @@ import AVFoundation
 @objc
 class TalkingCapability2 : NSObject
 {
-    let speechSynthesizer = AVSpeechSynthesizer()
+    @objc let speechSynthesizer = AVSpeechSynthesizer()
     
     override init() {
         
     }
     
-    func test() {
+    @objc func test() {
         print("test method")
         let line = "moikka"
         let utterance = AVSpeechUtterance(string: line)
-        speechSynthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
-        speechSynthesizer.speak(utterance)
+        //speechSynthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
+        //speechSynthesizer.speak(utterance)
     }
     
-    func say(_ line: String, filter: String, pitch: Double) {
+    @objc func say(_ line: String, filter: String, pitch: Double) {
         print("say method")
         let utterance = AVSpeechUtterance(string: line)
-        speechSynthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
-        speechSynthesizer.speak(utterance)
+        //speechSynthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
+        //speechSynthesizer.speak(utterance)
     }
 
     
-    func shout(_ line: String, filter: String, pitch: Double) {
+    @objc func shout(_ line: String, filter: String, pitch: Double) {
         let utterance = AVSpeechUtterance(string: line)
-        speechSynthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
-        speechSynthesizer.speak(utterance)
+        //speechSynthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
+        //speechSynthesizer.speak(utterance)
     }
 
     

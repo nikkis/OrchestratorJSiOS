@@ -27,7 +27,7 @@
 
 //#import <SocketIOClientSwift/SocketIOClientSwift-Swift.h>
 
-
+@property SocketManager *sockeIOManager;
 @property SocketIOClient *socketIO;
 
 @property NSString *currentActionId;
@@ -57,9 +57,7 @@
     
     _actionController = actionCtrl;
     
-    
-    //_socketIO = [[SocketIO alloc] initWithDelegate:self];
-    
+        
     NSString *host = [_settingsManager getHostName];
     NSInteger *port = [[_settingsManager getHostPort] intValue];
     
@@ -67,14 +65,13 @@
     NSURL* url = [[NSURL alloc] initWithString: urlString];
     
     
-    self.socketIO = [[SocketIOClient alloc] initWithSocketURL:url config:@{@"log": @YES, @"forcePolling": @NO}];
-    
-    
+    self.sockeIOManager = [[SocketManager alloc] initWithSocketURL:url config:@{@"log": @YES}];//, @"compress": @YES}];
+    self.socketIO = self.sockeIOManager.defaultSocket;
     
     
     
     [self.socketIO on:@"connect" callback:^(NSArray* data, SocketAckEmitter* ack) {
-        NSLog(@"socket connected");
+        NSLog(@"FOOOOO socket connected");
         [self socketIODidConnect:data withAck:ack];
     }];
     

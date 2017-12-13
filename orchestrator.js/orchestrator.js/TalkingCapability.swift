@@ -13,7 +13,7 @@ import AVFoundation
 @objc
 class TalkingCapability : NSObject, AVSpeechSynthesizerDelegate
 {
-    let speechSynthesizer = AVSpeechSynthesizer()
+    @objc let speechSynthesizer = AVSpeechSynthesizer()
     
     
     override init() {
@@ -22,9 +22,10 @@ class TalkingCapability : NSObject, AVSpeechSynthesizerDelegate
     }
     
     
-    func say(_ line: String, filter: String, pitch: String) -> String {
+    @objc func say(_ line: String, filter: String, pitch: String) -> String {
         print("say method")
         let utterance = AVSpeechUtterance(string: line)
+        /*
         speechSynthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
         speechSynthesizer.speak(utterance)
         
@@ -36,7 +37,7 @@ class TalkingCapability : NSObject, AVSpeechSynthesizerDelegate
         while(speechSynthesizer.isSpeaking) {
             Thread.sleep(forTimeInterval: 0.2)
         }
-
+*/
         
         print("speaking is over")
         
@@ -44,8 +45,9 @@ class TalkingCapability : NSObject, AVSpeechSynthesizerDelegate
     }
     
     
-    func shout(_ line: String, filter2: String, pitch: Double) {
+    @objc func shout(_ line: String, filter2: String, pitch: Double) {
         let utterance = AVSpeechUtterance(string: line)
+        /*
         speechSynthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
         speechSynthesizer.speak(utterance)
         
@@ -56,6 +58,7 @@ class TalkingCapability : NSObject, AVSpeechSynthesizerDelegate
         while(speechSynthesizer.isSpeaking) {
             Thread.sleep(forTimeInterval: 0.2)
         }
+ */
     }
     
     // optional, called when speaking is over

@@ -3,13 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		21612D041ED4376C00122C54 /* SocketIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21612D031ED4376C00122C54 /* SocketIO.framework */; };
-		21612D051ED43A1400122C54 /* SocketIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21612D031ED4376C00122C54 /* SocketIO.framework */; };
-		21612D061ED43A1400122C54 /* SocketIO.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 21612D031ED4376C00122C54 /* SocketIO.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		210A26461FE122D400784A51 /* SocketIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 210A26451FE122D400784A51 /* SocketIO.framework */; };
+		210A26481FE122DC00784A51 /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 210A26471FE122DC00784A51 /* Starscream.framework */; };
+		218F2AF01FE1262A00FF2138 /* Starscream.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 210A26471FE122DC00784A51 /* Starscream.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		218F2AF11FE1278300FF2138 /* SocketIO.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 210A26451FE122D400784A51 /* SocketIO.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		852B2AF81B15D5C30033D4F9 /* CalcHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 852B2AF71B15D5C30033D4F9 /* CalcHelper.m */; };
 		852F157B1907D1A300D00A6F /* DeviceStub.js in Sources */ = {isa = PBXBuildFile; fileRef = 852F157A1907D1A300D00A6F /* DeviceStub.js */; };
 		852F157C1907D6F700D00A6F /* DeviceStub.js in Resources */ = {isa = PBXBuildFile; fileRef = 852F157A1907D1A300D00A6F /* DeviceStub.js */; };
@@ -72,15 +73,27 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				21612D061ED43A1400122C54 /* SocketIO.framework in Embed Frameworks */,
+				218F2AF11FE1278300FF2138 /* SocketIO.framework in Embed Frameworks */,
+				218F2AF01FE1262A00FF2138 /* Starscream.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		218F2AEE1FE125B400FF2138 /* Copy Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+			);
+			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		21612D031ED4376C00122C54 /* SocketIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SocketIO.framework; sourceTree = "<group>"; };
+		210A26451FE122D400784A51 /* SocketIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SocketIO.framework; sourceTree = "<group>"; };
+		210A26471FE122DC00784A51 /* Starscream.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Starscream.framework; sourceTree = "<group>"; };
 		8511634F19A5D5FB0057A1E3 /* OJSCoordinationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OJSCoordinationController.h; sourceTree = "<group>"; };
 		852B2AF61B15D0B50033D4F9 /* CalcHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalcHelper.h; sourceTree = "<group>"; };
 		852B2AF71B15D5C30033D4F9 /* CalcHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalcHelper.m; sourceTree = "<group>"; };
@@ -152,11 +165,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				210A26481FE122DC00784A51 /* Starscream.framework in Frameworks */,
+				210A26461FE122D400784A51 /* SocketIO.framework in Frameworks */,
 				85D12FEF19069E8A00808449 /* CoreBluetooth.framework in Frameworks */,
 				8532BE4518FED270008BDACA /* JavaScriptCore.framework in Frameworks */,
 				8560378018F7E0BE00AC1890 /* AVFoundation.framework in Frameworks */,
-				21612D041ED4376C00122C54 /* SocketIO.framework in Frameworks */,
-				21612D051ED43A1400122C54 /* SocketIO.framework in Frameworks */,
 				8560377E18F7D7E400AC1890 /* CFNetwork.framework in Frameworks */,
 				8560377C18F7D7D800AC1890 /* libicucore.dylib in Frameworks */,
 				8560377A18F7D7CA00AC1890 /* Security.framework in Frameworks */,
@@ -245,7 +258,8 @@
 		8560372318F7D3C400AC1890 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				21612D031ED4376C00122C54 /* SocketIO.framework */,
+				210A26471FE122DC00784A51 /* Starscream.framework */,
+				210A26451FE122D400784A51 /* SocketIO.framework */,
 				85D12FEE19069E8A00808449 /* CoreBluetooth.framework */,
 				8532BE4418FED270008BDACA /* JavaScriptCore.framework */,
 				8560377F18F7E0BE00AC1890 /* AVFoundation.framework */,
@@ -365,6 +379,7 @@
 				8560371E18F7D3C400AC1890 /* Frameworks */,
 				8560371F18F7D3C400AC1890 /* Resources */,
 				21612D071ED43A1400122C54 /* Embed Frameworks */,
+				218F2AEE1FE125B400FF2138 /* Copy Frameworks */,
 			);
 			buildRules = (
 			);
@@ -402,12 +417,12 @@
 				CLASSPREFIX = OJS;
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = "Niko Mäkitalo";
 				TargetAttributes = {
 					8560372018F7D3C400AC1890 = {
 						DevelopmentTeam = 7DYDXC9PZV;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0920;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -420,7 +435,7 @@
 				};
 			};
 			buildConfigurationList = 8560371C18F7D3C400AC1890 /* Build configuration list for PBXProject "orchestrator.js" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -560,13 +575,19 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -599,13 +620,18 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -614,6 +640,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -636,11 +663,12 @@
 				GCC_PREFIX_HEADER = "orchestrator.js/orchestrator.js-Prefix.pch";
 				INFOPLIST_FILE = "orchestrator.js/orchestrator.js-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "ojs.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "orchestrator.js/orchestrator.js-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -662,10 +690,11 @@
 				GCC_PREFIX_HEADER = "orchestrator.js/orchestrator.js-Prefix.pch";
 				INFOPLIST_FILE = "orchestrator.js/orchestrator.js-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "ojs.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "orchestrator.js/orchestrator.js-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -686,6 +715,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "orchestrator.jsTests/orchestrator.jsTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "ojs.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -704,6 +734,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "orchestrator.js/orchestrator.js-Prefix.pch";
 				INFOPLIST_FILE = "orchestrator.jsTests/orchestrator.jsTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "ojs.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;

@@ -12,7 +12,7 @@ import AVFoundation
 @objc
 class TestCapability : NSObject, AVSpeechSynthesizerDelegate
 {
-    let speechSynthesizer = AVSpeechSynthesizer()
+    @objc let speechSynthesizer = AVSpeechSynthesizer()
     
     
     override init() {
@@ -22,16 +22,16 @@ class TestCapability : NSObject, AVSpeechSynthesizerDelegate
 
     }
     
-    func initMeasurement() {
+    @objc func initMeasurement() {
         print("init measurement")
     }
     
-    func calculateAverage() {
+    @objc func calculateAverage() {
         print("calculate average")
     }
     
     
-    func dummyMethod() {
+    @objc func dummyMethod() {
         print("Dummy")
     }
     
@@ -39,7 +39,7 @@ class TestCapability : NSObject, AVSpeechSynthesizerDelegate
     
     
     
-    func test() -> String {
+    @objc func test() -> String {
         print("test method")
         //let line = "moikka"
         //let utterance = AVSpeechUtterance(string: line)
@@ -48,9 +48,10 @@ class TestCapability : NSObject, AVSpeechSynthesizerDelegate
         return "foobar"
     }
     
-    func say(_ line: String, filter: String, pitch: String) {
+    @objc func say(_ line: String, filter: String, pitch: String) {
         print("say method")
         let utterance = AVSpeechUtterance(string: line)
+        /*
         speechSynthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
         speechSynthesizer.speak(utterance)
         
@@ -61,12 +62,14 @@ class TestCapability : NSObject, AVSpeechSynthesizerDelegate
         while(speechSynthesizer.isSpeaking) {
             Thread.sleep(forTimeInterval: 0.2)
         }
+ */
         print("speaking is over")
     }
 
     
-    func shout(_ line: String, filter2: String, pitch: Double) {
+    @objc func shout(_ line: String, filter2: String, pitch: Double) {
         let utterance = AVSpeechUtterance(string: line)
+        /*
         speechSynthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
         speechSynthesizer.speak(utterance)
         
@@ -77,6 +80,7 @@ class TestCapability : NSObject, AVSpeechSynthesizerDelegate
         while(speechSynthesizer.isSpeaking) {
             Thread.sleep(forTimeInterval: 0.2)
         }
+ */
     }
     
     

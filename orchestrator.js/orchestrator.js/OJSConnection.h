@@ -9,6 +9,7 @@
 #import "OJSActionController.h"
 #import "OJSSettingsManager.h"
 
+//@import SocketIO;
 @import SocketIO;
 
 @interface OJSConnection : NSObject // <SocketIODelegate>
